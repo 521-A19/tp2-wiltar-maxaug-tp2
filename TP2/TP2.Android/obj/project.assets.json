@@ -1999,24 +1999,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\usager\\.nuget\\packages\\": {},
+    "C:\\Users\\local.integrateur2\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\usager\\source\\repos\\TP2\\TP2\\TP2.Android\\TP2.Android.csproj",
+      "projectUniqueName": "C:\\DevMobile\\tp2-wiltar-maxaug-tp2\\TP2\\TP2.Android\\TP2.Android.csproj",
       "projectName": "TP2.Android",
-      "projectPath": "C:\\Users\\usager\\source\\repos\\TP2\\TP2\\TP2.Android\\TP2.Android.csproj",
-      "packagesPath": "C:\\Users\\usager\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\usager\\source\\repos\\TP2\\TP2\\TP2.Android\\obj\\",
+      "projectPath": "C:\\DevMobile\\tp2-wiltar-maxaug-tp2\\TP2\\TP2.Android\\TP2.Android.csproj",
+      "packagesPath": "C:\\Users\\local.integrateur2\\.nuget\\packages\\",
+      "outputPath": "C:\\DevMobile\\tp2-wiltar-maxaug-tp2\\TP2\\TP2.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\usager\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\local.integrateur2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -2030,8 +2030,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\usager\\source\\repos\\TP2\\TP2\\TP2\\TP2.csproj": {
-              "projectPath": "C:\\Users\\usager\\source\\repos\\TP2\\TP2\\TP2\\TP2.csproj"
+            "C:\\DevMobile\\tp2-wiltar-maxaug-tp2\\TP2\\TP2\\TP2.csproj": {
+              "projectPath": "C:\\DevMobile\\tp2-wiltar-maxaug-tp2\\TP2\\TP2\\TP2.csproj"
             }
           }
         }

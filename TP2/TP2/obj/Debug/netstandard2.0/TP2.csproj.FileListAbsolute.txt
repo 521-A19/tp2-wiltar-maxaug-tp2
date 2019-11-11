@@ -1,0 +1,12 @@
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\bin\Debug\netstandard2.0\TP2.deps.json
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\bin\Debug\netstandard2.0\TP2.dll
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\bin\Debug\netstandard2.0\TP2.pdb
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\TP2.csprojAssemblyReference.cache
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\TP2.csproj.CoreCompileInputs.cache
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\TP2.AssemblyInfoInputs.cache
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\TP2.AssemblyInfo.cs
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\XamlC.stamp
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\TP2.dll
+C:\DevMobile\tp2-wiltar-maxaug-tp2\TP2\TP2\obj\Debug\netstandard2.0\TP2.pdb

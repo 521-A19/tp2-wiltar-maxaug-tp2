@@ -1,0 +1,11 @@
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\NUnit3.TestAdapter.dll
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\NUnit3.TestAdapter.pdb
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\nunit.engine.dll
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\nunit.engine.api.dll
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\TP2.UiTests.dll
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\nunit.framework.dll
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\nunit.framework.pdb
+C:\Users\usager\source\repos\TP2\TP2.UiTests\bin\Release\Xamarin.UITest.dll
+C:\Users\usager\source\repos\TP2\TP2.UiTests\obj\Release\TP2.UiTests.csprojAssemblyReference.cache
+C:\Users\usager\source\repos\TP2\TP2.UiTests\obj\Release\TP2.UiTests.csproj.CopyComplete
+C:\Users\usager\source\repos\TP2\TP2.UiTests\obj\Release\TP2.UiTests.dll

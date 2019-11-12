@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2", "TP2\TP2\TP2.csproj", "{95539914-EA09-4C04-BAD0-A3E67E3A39D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP2", "TP2\TP2\TP2.csproj", "{95539914-EA09-4C04-BAD0-A3E67E3A39D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2.Android", "TP2\TP2.Android\TP2.Android.csproj", "{A6F3BD20-BF54-4A5A-9352-0A335FA1A7D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2.UnitTests", "TP2.UnitTests\TP2.UnitTests.csproj", "{0C2069F0-DFF8-4AA6-A596-1745CCFE8395}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2.UITests", "TP2.UITests\TP2.UITests.csproj", "{D6A609D2-7986-4374-A9A3-CD2EC136B131}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,14 @@ Global
 		{A6F3BD20-BF54-4A5A-9352-0A335FA1A7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6F3BD20-BF54-4A5A-9352-0A335FA1A7D1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6F3BD20-BF54-4A5A-9352-0A335FA1A7D1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0C2069F0-DFF8-4AA6-A596-1745CCFE8395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C2069F0-DFF8-4AA6-A596-1745CCFE8395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C2069F0-DFF8-4AA6-A596-1745CCFE8395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C2069F0-DFF8-4AA6-A596-1745CCFE8395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A609D2-7986-4374-A9A3-CD2EC136B131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A609D2-7986-4374-A9A3-CD2EC136B131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A609D2-7986-4374-A9A3-CD2EC136B131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A609D2-7986-4374-A9A3-CD2EC136B131}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

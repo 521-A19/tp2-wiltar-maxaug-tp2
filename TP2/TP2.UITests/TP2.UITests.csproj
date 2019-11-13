@@ -35,7 +35,10 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests.cs" />
+    <Compile Include="BaseObjects\BasePageObject.cs" />
+    <Compile Include="BaseObjects\MainPageViewObject.cs" />
+    <Compile Include="Helpers\UiTestsHelper.cs" />
+    <Compile Include="MainPageViewObjectTests.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

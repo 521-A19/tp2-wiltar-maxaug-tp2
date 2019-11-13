@@ -4,11 +4,28 @@
              x:Class="TP2.Views.MainPage"
              Title="{Binding Title}">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Pet Shop" />
-        <Label Text="Login"/>
-        <Label Text="Register" />
-        <Label Text="List of dogs" />
+    <StackLayout HorizontalOptions="CenterAndExpand">
+        <Label FontSize="Title" Text="Welcome on Dogfinder" />
+        <Label FontSize="Medium" Text="Dog Adoption and Advices" />
+
+        <StackLayout VerticalOptions="End">
+            <Label FontSize="Medium" Text="Our Newest Stars" />
+        </StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Image Source="https://images.dog.ceo/breeds/clumber/n02101556_823.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+            <Image Source="https://images.dog.ceo/breeds/shiba/shiba-11.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+            <Image Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+        </StackLayout>
+
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Label FontSize="Medium" Text="Sign in"/>
+            <Label FontSize="Medium" Text="Sign up" />
+        </StackLayout>
+        
+        <Label FontSize="Medium" Text="List of dogs" />
     </StackLayout>
 
 </ContentPage>

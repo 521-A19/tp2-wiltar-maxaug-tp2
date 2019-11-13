@@ -34,7 +34,7 @@ namespace TP2
 
             SeedTestData();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         private void SeedTestData()

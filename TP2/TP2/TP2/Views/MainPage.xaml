@@ -8,24 +8,30 @@
         <Label FontSize="Title" Text="Welcome on Dogfinder" />
         <Label FontSize="Medium" Text="Dog Adoption and Advices" />
 
-        <StackLayout VerticalOptions="End">
+        <StackLayout VerticalOptions="End" Padding="25">
             <Label FontSize="Medium" Text="Our Newest Stars" />
         </StackLayout>
-        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+        <StackLayout VerticalOptions="Center" Orientation="Horizontal">
             <Image Source="https://images.dog.ceo/breeds/clumber/n02101556_823.jpg"
                       HeightRequest="96" WidthRequest="120"></Image>
             <Image Source="https://images.dog.ceo/breeds/shiba/shiba-11.jpg"
-                      HeightRequest="96" WidthRequest="120"></Image>
+                      HeightRequest="96" WidthRequest="120" Aspect="Fill"></Image>
             <Image Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg"
                       HeightRequest="96" WidthRequest="120"></Image>
         </StackLayout>
 
-        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal">
-            <Label FontSize="Medium" Text="Sign in"/>
-            <Label FontSize="Medium" Text="Sign up" />
+        <StackLayout VerticalOptions="Center" Orientation="Horizontal">
+            <Label FontAttributes="Bold" FontSize="Medium" Text="Sign in"/>
+            <Label FontSize="Medium" Text="Sign up" Margin="200, 0, 0, 0" />
         </StackLayout>
-        
-        <Label FontSize="Medium" Text="List of dogs" />
+        <StackLayout>
+            <Entry x:Name="emailEntry" Placeholder="Email" Text=""/>
+            <Entry x:Name="passwordEntry" Placeholder="Password" Text="" IsPassword="true"/>
+        </StackLayout>
+
+        <Label FontSize="Medium" Text="See the dogs anytime" />
+        <Label FontSize="Medium" Text="Find a dog" />
+        <Label FontSize="Large" Text="Blog" />
     </StackLayout>
 
 </ContentPage>

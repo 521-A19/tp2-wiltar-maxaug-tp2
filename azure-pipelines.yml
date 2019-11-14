@@ -1,15 +1,4 @@
 # Xamarin.Android
-- task: GitHubRelease@1
-  inputs:
-    gitHubConnection: 'login github'
-    repositoryName: '521-A19/tp2-wiltar-maxaug-tp2'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: 'gitTag'
-    tagPattern: 'tp2'
-    title: 'TP2'
-    changeLogCompareToRelease: 'lastFullRelease'
-    changeLogType: 'commitBased'
 # Build a Xamarin.Android project.
 # Add steps that test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
@@ -45,3 +34,16 @@ steps:
     apksignerKeystorePassword: 'bonjour7'
     apksignerKeystoreAlias: 'tp2'
     apksignerKeyPassword: 'bonjour7'
+
+# Github release
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'login github'
+    repositoryName: '521-A19/tp2-wiltar-maxaug-tp2'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    tagPattern: 'tp2'
+    title: 'TP2'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'

@@ -33,6 +33,10 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TP2\TP2\TP2.csproj">
+      <Project>{95539914-EA09-4C04-BAD0-A3E67E3A39D1}</Project>
+      <Name>TP2</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseObjects\BasePageObject.cs" />

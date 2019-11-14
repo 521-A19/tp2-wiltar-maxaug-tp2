@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TP1.UITests.PageObjects;
+using TP2.Externalization;
 using Xamarin.UITest;
 using Xamarin.UITest.Android;
 using Xamarin.UITest.Queries;
@@ -26,7 +27,7 @@ namespace TP1.UITests
         [Test]
         public void WelcomeTextIsDisplayed()
         {
-            AppResult[] results = app.WaitForElement("Welcome on Dogfinder");
+            AppResult[] results = app.WaitForElement(UiText.WELCOME_ON_DOGFINDER);
             //app.Screenshot("Welcome screen.");
             Assert.IsTrue(results.Any());
         }

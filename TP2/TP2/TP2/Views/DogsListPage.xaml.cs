@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using TP2.ViewModels;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TP2.Views

@@ -6,8 +6,34 @@
              mc:Ignorable="d"
              x:Class="TP2.Views.DogsListPage">
   <ContentPage.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentPage.Content>
+      
+        <StackLayout>
+            <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
+            <ListView x:Name ="dogsListView" 
+                      ItemsSource="{Binding Dogs}"
+                      SelectedItem="{Binding SelectedDog}"
+                      HasUnevenRows="True"
+                      AutomationId="ListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Image Source="{Binding ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                                <Label Text="{Binding Name}"></Label>
+                                <Label Text="{Binding Race}"></Label>
+                                <Label Text="{Binding Sex}"></Label>
+                                <Label Text="{Binding Price}"></Label>
+                                <Label Text="{Binding Description}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+            <StackLayout HorizontalOptions="Start">
+                <Button Text="Trier"></Button>
+                <Button Text="Rechercher"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

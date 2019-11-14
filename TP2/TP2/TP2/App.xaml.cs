@@ -39,12 +39,45 @@ namespace TP2
 
         private void SeedTestData()
         {
-            var productsRepository = Container.Resolve<IRepository<User>>();
-            productsRepository.DeleteAll(); // **** CLEAN BD ****
+            var productsRepository = Container.Resolve<IRepository<Dog>>();
+            //productsRepository.DeleteAll(); // **** CLEAN BD ****
             // Les données seront ajoutées une seul foi dans la BD. 
             if (productsRepository.GetAll().Count() != 0)
                 return;
 
+            var dog1 = new Dog()
+            {
+                Name = "Rex",
+                ImageUrl = "https://images.dog.ceo/breeds/clumber/n02101556_823.jpg",
+                Price = (float)259.99,
+                Race = "Husky",
+                Sex = "Male",
+                Description = "Jeune chien de 4 mois, super énergique"
+
+            };
+            var dog2 = new Dog()
+            {
+                Name = "Cloud",
+                ImageUrl = "https://images.dog.ceo/breeds/shiba/shiba-11.jpg",
+                Price = (float)399.99,
+                Race = "Samoyede",
+                Sex = "Male",
+                Description = "13 mois, chien blanc"
+
+            };
+            var dog3 = new Dog()
+            {
+                Name = "Leo",
+                ImageUrl = "https://images.dog.ceo/breeds/pug/n02110958_1975.jpg",
+                Price = (float)269.99,
+                Race = "Husky",
+                Sex = "Male",
+                Description = "Gentil et calme"
+
+            };
+            productsRepository.Add(dog1);
+            productsRepository.Add(dog2);
+            productsRepository.Add(dog3);
             //ICryptoService cryptoService = new CryptoService();
             //ISecureStorageService secureStorageService = new SecureStorageService();
             //string salt = cryptoService.GenerateSalt();
@@ -75,6 +108,7 @@ namespace TP2
 
             containerRegistry.RegisterInstance(databaseSqLiteConnection);
             containerRegistry.RegisterSingleton<IRepository<User>, SqLiteRepository<User>>();
+            containerRegistry.RegisterSingleton<IRepository<Dog>, SqLiteRepository<Dog>>();
 
             //Services PARTOUT DANS L'APP
             //containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();

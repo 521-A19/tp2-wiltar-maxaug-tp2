@@ -10,7 +10,7 @@ using Xamarin.UITest;
 using Xamarin.UITest.Android;
 using Xamarin.UITest.Queries;
 
-namespace TP1.UITests
+namespace TP2.UITests
 {
     class ProjectsViewObjectTests
     {

@@ -1,11 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              x:Class="TP2.Views.MainPage"
              Title="{Binding Title}">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
+    <StackLayout HorizontalOptions="CenterAndExpand">
+        <Label FontSize="Title" Text="{x:Static externalization:UiText.WELCOME_ON_DOGFINDER}" />
+        <Label FontSize="Medium" Text="Dog Adoption and Advices" />
+
+        <StackLayout VerticalOptions="End" Padding="25">
+            <Label FontSize="Medium" Text="Our Newest Stars" />
+        </StackLayout>
+        <StackLayout VerticalOptions="Center" Orientation="Horizontal">
+            <Image Source="https://images.dog.ceo/breeds/clumber/n02101556_823.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+            <Image Source="https://images.dog.ceo/breeds/shiba/shiba-11.jpg"
+                      HeightRequest="96" WidthRequest="120" Aspect="Fill"></Image>
+            <Image Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+        </StackLayout>
+
+        <StackLayout VerticalOptions="Center" Orientation="Horizontal">
+            <Label FontAttributes="Bold" FontSize="Medium" Text="Sign in"/>
+            <Label FontSize="Medium" Text="Sign up" Margin="200, 0, 0, 0" />
+        </StackLayout>
+        <StackLayout>
+            <Entry x:Name="emailEntry" Placeholder="Email" Text=""/>
+            <Entry x:Name="passwordEntry" Placeholder="Password" Text="" IsPassword="true"/>
+        </StackLayout>
+
+        <Label FontSize="Medium" Text="See the dogs anytime" />
+        <Button FontSize="Medium" Text="Find a dog" Command="{Binding GoToDogsListCommand}"/>
+        <Label FontSize="Large" Text="Blog" />
     </StackLayout>
 
 </ContentPage>

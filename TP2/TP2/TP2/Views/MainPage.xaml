@@ -30,7 +30,7 @@
         </StackLayout>
 
         <Label FontSize="Medium" Text="See the dogs anytime" />
-        <Label FontSize="Medium" Text="Find a dog" />
+        <Button FontSize="Medium" Text="Find a dog" Command="{Binding GoToDogsListCommand}"/>
         <Label FontSize="Large" Text="Blog" />
     </StackLayout>
 

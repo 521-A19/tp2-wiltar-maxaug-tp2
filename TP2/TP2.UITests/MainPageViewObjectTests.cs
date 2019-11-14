@@ -19,19 +19,16 @@ namespace TP1.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"../../../TP2/TP2.Android/bin/Release/com.companyname.TP2-Signed.apk")
+              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
         }
 
         [Test]
         public void WelcomeTextIsDisplayed()
         {
-            //new MainPageViewObject();
-            //Assert.IsTrue(IsTextDisplayed("Welcome to Xamarin Forms and Prism!"));
-            //AppResult[] results = app.WaitForElement("Welcome to Xamarin Forms and Prism!");
+            AppResult[] results = app.WaitForElement("Welcome on Dogfinder");
             //app.Screenshot("Welcome screen.");
-            app.WaitForElement("Pet");
-            //Assert.IsTrue(results.Any());
+            Assert.IsTrue(results.Any());
         }
     }
 }

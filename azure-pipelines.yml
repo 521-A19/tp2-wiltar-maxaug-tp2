@@ -25,3 +25,12 @@ steps:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+
+# Android Signing
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'tp2.keystore'
+    apksignerKeystorePassword: 'bonjour7'
+    apksignerKeystoreAlias: 'tp2'
+    apksignerKeyPassword: 'bonjour7'

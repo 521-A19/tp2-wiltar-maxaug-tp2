@@ -110,8 +110,12 @@ namespace TP2
             containerRegistry.RegisterSingleton<IRepository<User>, SqLiteRepository<User>>();
             containerRegistry.RegisterSingleton<IRepository<Dog>, SqLiteRepository<Dog>>();
 
-            //Services PARTOUT DANS L'APP
+            //Services
             //containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            containerRegistry.RegisterSingleton<ICryptoService, CryptoService>();
+            containerRegistry.RegisterSingleton<ISecureStorageService, SecureStorageService>();
+            containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
+            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
         }
     }
 }

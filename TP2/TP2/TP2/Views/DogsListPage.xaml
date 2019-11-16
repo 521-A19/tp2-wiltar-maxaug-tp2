@@ -4,11 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="TP2.Views.DogsListPage">
+             x:Class="TP2.Views.DogsListPage"
+             Title="{Binding Title}">
   <ContentPage.Content>
-      
+
         <StackLayout>
-            <Label Text="{Binding Dog.Name}"></Label>
             <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
             <ListView x:Name ="dogsListView" 
                       ItemsSource="{Binding Dogs}"

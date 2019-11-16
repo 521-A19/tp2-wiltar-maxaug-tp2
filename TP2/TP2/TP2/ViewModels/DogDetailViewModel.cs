@@ -16,20 +16,35 @@ namespace TP2.ViewModels
             set
             {
                 _selectedDog = value;
-                HandleSelectedDog();  //Change de page vers DogDetailPage
+                RaisePropertyChanged();
             }
         }
 
         public DogDetailViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Voici le chien...";
+            
         }
 
-        private void HandleSelectedDog()
+        public override void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
         {
-            //Page page = new Page();
-            //page.DisplayAlert("Selected item", "Name: " + SelectedDog.Name + " Race: " + SelectedDog.Race, "OK");
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.ContainsKey("selectedDogData"))
+            {
+                SelectedDog = parameters["selectedDogData"] as Dog;
+                Title = "Voici le chien " + SelectedDog.Name;
+            }
+
+            //get a single parameter as type object, which must be cast
+            //var color = parameters["color"] as Color;
+
+            //get a single typed parameter
+            //var color = parameters.GetValue<Color>("color");
+
+            //get a collection of typed parameters
+            //var colors = parameters.GetValues<Color>("colors");
         }
+
     }
 }

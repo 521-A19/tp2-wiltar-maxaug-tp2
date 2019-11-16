@@ -37,14 +37,17 @@ namespace TP2.UnitTests
         public void OnArrival_DogsObservableListShouldBeLoaded(int indexOfDogList)
         {
             Assert.Contains(_dogList[indexOfDogList], _dogsListViewModel.Dogs);
-
-            //_mockNavigationService.Verify(x => x.NavigateAsync("NavigationPage/" + nameof(DogsListPage)), Times.Once());
         }
 
-        [Fact]
-        public void OnSelectedDog_ShouldGoToDogDetailPage()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void OnSelectedDog_ShouldGoToDogDetailPage(int indexOfDogList)
         {
-            //_mockNavigationService.Verify(x => x.NavigateAsync("NavigationPage/" + nameof(DogsListPage)), Times.Once());
+            _dogsListViewModel.SelectedDog = _dogList[indexOfDogList];
+
+            _mockNavigationService.Verify(x => x.NavigateAsync(nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
         }
 
         private List<Dog> CreateDogList()

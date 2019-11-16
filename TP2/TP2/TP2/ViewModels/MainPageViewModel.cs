@@ -20,7 +20,7 @@ namespace TP2.ViewModels
         private string _password;
         public DelegateCommand GoToDogsListCommand => new DelegateCommand(ChangePage);
         public DelegateCommand NavigateToRegisterPageCommand => new DelegateCommand(NavigateToRegisterPage);
-        public DelegateCommand AuthentifivationUser => new DelegateCommand(AuthentificationLogin);
+        public DelegateCommand AuthentifivationUserCommand => new DelegateCommand(AuthentificationLogin);
         public MainPageViewModel(INavigationService navigationService, IAuthenticationService authenticationService, IPageDialogService dialogService)
             : base(navigationService)
         {

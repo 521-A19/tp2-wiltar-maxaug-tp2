@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TP2.Validation.Rules
 {
-    class PasswordIsTheSame<T> : IValidationRule<T>
+    public class PasswordIsTheSame<T> : IValidationRule<T>
     {
         private string _lastPassword;
         public string ErrorMessage { get; set; }

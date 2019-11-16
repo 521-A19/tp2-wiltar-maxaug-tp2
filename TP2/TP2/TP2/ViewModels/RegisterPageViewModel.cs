@@ -16,7 +16,7 @@ namespace TP2.ViewModels
     public class RegisterPageViewModel : ViewModelBase
     {
         private IRegistrationService _registrationService;
-        public DelegateCommand NavigateToHomePageCommand => new DelegateCommand(ExecuteNavigateToHomepageCommand);
+        public DelegateCommand NavigateToMainPageCommand => new DelegateCommand(ExecuteNavigateToMainPageCommand);
 
         private ValidatableObject<string> _userName;
         private ValidatableObject<string> _password;
@@ -106,11 +106,11 @@ namespace TP2.ViewModels
             _secondPassword.AddValidationRule(passwordIsTheSame);
         }
 
-        private void ExecuteNavigateToHomepageCommand()
+        private void ExecuteNavigateToMainPageCommand()
         {
             ValidateUserName();
             ValidatePassword();
-            ValidateSecondPassword();
+            //ValidateSecondPassword();
             if (Password.Errors.Count + UserName.Errors.Count == 0)
             {
                 _registrationService.RegisterUser(_userName.Value, _password.Value);

@@ -37,21 +37,21 @@ namespace TP2.UnitTests.ServicesTests
         }
 
         [Fact]
-        public void EmptyPassword_WhenLogin_ShouldThrowNewException()
+        public void EmptyEmail_WhenLogin_ShouldThrowNewException()
         {
             const string VALID_PASSWORD = NotHashedPassword;
 
-            _authenticateService.Invoking(y => y.LogIn(EMPTY_STRING_VALUE, VALID_PASSWORD)).Should().
-                Throw<Exception>();
+            _authenticateService.LogIn(EMPTY_STRING_VALUE, VALID_PASSWORD);
+            _authenticateService.IsUserAuthenticated.Should().BeFalse();
         }
 
         [Fact]
-        public void EmptyEmail_WhenLogin_ShouldThrowNewException()
+        public void EmptyPassword_WhenLogin_IsUserAuthenticatedShouldBeFalse()
         {
             string VALID_LOGIN = _userList[0].Login;
 
-            _authenticateService.Invoking(y => y.LogIn(VALID_LOGIN, EMPTY_STRING_VALUE)).Should().
-                Throw<Exception>();
+            _authenticateService.LogIn(VALID_LOGIN, EMPTY_STRING_VALUE);
+            _authenticateService.IsUserAuthenticated.Should().BeFalse();
         }
 
 

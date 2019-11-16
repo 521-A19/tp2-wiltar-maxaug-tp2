@@ -22,16 +22,16 @@
         </StackLayout>
 
         <StackLayout VerticalOptions="Center" Orientation="Horizontal">
-            <Label FontAttributes="Bold" FontSize="Medium" Text="Sign in"/>
-            <Label FontSize="Medium" Text="Sign up" Margin="200, 0, 0, 0" />
+            <Label FontAttributes="Bold" FontSize="Medium" Text="Se connecter"/>
+            <Button FontSize="Small" Text="S'inscrire" Margin="200, 0, 0, 0" />
         </StackLayout>
         <StackLayout>
             <Entry x:Name="emailEntry" Placeholder="Email" Text=""/>
             <Entry x:Name="passwordEntry" Placeholder="Password" Text="" IsPassword="true"/>
         </StackLayout>
 
-        <Label FontSize="Medium" Text="See the dogs anytime" />
-        <Button FontSize="Medium" Text="Find a dog" Command="{Binding GoToDogsListCommand}"/>
+        <Label FontSize="Medium" Text="Recherche un chien" />
+        <Button FontSize="Medium" Text="Voir la liste de chiens" Command="{Binding GoToDogsListCommand}"/>
         <Label FontSize="Large" Text="Blog" />
     </StackLayout>
 

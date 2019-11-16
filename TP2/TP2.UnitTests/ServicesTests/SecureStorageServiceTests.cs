@@ -36,13 +36,13 @@ namespace Lab8.UnitTests.ServicesTests
             };
         }
 
-        [Fact]
+        /*[Fact]
         public async Task EmptyPassword_WhenLogin_ShouldThrowNewExceptionAsync()
         {
             await _secureStorageService.SetUserEncryptionKeyAsync(_user, EncryptionKey);
 
             string key = await _secureStorageService.GetUserEncryptionKeyAsync(_user);
             Assert.Equal("sdada", key);
-        }
+        }*/
     }
 }

@@ -23,11 +23,12 @@
 
         <StackLayout VerticalOptions="Center" Orientation="Horizontal">
             <Label FontAttributes="Bold" FontSize="Medium" Text="Sign in"/>
-            <Label FontSize="Medium" Text="Sign up" Margin="200, 0, 0, 0" />
+            <Button FontSize="Medium" Text="Sign up" Margin="200, 0, 0, 0" Command="{Binding NavigateToRegisterPageCommand}"/>
         </StackLayout>
         <StackLayout>
-            <Entry x:Name="emailEntry" Placeholder="Email" Text=""/>
-            <Entry x:Name="passwordEntry" Placeholder="Password" Text="" IsPassword="true"/>
+            <Entry x:Name="emailEntry" Placeholder="Email" Text="{Binding Login}"/>
+            <Entry x:Name="passwordEntry" Placeholder="Password" Text="{Binding Password}" IsPassword="true"/>
+            <Button Text="Connection" HorizontalOptions="Start" FontSize="Small" Command="{Binding AuthentifivationUser}"/>
         </StackLayout>
 
         <Label FontSize="Medium" Text="See the dogs anytime" />

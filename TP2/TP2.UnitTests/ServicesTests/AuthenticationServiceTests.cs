@@ -11,7 +11,7 @@ using System.Text;
 using Xamarin.Forms;
 using Xunit;
 
-namespace Lab8.UnitTests.ServicesTests
+namespace TP2.UnitTests.ServicesTests
 {
     public class AuthenticationServiceTests
     {

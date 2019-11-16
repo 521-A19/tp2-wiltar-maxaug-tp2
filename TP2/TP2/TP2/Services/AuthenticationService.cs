@@ -1,51 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using TP2.Externalization;
 using TP2.Models.Entities;
+using TP2.Services;
 
 namespace TP2.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private bool _isLogin;
-        private User _user;
-        private IEnumerable<User> _listUsers;
+        private readonly IRepository<User> _repository;
         private readonly ICryptoService _cryptoService;
-        private readonly IRepository<User> _repositoryService;
+        public bool _isUserAuthenticated = false;
+        private User _authenticatedUser;
 
-        public AuthenticationService(IRepository<User> repositoryService,
-                              ICryptoService cryptoService)
+        public bool IsUserAuthenticated
         {
-            _repositoryService = repositoryService;
-            _cryptoService = cryptoService;
+            get { return _isUserAuthenticated; }
+            set
+            {
+                _isUserAuthenticated = value;
+            }
         }
 
-        public User AuthenticatedUser => _user;
-        //private User _authenticatedUser;
-        //public User AuthenticatedUser{get{return _authenticatedUser}}
+        public User AuthenticatedUser
+        {
+            get { return _authenticatedUser; }
+            set
+            {
+                _authenticatedUser = value;
+            }
+        }
 
-        public bool IsUserAuthenticated => _isLogin;
+        public AuthenticationService(IRepository<User> repository, ICryptoService cryptoService)
+        {
+            _cryptoService = cryptoService;
+            _repository = repository;
+        }
+
+        //IAuthenticationService
 
         public void LogIn(string login, string password)
         {
-            if (String.IsNullOrWhiteSpace(login) || String.IsNullOrWhiteSpace(password))
+            if (AuthenticatedUser != null)
             {
-                throw new Exception();
-            }
-            if (_isLogin)
-            {
-                throw new Exception(UiText.USER_ALREADY_CONNECTED);
+                throw new Exception(UiText.ExceptionUserIsAlreadyLogIn);
             }
 
-            _listUsers = _repositoryService.GetAll(); //.FirstOrDefault(x => x.Login == login);
-            foreach (var cur in _listUsers)
+            Authenticate(login, password);
+        }
+
+        public void Authenticate(string login, string password)
+        {
+            var userdata = _repository.GetAll().FirstOrDefault(x => x.Login == login);
+            
+            if (userdata != null)
             {
-                string hashedPassword = _cryptoService.HashSHA512(password, cur.PasswordSalt);
-                if (cur.Login == login && cur.HashedPassword == hashedPassword)
+                var passwordHash = _cryptoService.HashSHA512(password, userdata.PasswordSalt);
+                if (passwordHash == userdata.HashedPassword)
                 {
-                    _user = cur;
-                    _isLogin = true;
-                    return;
+                    IsUserAuthenticated = true;
+                    AuthenticatedUser = userdata;
+                }
+                else
+                {
+                    AuthenticatedUser = null;
                 }
             }
         }

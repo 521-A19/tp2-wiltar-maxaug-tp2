@@ -11,12 +11,6 @@ namespace TP2.Services
 {
     public class ApiService
     {
-        private HttpResponseMessage response;
-
-        public ApiService()
-        {
-
-        }
 
         public List<Breed> GetBreeds()  //include subbreeds
         {

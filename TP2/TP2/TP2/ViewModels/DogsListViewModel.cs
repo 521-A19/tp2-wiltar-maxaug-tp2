@@ -1,4 +1,6 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TP2.Models.Entities;
@@ -9,6 +11,7 @@ namespace TP2.ViewModels
 {
     public class DogsListViewModel : ViewModelBase
     {
+        public DelegateCommand GoToDogShopCommand => new DelegateCommand(ChangePage);
         public ObservableCollection<Dog> Dogs { get; set; }
 
         private Dog _selectedDog;
@@ -41,6 +44,11 @@ namespace TP2.ViewModels
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("selectedDogData", _selectedDog);
             NavigationService.NavigateAsync("DogDetailPage", navigationParameters);
+        }
+
+        private void ChangePage()
+        {
+            NavigationService.NavigateAsync(new Uri("MainPage/DogShopPage", UriKind.Relative));
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿using Prism.Navigation;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using Prism.Commands;
+using Prism.Navigation;
+using System;
 using TP2.Models.Entities;
-using TP2.Services;
-using Xamarin.Forms;
 
 namespace TP2.ViewModels
 {
-    public class DogDetailViewModel : ViewModelBase
+    public class DogShopViewModel : ViewModelBase
     {
+        public DelegateCommand GoToCommand => new DelegateCommand(ChangePage);
         private Dog _selectedDog;
         public Dog SelectedDog
         {
@@ -20,10 +19,10 @@ namespace TP2.ViewModels
             }
         }
 
-        public DogDetailViewModel(INavigationService navigationService)
+        public DogShopViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            
+            Title = "Mon pet shop";
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
@@ -34,10 +33,6 @@ namespace TP2.ViewModels
             {
                 SelectedDog = parameters["selectedDogData"] as Dog;
                 Title = "Voici le chien " + SelectedDog.Name;
-            }
-            else
-            {
-                Title = "Chien non sélectionné";
             }
 
             //get a single parameter as type object, which must be cast
@@ -50,5 +45,9 @@ namespace TP2.ViewModels
             //var colors = parameters.GetValues<Color>("colors");
         }
 
+        private void ChangePage()
+        {
+            NavigationService.NavigateAsync(new Uri("DogsListPage/DogDetailPage", UriKind.Relative));
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace TP2.ViewModels
 
         private void ChangePage()
         {
-            NavigationService.NavigateAsync(new Uri("MainPage/DogShopPage", UriKind.Relative));
+            NavigationService.NavigateAsync("DogsListPage/DogShopPage");
         }
     }
 }

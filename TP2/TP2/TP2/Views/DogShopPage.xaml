@@ -9,7 +9,6 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Placez votre chien en adoption" />
-            <Button FontSize="Medium" Text="go" Command="{Binding GoToCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

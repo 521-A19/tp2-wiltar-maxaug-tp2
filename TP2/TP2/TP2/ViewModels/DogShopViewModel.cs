@@ -1,7 +1,9 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using TP2.Models.Entities;
+using TP2.Services;
 
 namespace TP2.ViewModels
 {
@@ -19,9 +21,15 @@ namespace TP2.ViewModels
             }
         }
 
-        public DogShopViewModel(INavigationService navigationService)
+        public DogShopViewModel(INavigationService navigationService,
+                                IAuthenticationService authenticationService,
+                                IPageDialogService pageDialogService)
             : base(navigationService)
         {
+            if (!authenticationService.IsUserAuthenticated)
+            {
+                pageDialogService.DisplayAlertAsync("Attention", "Vous devez être connecté pour placer en adoption votre chien", "D'accord");
+            }
             Title = "Mon pet shop";
         }
 

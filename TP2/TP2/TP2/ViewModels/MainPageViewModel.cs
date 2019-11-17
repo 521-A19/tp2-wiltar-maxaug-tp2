@@ -21,7 +21,7 @@ namespace TP2.ViewModels
         {
             //var navigationParameters = new NavigationParameters();
             //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
-            NavigationService.NavigateAsync(new Uri("DogsListPage", UriKind.Relative));
+            NavigationService.NavigateAsync("MainPage/DogsListPage");
         }
     }
 }

@@ -38,7 +38,7 @@ namespace TP2.UnitTests
         {
             _mainPageViewModel.GoToDogsListCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("NavigationPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage)), Times.Once());
         }
 
         [Fact]

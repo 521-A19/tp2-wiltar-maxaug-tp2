@@ -28,6 +28,7 @@ namespace TP2.UnitTests
         {
             _registerPageViewModel.UserName.Value = "email@test.com";
             _registerPageViewModel.Password.Value = "123456789aA";
+            _registerPageViewModel.SecondPassword.Value = "123456789aA";
             _registerPageViewModel.NavigateToMainPageCommand.Execute();
 
             _mockNavigationService.Verify(x => x.NavigateAsync("/" + nameof(MainPage)), Times.Once());

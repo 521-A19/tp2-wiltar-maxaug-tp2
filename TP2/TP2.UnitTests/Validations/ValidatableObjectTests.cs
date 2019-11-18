@@ -43,7 +43,7 @@ namespace UnitTest.Validations
         {
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-           .Setup(a => a.Check("123456789aA"))
+           .Setup(v => v.Check("123456789aA"))
            .Returns(true);
 
             _validatableObject.Validate();

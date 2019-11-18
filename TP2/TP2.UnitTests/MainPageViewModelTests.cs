@@ -91,7 +91,7 @@ namespace TP2.UnitTests
             //_mockAuthenticationService.Object.IsUserAuthenticated = true;
             _mainPageViewModel.AuthentifivationUserCommand.Execute();
             //Assert
-            _mockNavigationService.Verify(x => x.NavigateAsync("/" + nameof(DogsListPage), navigationParameters), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage), navigationParameters), Times.Once());
         }
 
         [Fact]

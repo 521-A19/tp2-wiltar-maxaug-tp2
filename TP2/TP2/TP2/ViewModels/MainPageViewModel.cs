@@ -11,7 +11,8 @@ namespace TP2.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         public DelegateCommand GoToDogsListCommand => new DelegateCommand(ChangePage);
-        public MainPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService,
+                                 IAuthenticationService authenticationService)
             : base(navigationService)
         {
             Title = "Main Page";

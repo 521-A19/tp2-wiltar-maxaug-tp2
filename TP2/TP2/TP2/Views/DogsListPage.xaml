@@ -9,6 +9,14 @@
   <ContentPage.Content>
 
         <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Margin="0">
+                <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label Text="Liste" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label Text="Profil" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+                <Image Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
+            </StackLayout>
+
             <Button FontSize="Medium" Text="Ajouter un chien" Command="{Binding GoToDogShopCommand}"/>
             
             <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>

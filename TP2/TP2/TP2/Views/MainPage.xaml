@@ -26,8 +26,9 @@
             <Button FontSize="Small" Text="S'inscrire" Margin="200, 0, 0, 0" />
         </StackLayout>
         <StackLayout>
-            <Entry x:Name="emailEntry" Placeholder="Email" Text=""/>
-            <Entry x:Name="passwordEntry" Placeholder="Password" Text="" IsPassword="true"/>
+            <Entry x:Name="emailEntry" Placeholder="Email" Text="{Binding Email}"/>
+            <Entry x:Name="passwordEntry" Placeholder="Password" Text="{Binding Password}" IsPassword="true"/>
+            <Button x:Name="loginButton" Text="Sign in" Command="{Binding SignInCommand}"/>
         </StackLayout>
 
         <Label FontSize="Medium" Text="Recherche un chien" />

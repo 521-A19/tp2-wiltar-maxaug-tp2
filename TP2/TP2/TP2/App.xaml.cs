@@ -32,12 +32,13 @@ namespace TP2
         {
             InitializeComponent();
 
-            SeedTestData();
+            SeedUsersTestData();
+            SeedDogsTestData();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
-        private void SeedTestData()
+        private void SeedDogsTestData()
         {
             var productsRepository = Container.Resolve<IRepository<Dog>>();
             //productsRepository.DeleteAll(); // **** CLEAN BD ****
@@ -78,19 +79,29 @@ namespace TP2
             productsRepository.Add(dog1);
             productsRepository.Add(dog2);
             productsRepository.Add(dog3);
-            //ICryptoService cryptoService = new CryptoService();
-            //ISecureStorageService secureStorageService = new SecureStorageService();
-            //string salt = cryptoService.GenerateSalt();
-            //string key = cryptoService.GenerateEncryptionKey();
-            /*var user1 = new User()
+        }
+
+        private void SeedUsersTestData()
+        {
+            var productsRepository = Container.Resolve<IRepository<User>>();
+            productsRepository.DeleteAll(); // **** CLEAN BD ****
+            // Les données seront ajoutées une seul foi dans la BD. 
+            if (productsRepository.GetAll().Count() != 0)
+                return;
+
+            ICryptoService cryptoService = new CryptoService();
+            ISecureStorageService secureStorageService = new SecureStorageService();
+            string salt = cryptoService.GenerateSalt();
+            string key = cryptoService.GenerateEncryptionKey();
+            var user1 = new User()
             {
                 Login = "123",
                 HashedPassword = cryptoService.HashSHA512("456", salt),
                 PasswordSalt = salt,
                 CreditCard = cryptoService.Encrypt("5162042483342023", key)
-            };*/
-            //secureStorageService.SetUserEncryptionKeyAsync(user1, key);
-            //productsRepository.Add(user1);   // après le add, product1 contient un id
+            };
+            secureStorageService.SetUserEncryptionKeyAsync(user1, key);
+            productsRepository.Add(user1);   // après le add, product1 contient un id
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

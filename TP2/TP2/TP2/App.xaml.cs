@@ -11,6 +11,7 @@ using SQLite;
 using System.Linq;
 using TP2.Models.Entities;
 using Xamarin.Essentials;
+using System.Collections.Generic;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TP2
@@ -31,14 +32,12 @@ namespace TP2
         protected override async void OnInitialized()
         {
             InitializeComponent();
-
-            SeedUsersTestData();
-            SeedDogsTestData();
+            SeedTestData();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
-        private void SeedDogsTestData()
+        private void SeedTestData()
         {
             var productsRepository = Container.Resolve<IRepository<Dog>>();
             //productsRepository.DeleteAll(); // **** CLEAN BD ****
@@ -54,7 +53,6 @@ namespace TP2
                 Race = "Husky",
                 Sex = "Male",
                 Description = "Jeune chien de 4 mois, super énergique"
-
             };
             var dog2 = new Dog()
             {
@@ -79,29 +77,43 @@ namespace TP2
             productsRepository.Add(dog1);
             productsRepository.Add(dog2);
             productsRepository.Add(dog3);
-        }
 
-        private void SeedUsersTestData()
-        {
-            var productsRepository = Container.Resolve<IRepository<User>>();
-            productsRepository.DeleteAll(); // **** CLEAN BD ****
+            var usersRepository = Container.Resolve<IRepository<User>>();
+            //usersRepository.DeleteAll(); // **** CLEAN BD ****
             // Les données seront ajoutées une seul foi dans la BD. 
-            if (productsRepository.GetAll().Count() != 0)
+            if (usersRepository.GetAll().Count() != 0)
                 return;
 
             ICryptoService cryptoService = new CryptoService();
             ISecureStorageService secureStorageService = new SecureStorageService();
             string salt = cryptoService.GenerateSalt();
             string key = cryptoService.GenerateEncryptionKey();
+            //List<Dog> list = new List<Dog>();
+            //list.Add(dog1);
+            /*
+            Dog dog = new Dog()
+            {
+                Name = "Leo",
+                ImageUrl = "https://images.dog.ceo/breeds/pug/n02110958_1975.jpg",
+                Price = (float)269.99,
+                Race = "Husky",
+                Sex = "Male",
+                Description = "Gentil et calme"
+
+            };
+            list.Add(dog);
+            */
+            int test = dog1.Id;
             var user1 = new User()
             {
                 Login = "123",
                 HashedPassword = cryptoService.HashSHA512("456", salt),
                 PasswordSalt = salt,
-                CreditCard = cryptoService.Encrypt("5162042483342023", key)
+                CreditCard = cryptoService.Encrypt("5162042483342023", key),
+                DogId = test
             };
             secureStorageService.SetUserEncryptionKeyAsync(user1, key);
-            productsRepository.Add(user1);   // après le add, product1 contient un id
+            usersRepository.Add(user1);   // après le add, product1 contient un id
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -125,11 +137,11 @@ namespace TP2
             containerRegistry.RegisterSingleton<IRepository<Dog>, SqLiteRepository<Dog>>();
 
             //Services
-            //containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<ICryptoService, CryptoService>();
             containerRegistry.RegisterSingleton<ISecureStorageService, SecureStorageService>();
             containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            containerRegistry.RegisterSingleton<TopMenuBar>();
         }
     }
 }

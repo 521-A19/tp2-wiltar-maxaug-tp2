@@ -6,22 +6,23 @@
              mc:Ignorable="d"
              x:Class="TP2.Views.DogsListPage"
              Title="{Binding Title}">
-  <ContentPage.Content>
+    <ContentPage.Content>
 
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Margin="0">
-                <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToDogShopCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Text="Liste" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label Text="Profil" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
-                <Image Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
+                <Label IsVisible="{Binding IsAuthenticated}" Text="Profil" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label IsVisible="{Binding IsAuthenticated}" Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+                <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
             </StackLayout>
 
-            <Button FontSize="Medium" Text="Ajouter un chien" Command="{Binding GoToDogShopCommand}"/>
-            
             <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
-            <ListView x:Name ="dogsListView" 
-                      ItemsSource="{Binding Dogs}"
+            <ListView ItemsSource="{Binding Dogs}"
                       SelectedItem="{Binding SelectedDog}"
                       HasUnevenRows="True"
                       AutomationId="ListView">

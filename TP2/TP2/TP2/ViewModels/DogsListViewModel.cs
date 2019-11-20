@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TP2.Models.Entities;
 using TP2.Services;
+using TP2.Views;
 using Xamarin.Forms;
 
 namespace TP2.ViewModels
 {
     public class DogsListViewModel : ViewModelBase
     {
+        private readonly IAuthenticationService _authenticationService;
         public DelegateCommand GoToDogShopCommand => new DelegateCommand(ChangePage);
         public ObservableCollection<Dog> Dogs { get; set; }
 
@@ -28,13 +30,22 @@ namespace TP2.ViewModels
             }
         }
 
+        public bool IsAuthenticated
+        {
+            get { return _authenticationService.IsUserAuthenticated; }
+        }
+
         public DogsListViewModel(INavigationService navigationService,
-                                    IRepository<Dog> repositoryService)
+                                    IRepository<Dog> repositoryService,
+                                    IAuthenticationService authenticationService)
             : base(navigationService)
         {
-            Title = "Liste des chiens";
+            Title = "Liste de chiens globale";
             var _dogs = repositoryService.GetAll();
             Dogs = new ObservableCollection<Dog>(_dogs);
+            _authenticationService = authenticationService;
+
+
         }
 
         private void HandleSelectedDog()
@@ -48,7 +59,7 @@ namespace TP2.ViewModels
 
         private void ChangePage()
         {
-            NavigationService.NavigateAsync("DogsListPage/DogShopPage");
+            NavigationService.NavigateAsync("DogsListPage/" + nameof(DogShopPage));
         }
     }
 }

@@ -16,7 +16,6 @@ namespace TP2.Services
         }
         public IEnumerable<T> GetAll()
         {
-
             return _database.Table<T>().ToList();
         }
 

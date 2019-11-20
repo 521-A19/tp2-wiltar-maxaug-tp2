@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TP2.Models;
+using TP2.Models.Entities;
 
 namespace TP2.Services
 {
@@ -17,6 +18,13 @@ namespace TP2.Services
             WebClient web = new WebClient();
             var body = web.DownloadString("https://dogfinder-api.herokuapp.com/breeds");
             return JsonConvert.DeserializeObject<List<Breed>>(body);
+        }
+
+        public Dog GetUserDogById(int id)
+        {
+            WebClient web = new WebClient();
+            var body = web.DownloadString("https://dogfinder-api.herokuapp.com/comments/"+id);
+            return JsonConvert.DeserializeObject<Dog>(body);
         }
 
         /*

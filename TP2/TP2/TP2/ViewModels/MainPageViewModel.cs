@@ -67,11 +67,11 @@ namespace TP2.ViewModels
             try
             {
                 _authenticationService.LogIn(Login, Password);
-                if (_authenticationService.IsUserAuthenticated == true)
+                if (_authenticationService.IsUserAuthenticated)
                 {
-                    var navigationParameters = new NavigationParameters();
-                    navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
-                    await NavigationService.NavigateAsync("/" + nameof(DogsListPage), navigationParameters);
+                    //var navigationParameters = new NavigationParameters();
+                    //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
+                    await NavigationService.NavigateAsync("MainPage/" + nameof(DogsListPage));
                 }
                 else
                 {

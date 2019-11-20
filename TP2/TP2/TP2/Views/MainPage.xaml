@@ -28,7 +28,7 @@
         <StackLayout>
             <Entry x:Name="emailEntry" Placeholder="Email" Text="{Binding Login}"/>
             <Entry x:Name="passwordEntry" Placeholder="Password" Text="{Binding Password}" IsPassword="true"/>
-            <Button Text="Connection" HorizontalOptions="Start" FontSize="Small" Command="{Binding AuthentifivationUserCommand}"/>
+            <Button Text="Connexion" HorizontalOptions="Start" FontSize="Small" Command="{Binding AuthentifivationUserCommand}"/>
         </StackLayout>
 
         <Label FontSize="Medium" Text="Recherche un chien" />

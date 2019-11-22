@@ -18,17 +18,19 @@ namespace TP2.UnitTests
         private DogsListViewModel _dogsListViewModel;
         private Mock<IRepository<Dog>> _mockRepositoryService;
         private Mock<INavigationService> _mockNavigationService;
+        private Mock<IAuthenticationService> _mockAuthenticationService;
         private List<Dog> _dogList;
 
         public DogsListViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockRepositoryService = new Mock<IRepository<Dog>>();
+            _mockAuthenticationService = new Mock<IAuthenticationService>();
             _dogList = CreateDogList();
             _mockRepositoryService
                 .Setup(r => r.GetAll())
                 .Returns(_dogList);
-            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object, _mockAuthenticationService.Object);
         }
 
         [Theory]

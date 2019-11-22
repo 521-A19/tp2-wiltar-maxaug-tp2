@@ -3,6 +3,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
+using TP2.Externalization;
 using TP2.Models.Entities;
 using TP2.Services;
 
@@ -10,7 +11,9 @@ namespace TP2.ViewModels
 {
     public class DogShopViewModel : ViewModelBase
     {
-        public DelegateCommand GoToCommand => new DelegateCommand(ChangePage);
+        public DelegateCommand GoToDogRegisterPageCommand => new DelegateCommand(ChangePage);
+        public DelegateCommand ModifyDogInformations => new DelegateCommand(ChangePage);
+        private IRepository<Dog> _dogRepositoryService;
         //public ObservableCollection<Dog> UserListOfDogs { get; set; }
         private Dog _myDog;
         public Dog MyDog
@@ -23,21 +26,35 @@ namespace TP2.ViewModels
             }
         }
 
+        private bool _isButtonToDogRegisterVisible;
+        public bool IsButtonToDogRegisterVisible
+        {
+            get { return _isButtonToDogRegisterVisible; }
+            set
+            {
+                _isButtonToDogRegisterVisible = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public DogShopViewModel(INavigationService navigationService,
                                 IAuthenticationService authenticationService,
                                 IPageDialogService pageDialogService,
                                 IRepository<Dog> dogRepositoryService)
             : base(navigationService)
         {
+            _dogRepositoryService = dogRepositoryService;
+            IsButtonToDogRegisterVisible = false;
             if (!authenticationService.IsUserAuthenticated)
             {
-                pageDialogService.DisplayAlertAsync("Attention", "Vous devez être connecté pour placer en adoption votre chien", "D'accord");
+                pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.USER_NOT_CONNECTED, UiText.CONFIRM);
             }
             else
             {
                 if(authenticationService.AuthenticatedUser.DogId == -1)
                 {
-                    pageDialogService.DisplayAlertAsync("Aucun chien en adoption", "Cliquez sur placer un chien en adoption", "D'accord");
+                    IsButtonToDogRegisterVisible = true;
+                    pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM);
                 }
                 else
                 {
@@ -53,6 +70,12 @@ namespace TP2.ViewModels
         private void ChangePage()
         {
             //NavigationService.NavigateAsync(new Uri("DogsListPage/DogDetailPage", UriKind.Relative));
+        }
+
+
+        private void ModifyDogOnRepository()
+        {
+            _dogRepositoryService.Update(MyDog);
         }
     }
 }

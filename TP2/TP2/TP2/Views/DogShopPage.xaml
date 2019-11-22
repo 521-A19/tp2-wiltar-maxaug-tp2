@@ -8,12 +8,16 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
-            <Label Text="{Binding MyDog.Name}"></Label>
-            <Label Text="{Binding MyDog.Race}"></Label>
-            <Label Text="{Binding MyDog.Sex}"></Label>
-            <Label Text="{Binding MyDog.Price}"></Label>
-            <Label Text="{Binding MyDog.Description}"></Label>
+            <StackLayout>
+                <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                <Entry Text="{Binding MyDog.Name}"></Entry>
+                <Entry Text="{Binding MyDog.Race}"></Entry>
+                <Entry Text="{Binding MyDog.Sex}"></Entry>
+                <Entry Text="{Binding MyDog.Price}"></Entry>
+                <Entry Text="{Binding MyDog.Description}"></Entry>
+                <Button Text="Sauvegarder changements" Command="{Binding ModifyDogInformations}"></Button>
+            </StackLayout>
+            <Button IsVisible="{Binding IsButtonToDogRegisterVisible}" Text="Ajouter un chien" Command="{Binding GoToDogRegisterPageCommand}"></Button>
             <!--
             <Label HorizontalOptions="Center" Text="Votre liste de chien en adoption" FontSize="Large"></Label>
             <ListView x:Name ="userDogsList" 

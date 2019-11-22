@@ -20,12 +20,6 @@ namespace TP2.Services
             return JsonConvert.DeserializeObject<List<Breed>>(body);
         }
 
-        public Dog GetUserDogById(int id)
-        {
-            WebClient web = new WebClient();
-            var body = web.DownloadString("https://dogfinder-api.herokuapp.com/comments/"+id);
-            return JsonConvert.DeserializeObject<Dog>(body);
-        }
 
         /*
         public async Task<Collection<Pizza>> AsyncGetPizzas()

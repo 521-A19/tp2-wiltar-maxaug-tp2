@@ -40,7 +40,7 @@ namespace TP2
         private void SeedTestData()
         {
             var productsRepository = Container.Resolve<IRepository<Dog>>();
-            //productsRepository.DeleteAll(); // **** CLEAN BD ****
+            productsRepository.DeleteAll(); // **** CLEAN BD ****
             // Les données seront ajoutées une seul foi dans la BD. 
             if (productsRepository.GetAll().Count() != 0)
                 return;
@@ -79,7 +79,7 @@ namespace TP2
             productsRepository.Add(dog3);
 
             var usersRepository = Container.Resolve<IRepository<User>>();
-            //usersRepository.DeleteAll(); // **** CLEAN BD ****
+            usersRepository.DeleteAll(); // **** CLEAN BD ****
             // Les données seront ajoutées une seul foi dans la BD. 
             if (usersRepository.GetAll().Count() != 0)
                 return;

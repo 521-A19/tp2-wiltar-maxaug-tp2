@@ -23,7 +23,7 @@ namespace TP2.UnitTests
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IRepository<Dog>> _mockRepositoryService;
         private bool _eventRaisedProperty;
-
+         
         public DogShopViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();

@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="http://prismlibrary.com"
              mc:Ignorable="d"
              x:Class="TP2.Views.AddNewDogPage">
     <ContentPage.Content>
         <StackLayout>
             <Entry Placeholder="Name" Text="{Binding Name.Value}" />
-            <Picker SelectedIndex="{Binding DogBreeds}" Title="Breed" ItemsSource="{Binding DogBreeds.message}"
-        ItemDisplayBinding="{Binding message}" />
-            
+            <Picker Title="{Binding Breed}" ItemsSource="{Binding DogBreeds}" SelectedIndex="{Binding SelectedBreed}">
+            </Picker>
+            <Button Text="Fetch" Command="{Binding FetchARandomImageCommand}" />
             <Entry Placeholder="Description" Text="{Binding Description.Value}" />
             <Entry Placeholder="Sex" Text="{Binding Sex.Value}" />
-            <Image Source="{Binding ImageURL.Value}" />
             <Entry Placeholder="Price" Text="{Binding Price.Value}" />
+            <Image Source="{Binding ImageUrl}" />
+
+            <Button Text="Ajouter le chien" Command="{Binding AddNewDogCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -12,7 +12,7 @@ using Xamarin.UITest.Queries;
 
 namespace TP2.UITests
 {
-    class ProjectsViewObjectTests
+    class DogsListViewObjectTests
     {
         private AndroidApp app;
 
@@ -31,17 +31,5 @@ namespace TP2.UITests
             //app.Screenshot("Welcome screen.");
             Assert.IsTrue(results.Any());
         }
-
-        [Test]
-        public void OnClickGoToDogList_ShouldDogsListPage()
-        {
-            var mainPageViewObject = new MainPageViewObject(app);
-            var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
-
-            AppResult[] results = app.WaitForElement("Voici les petits amis en adoption");
-
-            Assert.IsTrue(results.Any());
-        }
-
     }
 }

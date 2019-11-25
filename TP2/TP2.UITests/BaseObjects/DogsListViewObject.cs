@@ -1,24 +1,11 @@
-﻿using TP2.Externalization;
-using Xamarin.UITest;
+﻿using Xamarin.UITest;
 
 namespace TP1.UITests.PageObjects
 {
-    public class MainPageViewObject : BasePageObject
+    public class DogsListViewObject : BasePageObject
     {
-        public MainPageViewObject(IApp app) : base(app)
+        public DogsListViewObject(IApp app) : base(app)
         {
-        }
-
-        public DogsListViewObject OpenDogsListPage()
-        {
-            ClickGoToDogList();
-            var dogsListViewObject = new DogsListViewObject(App);
-            return dogsListViewObject;
-        }
-
-        private void ClickGoToDogList()
-        {
-            App.Tap(UiText.GO_TO_DOG_LIST);
         }
         /*
         public MainPageViewObject OpenMainPageView()

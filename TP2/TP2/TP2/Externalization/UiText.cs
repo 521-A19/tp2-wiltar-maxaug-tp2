@@ -24,6 +24,10 @@ namespace TP2.Externalization
         public const string NO_CURRENT_DOG = "Aucun chien en adoption";
         public const string BUTTON_REGISTER_DOG = "Cliquez sur placer un chien en adoption";
 
+        //DogsList
+
+        //DogDetail
+
         public static string USER_ALREADY_CONNECTED = "User is already connected";
         public static string ERROR = "Erreur";
         public static string USER_NOT_FOUND = "Utilisateur ou mot de passe erroné";

@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseObjects\BasePageObject.cs" />
+    <Compile Include="BaseObjects\DogsListViewObject.cs" />
     <Compile Include="BaseObjects\MainPageViewObject.cs" />
     <Compile Include="Helpers\UiTestsHelper.cs" />
+    <Compile Include="DogsListViewObjectTests.cs" />
     <Compile Include="MainPageViewObjectTests.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>

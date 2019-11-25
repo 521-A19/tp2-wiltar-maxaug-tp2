@@ -35,10 +35,6 @@ namespace TP2.ViewModels
                 SelectedDog = parameters["selectedDogData"] as Dog;
                 Title = "Voici le chien " + SelectedDog.Name;
             }
-            else
-            {
-                Title = "Chien non sélectionné";
-            }
 
             //get a single parameter as type object, which must be cast
             //var color = parameters["color"] as Color;

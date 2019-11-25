@@ -6,6 +6,7 @@ namespace TP2.Services
     {
         bool IsUserAuthenticated { get; }
         User AuthenticatedUser { get; }
+        void LogOut();
         void LogIn(string login, string password);
     }
 }

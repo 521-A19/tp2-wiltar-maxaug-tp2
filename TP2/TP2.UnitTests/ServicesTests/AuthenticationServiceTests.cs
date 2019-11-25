@@ -115,6 +115,7 @@ namespace TP2.UnitTests.ServicesTests
                 .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
                 .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
                 .RuleFor(u => u.Id, f => f.IndexFaker)
+                .RuleFor(u => u.DogId, f => 1)
                 .Generate(3);
             return userList;
         }

@@ -41,7 +41,11 @@ namespace TP2.Services
             _repository = repository;
         }
 
-        //IAuthenticationService
+        public void LogOut()
+        {
+            AuthenticatedUser = null;
+            IsUserAuthenticated = false;
+        }
 
         public void LogIn(string login, string password)
         {

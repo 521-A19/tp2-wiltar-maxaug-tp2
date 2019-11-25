@@ -27,25 +27,19 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void OnArrival_DogsObservableListShouldBeLoaded()
+        public void OnNavigated_SelectedDogInformations_ShouldBeDisplayed()
         {
-            //var fakeDog = CreateFakeDog();
-            var dog = new Dog()
-            {
-                Name = "Leo",
-                ImageUrl = "https://images.dog.ceo/breeds/pug/n02110958_1975.jpg",
-                Price = (float)269.99,
-                Race = "Husky",
-                Sex = "Male",
-                Description = "Gentil et calme"
-
-            };
-            var navigationParameters = new NavigationParameters();
-            //_mockNavigationParameters.Setup(r => r.Add("data", user));
+            INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
+            Dog dog = CreateFakeDog();
             navigationParameters.Add("selectedDogData", dog);
-            //_mockSecureStorageService.Setup(a => a.GetUserEncryptionKeyAsync(user)).ReturnsAsync(key);
+
             _dogDetailViewModel.OnNavigatedTo(navigationParameters);
+
             _dogDetailViewModel.SelectedDog.Should().BeEquivalentTo(dog);
+            _dogDetailViewModel.SelectedDog.Description.Should().BeEquivalentTo(dog.Description);
+            _dogDetailViewModel.SelectedDog.Price.Should().Be(dog.Price);
+            _dogDetailViewModel.SelectedDog.Race.Should().BeEquivalentTo(dog.Race);
+            _dogDetailViewModel.SelectedDog.Sex.Should().BeEquivalentTo(dog.Sex);
         }
 
         [Fact]

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using TP2.Models.Entities;
 using Bogus;
 using System.Linq;
+using System.ComponentModel;
 
 namespace TP2.UnitTests
 {
@@ -24,6 +25,8 @@ namespace TP2.UnitTests
         private const string NotEncryptedCreditCard = "5105105105105100";
         private const string EncryptionKey = "--AnEncryptionKey--";
         private List<User> _userList;
+        private bool _eventRaisedProperty;
+
         public MainPageViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
@@ -113,6 +116,32 @@ namespace TP2.UnitTests
             _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, "Okay"));
         }
 
+        [Fact]
+        public void Login_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _mainPageViewModel.PropertyChanged += RaiseProperty;
+
+            _mainPageViewModel.Login = "TEST";
+
+            Assert.True(_eventRaisedProperty);
+        }
+
+        [Fact]
+        public void Password_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _mainPageViewModel.PropertyChanged += RaiseProperty;
+
+            _mainPageViewModel.Login = "TEST";
+
+            Assert.True(_eventRaisedProperty);
+        }
+
+
+        private void RaiseProperty(object sender, PropertyChangedEventArgs e)
+        {
+            _eventRaisedProperty = true;
+        }
+
         private List<User> CreateUserList()
         {
             var crypto = new CryptoService();
@@ -124,6 +153,7 @@ namespace TP2.UnitTests
                 .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
                 .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
                 .RuleFor(u => u.Id, f => f.IndexFaker)
+                .RuleFor(u => u.DogId, f => 1)
                 .Generate(3);
             return userList;
         }

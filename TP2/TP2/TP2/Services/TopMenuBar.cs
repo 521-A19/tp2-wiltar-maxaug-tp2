@@ -14,7 +14,7 @@ namespace TP2.Services
             Content = new StackLayout
             {
                 Children = {
-                    new Label { Text = "THIS IS A TEST BRO" }
+                    new Label { Text = "THIS IS A TEST" }
                 }
             };
         }

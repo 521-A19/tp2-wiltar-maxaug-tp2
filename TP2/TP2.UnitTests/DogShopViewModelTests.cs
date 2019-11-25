@@ -69,6 +69,38 @@ namespace TP2.UnitTests
             _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM));
         }
 
+        [Fact]
+        public void MyDog_ModifyMyDog_ShouldDisplayAlert()
+        {
+            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser());
+
+            _dogShopViewModel.ModifyDogInformations.Execute();
+
+            _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.SUCCESS, UiText.DOG_INFO_MODIFIED, UiText.CONFIRM));
+        }
+
+
+        [Fact]
+        public void MyDog_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogShopViewModel.PropertyChanged += RaiseProperty;
+
+            _dogShopViewModel.MyDog = new Faker<Dog>();
+
+            Assert.True(_eventRaisedProperty);
+        }
+
+        [Fact]
+        public void IsButtonToDogRegisterVisible_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogShopViewModel.PropertyChanged += RaiseProperty;
+
+            _dogShopViewModel.IsButtonToDogRegisterVisible = true;
+
+            Assert.True(_eventRaisedProperty);
+        }
+
         private void RaiseProperty(object sender, PropertyChangedEventArgs e)
         {
             _eventRaisedProperty = true;

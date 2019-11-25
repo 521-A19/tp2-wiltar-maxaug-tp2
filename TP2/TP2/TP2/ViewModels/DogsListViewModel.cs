@@ -14,6 +14,7 @@ namespace TP2.ViewModels
     {
         private readonly IAuthenticationService _authenticationService;
         public DelegateCommand GoToDogShopCommand => new DelegateCommand(ChangePage);
+        public DelegateCommand DeconnectionCommand => new DelegateCommand(LogOut);
         public ObservableCollection<Dog> Dogs { get; set; }
 
         private Dog _selectedDog;
@@ -48,6 +49,13 @@ namespace TP2.ViewModels
 
         }
 
+
+        public override void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
+        {
+            base.OnNavigatedTo(parameters);
+
+        }
+
         private void HandleSelectedDog()
         {
             //Page page = new Page();
@@ -60,6 +68,12 @@ namespace TP2.ViewModels
         private void ChangePage()
         {
             NavigationService.NavigateAsync("DogsListPage/" + nameof(DogShopPage));
+        }
+
+        private void LogOut()
+        {
+            _authenticationService.LogOut();
+            NavigationService.NavigateAsync(nameof(MainPage));
         }
     }
 }

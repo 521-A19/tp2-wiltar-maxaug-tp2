@@ -10,6 +10,8 @@ namespace TP2.Externalization
         //DogShop
         public const string WARNING = "Attention";
         public const string CONFIRM = "D'accord";
+        public const string SUCCESS = "Succès";
+        public const string DOG_INFO_MODIFIED = "Les changements ont été effectués";
         public const string USER_NOT_CONNECTED = "Vous devez être connecté pour placer en adoption votre chien";
         public const string NO_CURRENT_DOG = "Aucun chien en adoption";
         public const string BUTTON_REGISTER_DOG = "Cliquez sur placer un chien en adoption";

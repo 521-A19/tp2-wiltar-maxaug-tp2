@@ -17,7 +17,11 @@
                 </Label>
                 <Label Text="Liste" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                 <Label IsVisible="{Binding IsAuthenticated}" Text="Profil" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label IsVisible="{Binding IsAuthenticated}" Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+                <Label IsVisible="{Binding IsAuthenticated}" Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DeconnectionCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
             </StackLayout>
 

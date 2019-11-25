@@ -5,13 +5,9 @@ using TP2.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 using Xunit;
 
-namespace Lab8.UnitTests.ServicesTests
+namespace TP2.UnitTests.ServicesTests
 {
     public class RegistrationServiceTests
     {
@@ -71,6 +67,7 @@ namespace Lab8.UnitTests.ServicesTests
                 .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
                 .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
                 .RuleFor(u => u.Id, f => f.IndexFaker)
+                .RuleFor(u => u.DogId, f => 1)
                 .Generate(3);
             return userList;
         }

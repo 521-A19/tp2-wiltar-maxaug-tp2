@@ -9,6 +9,7 @@ namespace TP2.ViewModels
 {
     public class DogShopViewModel : ViewModelBase
     {
+        public DelegateCommand NavigateToAddNewDogPageCommand => new DelegateCommand(NavigateToAddNewDogPage);
         public DelegateCommand GoToCommand => new DelegateCommand(ChangePage);
         private Dog _selectedDog;
         public Dog SelectedDog
@@ -56,6 +57,11 @@ namespace TP2.ViewModels
         private void ChangePage()
         {
             NavigationService.NavigateAsync(new Uri("DogsListPage/DogDetailPage", UriKind.Relative));
+        }
+
+        private async void NavigateToAddNewDogPage()
+        {
+            await NavigationService.NavigateAsync("DogShopPage/AddNewDogPage");
         }
     }
 }

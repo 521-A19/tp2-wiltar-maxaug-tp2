@@ -113,6 +113,7 @@ namespace TP2
             containerRegistry.RegisterForNavigation<DogDetailPage, DogDetailViewModel>();
             containerRegistry.RegisterForNavigation<DogShopPage, DogShopViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddNewDogPage, AddNewDogViewModel>();
 
             //Repositories
             var databasePath = FileSystem.AppDataDirectory;  // FileSystem voir https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?tabs=android
@@ -130,6 +131,7 @@ namespace TP2
             containerRegistry.RegisterSingleton<ISecureStorageService, SecureStorageService>();
             containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            containerRegistry.RegisterSingleton<IDogApiService, DogApiService>();
         }
     }
 }

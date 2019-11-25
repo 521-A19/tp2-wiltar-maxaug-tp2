@@ -23,5 +23,7 @@ namespace TP2.Externalization
         public const string ErrorExceptionThrowMessage = "Un problème est survenue lors de l'exécution.";
         public const string ExceptionUserIsAlreadyLogIn = "You are already log in !";
         public const string SecondPasswordIsTheSameOfTheFirst = "Please write the right password!";
+        public const string NameAndPriceShouldNotBeEmptyException = "Name should not be empty and Price should not be equal to 0. TY!";
+        public const string Okay = "Okay";
     }
 }

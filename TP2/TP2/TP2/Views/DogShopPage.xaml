@@ -9,6 +9,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Placez votre chien en adoption" />
+            <Button Text="Ajouter un chien" Command="{Binding NavigateToAddNewDogPageCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

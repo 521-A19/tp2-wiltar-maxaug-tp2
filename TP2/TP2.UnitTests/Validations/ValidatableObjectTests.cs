@@ -43,7 +43,7 @@ namespace UnitTest.Validations
         {
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-           .Setup(a => a.Check("123456789aA"))
+           .Setup(v => v.Check(It.IsAny<string>()))
            .Returns(true);
 
             _validatableObject.Validate();
@@ -57,7 +57,7 @@ namespace UnitTest.Validations
         {
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-          .Setup(a => a.Check(""))
+          .Setup(a => a.Check(It.IsAny<string>()))
           .Returns(true);
            /*_mockValidationRule
           .Setup(n => n.ErrorMessage)
@@ -73,7 +73,7 @@ namespace UnitTest.Validations
         {
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-          .Setup(a => a.Check(""))
+          .Setup(a => a.Check(It.IsAny<string>()))
           .Returns(false);
 
             _validatableObject.Validate();
@@ -86,7 +86,7 @@ namespace UnitTest.Validations
         {
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-          .Setup(a => a.Check(""))
+          .Setup(a => a.Check(It.IsAny<string>()))
           .Returns(false);
 
             _validatableObject.Validate();
@@ -100,7 +100,7 @@ namespace UnitTest.Validations
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-          .Setup(a => a.Check(""))
+          .Setup(a => a.Check(It.IsAny<string>()))
           .Returns(false);
 
             _validatableObject.Validate();
@@ -116,7 +116,7 @@ namespace UnitTest.Validations
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _validatableObject.AddValidationRule(_mockValidationRule.Object);
             _mockValidationRule
-          .Setup(a => a.Check(""))
+          .Setup(a => a.Check(It.IsAny<string>()))
           .Returns(false);
 
             _validatableObject.Validate();

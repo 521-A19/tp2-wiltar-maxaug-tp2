@@ -86,17 +86,16 @@ namespace TP2.UnitTests
             _mockAuthenticationService
             .Setup(n => n.AuthenticatedUser)
             .Returns(_userList.First());
-
             //var navigationParameters = new NavigationParameters();
             //navigationParameters.Add("data", _userList.First());
 
             //Act
             //_mockAuthenticationService.Object.IsUserAuthenticated = true;
             _mainPageViewModel.AuthentifivationUserCommand.Execute();
-            //Assert
 
+            //Assert
             _mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage)), Times.Once());
-            //_mockNavigationService.Verify(x => x.NavigateAsync("/" + nameof(DogsListPage), navigationParameters), Times.Once());
+            //_mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage), navigationParameters), Times.Once());
         }
 
         [Fact]
@@ -112,6 +111,7 @@ namespace TP2.UnitTests
 
             //Act
             _mainPageViewModel.AuthentifivationUserCommand.Execute();
+
             //Assert
             _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, "Okay"));
         }

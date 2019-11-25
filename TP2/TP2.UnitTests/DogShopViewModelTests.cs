@@ -44,7 +44,7 @@ namespace TP2.UnitTests
         [Fact]
         public void UserIsNotConnected_OnNavigatedPage_ButtonToDogRegisterPageShouldNotBeVisible()
         {
-            _dogShopViewModel.IsButtonToDogRegisterVisible.Should().BeFalse();
+            _dogShopViewModel.IsButtonToAddNewDogPageVisible.Should().BeFalse();
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace TP2.UnitTests
 
             _dogShopViewModel = new DogShopViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object, _mockPageDialogService.Object, _mockRepositoryService.Object);
             
-            _dogShopViewModel.IsButtonToDogRegisterVisible.Should().BeTrue();
+            _dogShopViewModel.IsButtonToAddNewDogPageVisible.Should().BeTrue();
         }
 
         [Fact]
@@ -80,7 +80,15 @@ namespace TP2.UnitTests
             _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.SUCCESS, UiText.DOG_INFO_MODIFIED, UiText.CONFIRM));
         }
 
+        [Fact]
+        public void NavigateToAddNewDogPageCommand_ShouldNavigateToAddNewDogPage()
+        {
+            _dogShopViewModel.NavigateToAddNewDogPageCommand.Execute();
 
+            _mockNavigationService.Verify(x => x.NavigateAsync(nameof(AddNewDogPage)), Times.Once());
+        }
+
+        /*
         [Fact]
         public void MyDog_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {
@@ -89,14 +97,14 @@ namespace TP2.UnitTests
             _dogShopViewModel.MyDog = new Faker<Dog>();
 
             Assert.True(_eventRaisedProperty);
-        }
+        }*/
 
         [Fact]
         public void IsButtonToDogRegisterVisible_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {
             _dogShopViewModel.PropertyChanged += RaiseProperty;
 
-            _dogShopViewModel.IsButtonToDogRegisterVisible = true;
+            _dogShopViewModel.IsButtonToAddNewDogPageVisible = true;
 
             Assert.True(_eventRaisedProperty);
         }

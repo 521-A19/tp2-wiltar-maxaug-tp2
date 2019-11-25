@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TP2.Views.AddNewDogPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="Name" Text="{Binding Name.Value}" />
+            <Picker SelectedIndex="{Binding DogBreeds}" Title="Breed" ItemsSource="{Binding DogBreeds.message}"
+        ItemDisplayBinding="{Binding message}" />
+            
+            <Entry Placeholder="Description" Text="{Binding Description.Value}" />
+            <Entry Placeholder="Sex" Text="{Binding Sex.Value}" />
+            <Image Source="{Binding ImageURL.Value}" />
+            <Entry Placeholder="Price" Text="{Binding Price.Value}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -5,7 +5,15 @@ namespace TP2.Externalization
     public static class UiText
     {
         //MainPage
-        public const string WELCOME_ON_DOGFINDER = "Welcome on Dogfinder";
+        public const string WELCOME_ON_DOGFINDER = "Bienvenue sur DogFinder !";
+        public const string SERVICES = "Services d'adoption de chiens";
+        public const string NEWEST_STARS = "Nos nouveaux amis";
+        public const string SIGN_IN = "Se connecter";
+        public const string SIGN_UP = "S'inscrire";
+        public const string EMAIL = "Courriel";
+        public const string PASSWORD = "Mot de passe";
+        public const string CONNECTION = "Connexion";
+        public const string GO_TO_DOG_LIST = "Voir la liste de chiens";
 
         //DogShop
         public const string WARNING = "Attention";
@@ -32,5 +40,7 @@ namespace TP2.Externalization
         public const string ErrorExceptionThrowMessage = "Un problème est survenue lors de l'exécution.";
         public const string ExceptionUserIsAlreadyLogIn = "You are already log in !";
         public const string SecondPasswordIsTheSameOfTheFirst = "Please write the right password!";
+        public const string NameAndPriceShouldNotBeEmptyException = "Name should not be empty and Price should not be equal to 0. TY!";
+        public const string Okay = "Okay";
     }
 }

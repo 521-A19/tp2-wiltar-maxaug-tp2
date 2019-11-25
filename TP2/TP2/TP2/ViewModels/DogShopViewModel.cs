@@ -12,31 +12,26 @@ namespace TP2.ViewModels
 {
     public class DogShopViewModel : ViewModelBase
     {
-        public DelegateCommand GoToDogRegisterPageCommand => new DelegateCommand(ChangePage);
         public DelegateCommand GoToDogsListPageCommand => new DelegateCommand(GoToDogsListPage);
         public DelegateCommand ModifyDogInformations => new DelegateCommand(ModifyMyDog);
         private IRepository<Dog> _dogRepositoryService;
         private IPageDialogService _pageDialogService;
+        private IAuthenticationService _authenticationService;
         //public ObservableCollection<Dog> UserListOfDogs { get; set; }
-        private Dog _myDog;
-        public Dog MyDog
+        public Dog MyDog;
+        public bool IsAuthenticated
         {
-            get { return _myDog; }
-            set
-            {
-                _myDog = value;
-                RaisePropertyChanged();
-            }
+            get { return _authenticationService.IsUserAuthenticated; }
         }
+        public DelegateCommand NavigateToAddNewDogPageCommand => new DelegateCommand(NavigateToAddNewDogPage);
 
-
-        private bool _isButtonToDogRegisterVisible;
-        public bool IsButtonToDogRegisterVisible
+        private bool _isButtonToAddNewDogPageVisible;
+        public bool IsButtonToAddNewDogPageVisible
         {
-            get { return _isButtonToDogRegisterVisible; }
+            get { return _isButtonToAddNewDogPageVisible; }
             set
             {
-                _isButtonToDogRegisterVisible = value;
+                _isButtonToAddNewDogPageVisible = value;
                 RaisePropertyChanged();
             }
         }
@@ -48,8 +43,9 @@ namespace TP2.ViewModels
             : base(navigationService)
         {
             _pageDialogService = pageDialogService;
+            _authenticationService = authenticationService;
             _dogRepositoryService = dogRepositoryService;
-            IsButtonToDogRegisterVisible = false;
+            IsButtonToAddNewDogPageVisible = false;
             if (!authenticationService.IsUserAuthenticated)
             {
                 _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.USER_NOT_CONNECTED, UiText.CONFIRM);
@@ -58,7 +54,7 @@ namespace TP2.ViewModels
             {
                 if(authenticationService.AuthenticatedUser.DogId == -1)
                 {
-                    IsButtonToDogRegisterVisible = true;
+                    IsButtonToAddNewDogPageVisible = true;
                     _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM);
                 }
                 else
@@ -71,12 +67,6 @@ namespace TP2.ViewModels
             Title = "Mon chien en adoption";
         }
 
-
-        private void ChangePage()
-        {
-            //NavigationService.NavigateAsync(new Uri("DogsListPage/DogDetailPage", UriKind.Relative));
-        }
-
         private void GoToDogsListPage()
         {
             NavigationService.NavigateAsync(nameof(DogsListPage));
@@ -86,6 +76,11 @@ namespace TP2.ViewModels
         {
             _dogRepositoryService.Update(MyDog);
             _pageDialogService.DisplayAlertAsync(UiText.SUCCESS, UiText.DOG_INFO_MODIFIED, UiText.CONFIRM);
+        }
+
+        private async void NavigateToAddNewDogPage()
+        {
+            await NavigationService.NavigateAsync(nameof(AddNewDogPage));
         }
     }
 }

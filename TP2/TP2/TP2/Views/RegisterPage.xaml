@@ -40,11 +40,6 @@
                TextColor="Red"/>
         <Label Text="ConfirmPassword" HorizontalOptions="Start" FontSize="Small"/>
         <Entry Text="{Binding SecondPassword.Value}">
-            <Entry.Behaviors>
-                <behaviors:EventToCommandBehavior
-                    EventName="TextChanged"
-                    Command="{Binding ValidateSecondPasswordCommand}" />
-            </Entry.Behaviors>
         </Entry>
         <Label Text="{Binding SecondPassword.Errors,
                               Converter={StaticResource ErrorToTextConverter}}" 

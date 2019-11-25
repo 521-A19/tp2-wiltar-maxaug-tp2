@@ -55,7 +55,6 @@ namespace TP2.ViewModels
 
         public DelegateCommand ValidateUserNameCommand => new DelegateCommand(ValidateUserName);
         public DelegateCommand ValidatePasswordCommand => new DelegateCommand(ValidatePassword);
-        public DelegateCommand ValidateSecondPasswordCommand => new DelegateCommand(ValidateSecondPassword);
 
         private void ValidateUserName()
         {
@@ -69,14 +68,16 @@ namespace TP2.ViewModels
 
         private void ValidateSecondPassword()
         {
-            _secondPassword.Validate();
-        }
-        private void AddValidationRulesToValidatable()
-        {
             var passwordIsTheSame = new PasswordIsTheSame<string>(Password.Value)
             {
                 ErrorMessage = UiText.SecondPasswordIsTheSameOfTheFirst
             };
+
+            _secondPassword.AddValidationRule(passwordIsTheSame);
+            _secondPassword.Validate();
+        }
+        private void AddValidationRulesToValidatable()
+        {
 
             var containAtLeastOneLowercaseLetter = new ContainAtLeastOneLowercaseLetter<string>
             {
@@ -103,15 +104,14 @@ namespace TP2.ViewModels
             _password.AddValidationRule(containAtLeastOneNumericCharacter);
             _password.AddValidationRule(containAtLeastOneUpercaseLetter);
             _password.AddValidationRule(containMoreThanTenCharacters);
-            _secondPassword.AddValidationRule(passwordIsTheSame);
         }
 
         private void ExecuteNavigateToMainPageCommand()
         {
             ValidateUserName();
             ValidatePassword();
-            //ValidateSecondPassword();
-            if (Password.Errors.Count + UserName.Errors.Count == 0)
+            ValidateSecondPassword();
+            if (Password.Errors.Count + UserName.Errors.Count + SecondPassword.Errors.Count == 0)
             {
                 _registrationService.RegisterUser(_userName.Value, _password.Value);
                 NavigationService.NavigateAsync("/" + nameof(MainPage));

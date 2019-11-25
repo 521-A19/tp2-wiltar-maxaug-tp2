@@ -72,6 +72,10 @@ namespace TP2.ViewModels
                     //var navigationParameters = new NavigationParameters();
                     //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
                     await NavigationService.NavigateAsync("MainPage/" + nameof(DogsListPage));
+
+                    //var navigationParameters = new NavigationParameters();
+                    //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
+                    //await NavigationService.NavigateAsync("MainPage/" + nameof(DogsListPage), navigationParameters);
                 }
                 else
                 {

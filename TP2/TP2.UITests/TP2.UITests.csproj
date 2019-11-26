@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseObjects\BasePageObject.cs" />
+    <Compile Include="BaseObjects\DogDetailViewObject.cs" />
+    <Compile Include="BaseObjects\DogShopViewObject.cs" />
     <Compile Include="BaseObjects\DogsListViewObject.cs" />
     <Compile Include="BaseObjects\MainPageViewObject.cs" />
     <Compile Include="DogDetailViewObjectTests.cs" />

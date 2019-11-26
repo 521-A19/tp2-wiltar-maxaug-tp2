@@ -30,9 +30,9 @@
                         <TapGestureRecognizer Command="{Binding DeconnectionCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
-                <Label IsVisible="{Binding IsAuthenticated, Converter={StaticResource BoolToString}}" Text="Connexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center">
+                <Label IsVisible="{Binding IsAuthenticated, Converter={StaticResource NegateBool}}" Text="Connexion" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ConnectionCommand}" />
+                        <TapGestureRecognizer Command="{Binding GoToConnectionCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
                 <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>

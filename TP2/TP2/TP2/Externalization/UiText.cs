@@ -25,6 +25,7 @@ namespace TP2.Externalization
         public const string BUTTON_REGISTER_DOG = "Cliquez sur placer un chien en adoption";
 
         //DogsList
+        public const string MAIN_LABEL = "Voici les petits amis en adoption";
 
         //DogDetail
 

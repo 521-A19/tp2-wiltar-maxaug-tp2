@@ -33,15 +33,38 @@ namespace TP2.UITests
         }
 
         [Test]
-        public void OnClickGoToDogList_ShouldDogsListPage()
+        public void OnClickGoToDogList_ShouldNavigateToDogsListPage()
         {
             var mainPageViewObject = new MainPageViewObject(app);
             var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
 
-            AppResult[] results = app.WaitForElement("Voici les petits amis en adoption");
+            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
 
             Assert.IsTrue(results.Any());
         }
 
+        [Test]
+        public void OnClickSignUp_ShouldNavigateRegisterPage()
+        {
+            var mainPageViewObject = new MainPageViewObject(app);
+            
+            mainPageViewObject.ClickSignUpButton();
+
+            AppResult[] results = app.WaitForElement("Email address");
+            Assert.IsTrue(results.Any());
+        }
+
+        [Test]
+        public void ValidLoginAndPassword_OnSignIn_ShouldDogsListPage()
+        {
+            var mainPageViewObject = new MainPageViewObject(app);
+            mainPageViewObject.EnterLogin("123");
+            mainPageViewObject.EnterPassword("456");
+
+            mainPageViewObject.ClickSignInButton();
+
+            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
+            Assert.IsTrue(results.Any());
+        }
     }
 }

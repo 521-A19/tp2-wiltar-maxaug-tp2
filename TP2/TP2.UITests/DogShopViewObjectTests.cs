@@ -12,7 +12,7 @@ using Xamarin.UITest.Queries;
 
 namespace TP2.UITests
 {
-    class DogsListViewObjectTests
+    class DogShopViewObjectTests
     {
         private AndroidApp app;
 

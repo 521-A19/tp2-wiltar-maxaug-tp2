@@ -3,11 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             xmlns:local="clr-namespace:TP2.Converters"
              mc:Ignorable="d"
              x:Class="TP2.Views.DogsListPage"
              Title="{Binding Title}">
-    <ContentPage.Content>
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NegateBoolConverter x:Key="NegateBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Margin="0">
                 <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
@@ -22,10 +30,15 @@
                         <TapGestureRecognizer Command="{Binding DeconnectionCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
+                <Label IsVisible="{Binding IsAuthenticated, Converter={StaticResource BoolToString}}" Text="Connexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ConnectionCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
             </StackLayout>
 
-            <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
             <ListView ItemsSource="{Binding Dogs}"
                       SelectedItem="{Binding SelectedDog}"
                       HasUnevenRows="True"

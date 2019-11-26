@@ -72,27 +72,7 @@ namespace TP2.UnitTests
             _mockNavigationService.VerifyNoOtherCalls();
         }
 
-        [Fact]
-        public void AddNewDogCommand_WhenAllDogNameAttributIsNotHonored_AlertShouldBeSet()
-        {
-            _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
-            //Act
-            _addNewDogViewModel.AddNewDogCommand.Execute();
-            //Assert
-            _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.NameAndPriceShouldNotBeEmptyException, UiText.Okay));
-        }
-
-        [Fact]
-        public void AddNewDogCommand_WhenAllDogPriceAttributIsNotHonored_AlertShouldBeSet()
-        {
-            _addNewDogViewModel.Name = "Dog";
-            _addNewDogViewModel.Breed = "african";
-            //Act
-            _addNewDogViewModel.AddNewDogCommand.Execute();
-            //Assert
-            _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.NameAndPriceShouldNotBeEmptyException, UiText.Okay));
-        }
+        
 
         [Fact]
         public void FetchARandomImageCommand_WhenAllDogAttributIsNotReallyHonored_ShouldStillNavigateToDogsList()

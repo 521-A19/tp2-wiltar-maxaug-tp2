@@ -17,6 +17,8 @@ namespace TP2.ViewModels
         IDogApiService _dogBreedsService;
         IRepository<Dog> _repository;
         private RootObject _DogBreeds;
+        private List<string> _breedsList;
+        private int _selectedBreed = 0;
 
         private string _name;
         private string _breed;
@@ -38,11 +40,13 @@ namespace TP2.ViewModels
             _dogBreedsService = dogBreedsService;
             _repository = repository;
             _DogBreeds = _dogBreedsService.GetDogBreeds();
-            _breed = _DogBreeds.message[0];
+            _breedsList = _DogBreeds.message;
+            RandomImageURL();
         }
 
         private void RandomImageURL()
         {
+            _breed = _DogBreeds.message[SelectedBreed];
             string urlCall = "https://dog.ceo/api/breed/" + Breed + "/images/random";
             RandomImage image = _dogBreedsService.GetRandomImageURL(urlCall);
             ImageUrl = image.message;
@@ -51,14 +55,7 @@ namespace TP2.ViewModels
         private async void AddNewDog()
         {
             try {
-                if (Price == 0)
-                {
-                    throw new Exception();
-                }
-                if (Name == null)
-                {
-                    throw new Exception();
-                }
+                
                 Dog newDog = new Dog() 
                 {
                     Name = Name,
@@ -74,17 +71,26 @@ namespace TP2.ViewModels
             }
             catch
             {
-                await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.NameAndPriceShouldNotBeEmptyException, UiText.Okay);
+                await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
     }
 
         public List<string> DogBreeds
         {
-            get => _DogBreeds.message;
+            get => _breedsList;
             set
             {
-                _DogBreeds.message = value;
-                //RaisePropertyChanged();
+                _breedsList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int SelectedBreed
+        {
+            get => _selectedBreed;
+            set
+            {
+                _selectedBreed = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -94,7 +100,7 @@ namespace TP2.ViewModels
             set
             {
                 _name = value;
-                //RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public string Breed
@@ -103,7 +109,7 @@ namespace TP2.ViewModels
             set
             {
                 _breed = value;
-                //RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public string Sex
@@ -112,7 +118,7 @@ namespace TP2.ViewModels
             set
             {
                 _sex = value;
-                //RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public string Description
@@ -121,7 +127,7 @@ namespace TP2.ViewModels
             set
             {
                 _description = value;
-                //RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public string ImageUrl
@@ -130,7 +136,7 @@ namespace TP2.ViewModels
             set
             {
                 _imageURl = value;
-                //RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public float Price
@@ -139,7 +145,7 @@ namespace TP2.ViewModels
             set
             {
                 _price = value;
-                //RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
     }

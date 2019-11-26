@@ -55,14 +55,7 @@ namespace TP2.ViewModels
         private async void AddNewDog()
         {
             try {
-                if (Price == 0)
-                {
-                    throw new Exception();
-                }
-                if (Name == null)
-                {
-                    throw new Exception();
-                }
+                
                 Dog newDog = new Dog() 
                 {
                     Name = Name,
@@ -78,7 +71,7 @@ namespace TP2.ViewModels
             }
             catch
             {
-                await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.NameAndPriceShouldNotBeEmptyException, UiText.Okay);
+                await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
     }
 

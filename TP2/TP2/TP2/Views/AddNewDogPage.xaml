@@ -8,16 +8,27 @@
              x:Class="TP2.Views.AddNewDogPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="Name" Text="{Binding Name.Value}" />
-            <Picker Title="{Binding Breed}" ItemsSource="{Binding DogBreeds}" SelectedIndex="{Binding SelectedBreed}">
-            </Picker>
-            <Button Text="Fetch" Command="{Binding FetchARandomImageCommand}" />
-            <Entry Placeholder="Description" Text="{Binding Description.Value}" />
-            <Entry Placeholder="Sex" Text="{Binding Sex.Value}" />
-            <Entry Placeholder="Price" Text="{Binding Price.Value}" />
-            <Image Source="{Binding ImageUrl}" />
+            <Button Text="Confirmer l'ajout" Command="{Binding AddNewDogCommand}" HorizontalOptions="End" FontSize="Small" IsEnabled="False"/>
+            <Label Text="Name :" HorizontalOptions="Start" FontSize="Small"/>
+            <Editor Placeholder="Name" Text="{Binding Name}" />
+            <Label Text="Breeds :" VerticalOptions="Start" FontSize="Small"/>
+            <StackLayout Orientation="Horizontal">
+                <Picker Title="{Binding Breed}" ItemsSource="{Binding DogBreeds}" SelectedIndex="{Binding SelectedBreed}" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"/>
 
-            <Button Text="Ajouter le chien" Command="{Binding AddNewDogCommand}" />
+                <Button Text="Fetch" Command="{Binding FetchARandomImageCommand}" HorizontalOptions="End" FontSize="Micro"/>
+            </StackLayout>
+            <Label Text="Description :" HorizontalOptions="Start" FontSize="Small"/>
+            <Editor Placeholder="Description" Text="{Binding Description}" VerticalOptions="Start"/>
+            <Label Text="Sex :" HorizontalOptions="Start" FontSize="Small"/>
+            <Editor Placeholder="Sex" Text="{Binding Sex}" HorizontalOptions="StartAndExpand" />
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Price :" HorizontalOptions="Start" FontSize="Small"/>
+                <Editor Placeholder="Price" Text="{Binding Price}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small"/>
+                <Image Source="{Binding ImageUrl}" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+            </StackLayout>
+
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

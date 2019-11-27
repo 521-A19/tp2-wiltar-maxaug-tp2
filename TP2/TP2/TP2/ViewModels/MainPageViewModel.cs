@@ -53,12 +53,12 @@ namespace TP2.ViewModels
         {
             //var navigationParameters = new NavigationParameters();
             //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
-            NavigationService.NavigateAsync("MainPage/DogsListPage");
+            NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogsListPage");
         }
 
         private async void NavigateToRegisterPage()
         {
-            await NavigationService.NavigateAsync("NavigationPage/RegisterPage");
+            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/RegisterPage");
         }
 
         private async void AuthentificationLogin()

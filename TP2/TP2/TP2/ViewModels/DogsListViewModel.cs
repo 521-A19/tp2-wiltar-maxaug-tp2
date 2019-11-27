@@ -71,7 +71,7 @@ namespace TP2.ViewModels
         private void LogOut()
         {
             _authenticationService.LogOut();
-            NavigationService.NavigateAsync(nameof(MainPage));
+            NavigationService.GoBackToRootAsync();
         }
 
         private void LogIn()

@@ -24,8 +24,8 @@
                 </Label>
                 <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
             </StackLayout>
-            
-            <StackLayout>
+
+            <StackLayout IsVisible="{Binding IsAuthenticated}">
                 <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
                 <Entry Text="{Binding MyDog.Name}"></Entry>
                 <Entry Text="{Binding MyDog.Race}"></Entry>

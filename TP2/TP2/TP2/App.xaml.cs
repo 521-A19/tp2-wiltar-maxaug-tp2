@@ -12,6 +12,8 @@ using System.Linq;
 using TP2.Models.Entities;
 using Xamarin.Essentials;
 using System.Collections.Generic;
+using TP2.Views.MasterDetailPages;
+using TP2.ViewModels.MasterDetailViews;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TP2
@@ -35,6 +37,8 @@ namespace TP2
             SeedTestData();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            //await NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+            //await NavigationService.NavigateAsync("NavigationPage/CustomMasterDetailPage");
         }
 
         private void SeedTestData()
@@ -120,6 +124,7 @@ namespace TP2
         {
             //Navigation pages
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<CustomMasterDetailPage, CustomMasterDetailViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<DogsListPage, DogsListViewModel>();
             containerRegistry.RegisterForNavigation<DogDetailPage, DogDetailViewModel>();
@@ -142,7 +147,6 @@ namespace TP2
             containerRegistry.RegisterSingleton<ISecureStorageService, SecureStorageService>();
             containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
-            containerRegistry.RegisterSingleton<TopMenuBar>();
             containerRegistry.RegisterSingleton<IDogApiService, DogApiService>();
         }
     }

@@ -52,7 +52,7 @@ namespace TP2.ViewModels
             }
             else
             {
-                if(authenticationService.AuthenticatedUser.DogId == -1)
+                if(!AuthenticatedUserHasAnyDog())
                 {
                     IsButtonToAddNewDogPageVisible = true;
                     _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM);
@@ -65,6 +65,12 @@ namespace TP2.ViewModels
                 //UserListOfDogs = new ObservableCollection<Dog>(_dogs);
             }
             Title = "Mon chien en adoption";
+        }
+
+        private bool AuthenticatedUserHasAnyDog()
+        {
+            if(_authenticationService.AuthenticatedUser.DogId == -1) return false;
+            return true;
         }
 
         private void GoToDogsListPage()

@@ -44,5 +44,6 @@ steps:
     tagSource: 'gitTag'
     tagPattern: 'tp2'
     title: 'TP2'
+    assets: '**/*.apk'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'

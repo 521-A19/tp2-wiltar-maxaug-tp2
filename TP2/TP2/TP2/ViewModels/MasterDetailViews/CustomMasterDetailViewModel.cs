@@ -3,6 +3,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TP2.Services;
 using TP2.Views;
 
 namespace TP2.ViewModels.MasterDetailViews
@@ -10,20 +11,30 @@ namespace TP2.ViewModels.MasterDetailViews
     public class CustomMasterDetailViewModel : ViewModelBase
     {
         public DelegateCommand<string> OnNavigateCommand { get; set; }
-        public CustomMasterDetailViewModel(INavigationService navigationService)
+        public DelegateCommand DeconnectionCommand => new DelegateCommand(LogOut);
+        private readonly IAuthenticationService _authenticationService;
+        public bool IsAuthenticated
+        {
+            get { return _authenticationService.IsUserAuthenticated; }
+        }
+
+        public CustomMasterDetailViewModel(INavigationService navigationService,
+                                            IAuthenticationService authenticationService)
             : base(navigationService)
         {
+            _authenticationService = authenticationService;
             OnNavigateCommand = new DelegateCommand<string>(NavigateAsync);
+            //DeconnectionCommand = new DelegateCommand(LogOut);
         }
 
         private void NavigateAsync(string page) //CommandParameter !
         {
-            NavigationService.NavigateAsync("NavigationPage/DogShopPage");
+            NavigationService.NavigateAsync(new System.Uri(page, System.UriKind.Absolute));
         }
-
-        private void NavigateToDogsList()
+        private void LogOut()
         {
-            NavigationService.NavigateAsync("MainPage/DogsListPage");
+            _authenticationService.LogOut();
+            NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
         }
     }
 }

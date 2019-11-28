@@ -51,7 +51,6 @@ namespace TP2.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
         {
             base.OnNavigatedTo(parameters);
-
         }
 
         private void HandleSelectedDog()

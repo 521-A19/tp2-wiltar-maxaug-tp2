@@ -8,6 +8,7 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
+            <!--
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Margin="0">
                 <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
                 </Label>
@@ -23,7 +24,7 @@
                     </Label.GestureRecognizers>
                 </Label>
                 <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
-            </StackLayout>
+            </StackLayout> -->
 
             <StackLayout IsVisible="{Binding IsAuthenticated}">
                 <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>

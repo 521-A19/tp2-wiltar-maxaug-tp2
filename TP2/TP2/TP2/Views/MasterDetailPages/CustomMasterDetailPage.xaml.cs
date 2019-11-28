@@ -4,17 +4,18 @@ using Prism.Navigation;
 
 namespace TP2.Views.MasterDetailPages
 {
-    public partial class CustomMasterDetailPage : MasterDetailPage, IMasterDetailPageOptions
+    public partial class CustomMasterDetailPage : MasterDetailPage
     {
         public CustomMasterDetailPage()
         {
             InitializeComponent();
         }
 
-        public bool IsPresentedAfterNavigation //Master Detail Page toujours présent
+        /*
+        public bool IsPresentedAfterNavigation //IMasterDetailPageOptions test purpose
         {
             get { return true; }
-        }
+        } */
     }
 }
 /*

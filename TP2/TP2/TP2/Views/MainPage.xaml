@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             x:Class="TP2.Views.MainPage"
+             Title="{Binding Title}">
+
+    <StackLayout HorizontalOptions="CenterAndExpand">
+        <Label FontSize="Title" Text="{x:Static externalization:UiText.WELCOME_ON_DOGFINDER}" />
+        <Label FontSize="Medium" Text="{x:Static externalization:UiText.SERVICES}" />
+
+        <StackLayout VerticalOptions="End" Padding="25">
+            <Label FontSize="Medium" Text="{x:Static externalization:UiText.NEWEST_STARS}" />
+        </StackLayout>
+        <StackLayout VerticalOptions="Center" Orientation="Horizontal">
+            <Image Source="https://images.dog.ceo/breeds/clumber/n02101556_823.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+            <Image Source="https://images.dog.ceo/breeds/shiba/shiba-11.jpg"
+                      HeightRequest="96" WidthRequest="120" Aspect="Fill"></Image>
+            <Image Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg"
+                      HeightRequest="96" WidthRequest="120"></Image>
+        </StackLayout>
+
+        <StackLayout VerticalOptions="Center" Orientation="Horizontal">
+            <Label FontAttributes="Bold" FontSize="Medium" Text="{x:Static externalization:UiText.SIGN_IN}"/>
+            <Button FontSize="Medium" Text="{x:Static externalization:UiText.SIGN_UP}" Margin="200, 0, 0, 0" Command="{Binding NavigateToRegisterPageCommand}"/>
+        </StackLayout>
+        <StackLayout>
+            <Entry x:Name="emailEntry" Placeholder="{x:Static externalization:UiText.EMAIL}" Text="{Binding Login}"/>
+            <Entry x:Name="passwordEntry" Placeholder="{x:Static externalization:UiText.PASSWORD}" Text="{Binding Password}" IsPassword="true"/>
+            <Button Text="{x:Static externalization:UiText.CONNECTION}" HorizontalOptions="Start" FontSize="Small" Command="{Binding AuthentifivationUserCommand}"/>
+        </StackLayout>
+
+        <Button FontSize="Medium" Text="{x:Static externalization:UiText.GO_TO_DOG_LIST}" Command="{Binding GoToDogsListCommand}"/>
+    </StackLayout>
+
+</ContentPage>

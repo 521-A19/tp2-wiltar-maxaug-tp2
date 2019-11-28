@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D6A609D2-7986-4374-A9A3-CD2EC136B131}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TP2.UITests</RootNamespace>
+    <AssemblyName>TP2.UITests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="Xamarin.UITest" Version="3.0.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TP2\TP2\TP2.csproj">
+      <Project>{95539914-EA09-4C04-BAD0-A3E67E3A39D1}</Project>
+      <Name>TP2</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseObjects\BasePageObject.cs" />
+    <Compile Include="BaseObjects\DogDetailViewObject.cs" />
+    <Compile Include="BaseObjects\DogShopViewObject.cs" />
+    <Compile Include="BaseObjects\DogsListViewObject.cs" />
+    <Compile Include="BaseObjects\MainPageViewObject.cs" />
+    <Compile Include="DogDetailViewObjectTests.cs" />
+    <Compile Include="DogShopViewObjectTests.cs" />
+    <Compile Include="Helpers\UiTestsHelper.cs" />
+    <Compile Include="DogsListViewObjectTests.cs" />
+    <Compile Include="MainPageViewObjectTests.cs" />
+    <Compile Include="AppInitializer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

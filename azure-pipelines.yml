@@ -37,7 +37,7 @@ steps:
 # Déployer sur GitHub
 - task: GitHubRelease@1
   inputs:
-    gitHubConnection: 'Muzikop'
+    gitHubConnection: 'WilliamsTardif'
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'

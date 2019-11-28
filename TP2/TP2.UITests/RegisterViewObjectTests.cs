@@ -12,7 +12,7 @@ using Xamarin.UITest.Queries;
 
 namespace TP2.UITests
 {
-    class DogDetailViewObjectTests
+    public class RegisterViewObjectTests
     {
         private AndroidApp app;
 
@@ -20,18 +20,21 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
-            var mainPageViewObject = new MainPageViewObject(app);
-            var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
         }
 
         [Test]
         public void WelcomeTextIsDisplayed()
         {
-            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
-            //app.Screenshot("Welcome screen.");
+            const string REGISTER_BUTTON = "Register";
+            var registerViewObject = new RegisterViewObject(app);
+
+            registerViewObject.GoToRegisterPage();
+
+            AppResult[] results = app.WaitForElement(REGISTER_BUTTON);
             Assert.IsTrue(results.Any());
         }
+
     }
 }

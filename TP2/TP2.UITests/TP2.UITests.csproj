@@ -44,10 +44,12 @@
     <Compile Include="BaseObjects\DogShopViewObject.cs" />
     <Compile Include="BaseObjects\DogsListViewObject.cs" />
     <Compile Include="BaseObjects\MainPageViewObject.cs" />
+    <Compile Include="BaseObjects\RegisterViewObject.cs" />
     <Compile Include="DogDetailViewObjectTests.cs" />
     <Compile Include="DogShopViewObjectTests.cs" />
     <Compile Include="Helpers\UiTestsHelper.cs" />
     <Compile Include="DogsListViewObjectTests.cs" />
+    <Compile Include="RegisterViewObjectTests.cs" />
     <Compile Include="MainPageViewObjectTests.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>

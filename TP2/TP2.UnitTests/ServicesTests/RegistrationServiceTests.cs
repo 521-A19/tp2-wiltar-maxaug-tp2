@@ -35,26 +35,24 @@ namespace TP2.UnitTests.ServicesTests
         }
 
         [Fact]
-        public void ExistingUser_WhenRegisterUser_ShouldSetIsRegisteredToFalse()
+        public void RegisterUser_WhenRegisterUser_ShouldSetIsRegisteredToFalse()
         {
-            _mockUserRepository.Setup(r => r.IsExisting(It.IsAny<string>())).Returns(true);
 
             _registrationService.RegisterUser(It.IsAny<string>(), It.IsAny<string>());
 
             _registrationService.IsUserRegistered.Should().BeFalse();
-            _mockUserRepository.Verify(x => x.IsExisting(It.IsAny<string>()), Times.Once());
         }
 
 
         [Fact]
-        public void NonExistingUser_WhenRegisterUser_ShouldSetIsRegisteredToTrue()
+        public void RegisterUser_WhenRegisterUserIsAlreadyRegisted_ShouldSetIsRegisteredToTrue()
         {
-            _mockUserRepository.Setup(r => r.IsExisting(It.IsAny<string>())).Returns(false);
-
-            _registrationService.RegisterUser(It.IsAny<string>(), It.IsAny<string>());
+            _registrationService.RegisterUser(_userList[0].Login, _userList[0].HashedPassword);
 
             _registrationService.IsUserRegistered.Should().BeTrue();
         }
+
+
 
         private List<User> CreateUserList()
         {

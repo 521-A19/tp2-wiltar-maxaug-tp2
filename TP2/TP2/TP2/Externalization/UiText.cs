@@ -47,5 +47,11 @@ namespace TP2.Externalization
         public const string SecondPasswordIsTheSameOfTheFirst = "Please write the right password!";
         public const string NameAndPriceShouldNotBeEmptyException = "Name should not be empty and Price should not be equal to 0. TY!";
         public const string Okay = "Okay";
+
+        //Register
+
+        public const string USER_IS_ALREADY_REGISTED = "Ce nom d'utilisateur est déjà utilisé!";
+        public const string USER_REGISTER_ALERT = "Désolé";
+        public const string OKAY_CHANGE_NAME = "D'accord";
     }
 }

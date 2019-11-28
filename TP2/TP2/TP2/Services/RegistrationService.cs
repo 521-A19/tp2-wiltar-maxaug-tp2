@@ -27,9 +27,9 @@ namespace TP2.Services
 
         public void RegisterUser(string login, string password)
         {
-            if (_repositoryService.GetAll().FirstOrDefault(x => x.Login == login) == null)
+            if (_repositoryService.GetAll().FirstOrDefault(x => x.Login == login) != null)
             {
-                _isRegistered = false;
+                _isRegistered = true;
             }
             else
             {
@@ -46,7 +46,7 @@ namespace TP2.Services
                 _secureStorageService.SetUserEncryptionKeyAsync(newUser, key);
                 _repositoryService.Add(newUser);
                 _registeredUser = newUser;
-                _isRegistered = true;
+                _isRegistered = false;
             }
         }
     }

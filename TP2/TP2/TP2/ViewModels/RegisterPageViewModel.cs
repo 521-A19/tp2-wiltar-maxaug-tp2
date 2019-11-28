@@ -10,12 +10,14 @@ using TP2.Externalization;
 using TP2.Validation;
 using TP2.Validation.Rules;
 using TP2.Views;
+using Prism.Services;
 
 namespace TP2.ViewModels
 {
     public class RegisterPageViewModel : ViewModelBase
     {
         private IRegistrationService _registrationService;
+        private IPageDialogService _pageDialogService;
         public DelegateCommand NavigateToMainPageCommand => new DelegateCommand(ExecuteNavigateToMainPageCommand);
 
         private ValidatableObject<string> _userName;
@@ -42,11 +44,12 @@ namespace TP2.ViewModels
             get => _secondPassword;
         }
 
-        public RegisterPageViewModel(INavigationService navigationService, IRegistrationService registrationService)
+        public RegisterPageViewModel(INavigationService navigationService, IRegistrationService registrationService, IPageDialogService dialogService)
             : base(navigationService)
         {
             Title = "Register Page";
             _registrationService = registrationService;
+            _pageDialogService = dialogService;
             _userName = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();
             _secondPassword = new ValidatableObject<string>();
@@ -114,7 +117,15 @@ namespace TP2.ViewModels
             if (Password.Errors.Count + UserName.Errors.Count + SecondPassword.Errors.Count == 0)
             {
                 _registrationService.RegisterUser(_userName.Value, _password.Value);
-                NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+                if (!_registrationService.IsUserRegistered)
+                {
+                    NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+                }
+                else
+                {
+                    _pageDialogService.DisplayAlertAsync(UiText.USER_REGISTER_ALERT, UiText.USER_IS_ALREADY_REGISTED, UiText.OKAY_CHANGE_NAME);
+                }
+               
 
             }
 

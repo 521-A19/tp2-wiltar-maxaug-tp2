@@ -1,7 +1,7 @@
 ﻿using TP2.Externalization;
 using Xamarin.UITest;
 
-namespace TP1.UITests.PageObjects
+namespace TP2.UITests.BaseObjects
 {
     public class MainPageViewObject : BasePageObject
     {

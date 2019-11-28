@@ -1,6 +1,4 @@
 ﻿using Xamarin.Forms;
-using System;
-using Prism.Navigation;
 
 namespace TP2.Views.MasterDetailPages
 {
@@ -18,15 +16,3 @@ namespace TP2.Views.MasterDetailPages
         } */
     }
 }
-/*
-namespace TP2.Views.MasterDetailPages
-{
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CustomMasterDetailPage : MasterDetailPage
-    {
-        public CustomMasterDetailPage()
-        {
-            InitializeComponent();
-        }
-    }
-}*/

@@ -53,14 +53,6 @@ namespace TP2.UnitTests
             _mockNavigationService.Verify(x => x.NavigateAsync(nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
         }
 
-        [Fact]
-        public void GoToDogShopCommand_ShouldChangePageToDogShop()
-        {
-            _dogsListViewModel.GoToDogShopCommand.Execute();
-
-            _mockNavigationService.Verify(x => x.NavigateAsync("DogsListPage/" + nameof(DogShopPage)), Times.Once());
-        }
-
         private List<Dog> CreateDogList()
         {
             var dogList = new Faker<Dog>()

@@ -114,7 +114,7 @@ namespace TP2.ViewModels
             if (Password.Errors.Count + UserName.Errors.Count + SecondPassword.Errors.Count == 0)
             {
                 _registrationService.RegisterUser(_userName.Value, _password.Value);
-                NavigationService.NavigateAsync("/" + nameof(MainPage));
+                NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
 
             }
 

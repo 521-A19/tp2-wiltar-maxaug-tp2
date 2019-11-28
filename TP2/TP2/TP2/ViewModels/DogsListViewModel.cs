@@ -13,7 +13,6 @@ namespace TP2.ViewModels
     public class DogsListViewModel : ViewModelBase
     {
         private readonly IAuthenticationService _authenticationService;
-        public DelegateCommand GoToDogShopCommand => new DelegateCommand(ChangePage);
         public DelegateCommand DeconnectionCommand => new DelegateCommand(LogOut);
         public DelegateCommand GoToConnectionCommand => new DelegateCommand(LogIn);
         public ObservableCollection<Dog> Dogs { get; set; }
@@ -62,11 +61,6 @@ namespace TP2.ViewModels
             NavigationService.NavigateAsync(nameof(DogDetailPage), navigationParameters);
         }
 
-        private void ChangePage()
-        {
-            NavigationService.NavigateAsync(nameof(DogShopPage));
-        }
-
         private void LogOut()
         {
             _authenticationService.LogOut();
@@ -75,7 +69,7 @@ namespace TP2.ViewModels
 
         private void LogIn()
         {
-            NavigationService.NavigateAsync(nameof(MainPage));
+            NavigationService.GoBackToRootAsync();
         }
     }
 }

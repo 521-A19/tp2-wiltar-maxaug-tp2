@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TP2.Models.Entities;
 using Xamarin.Essentials;
@@ -26,7 +27,7 @@ namespace TP2.Services
 
         public void RegisterUser(string login, string password)
         {
-            if (_repositoryService.IsExisting(login))
+            if (_repositoryService.GetAll().FirstOrDefault(x => x.Login == login) == null)
             {
                 _isRegistered = false;
             }
@@ -39,7 +40,8 @@ namespace TP2.Services
                     Login = login,
                     HashedPassword = _cryptoService.HashSHA512(password, salt),
                     PasswordSalt = salt,
-                    CreditCard = _cryptoService.Encrypt("5162042483342023", key)
+                    CreditCard = _cryptoService.Encrypt("5162042483342023", key),
+                    DogId = -1
                 };
                 _secureStorageService.SetUserEncryptionKeyAsync(newUser, key);
                 _repositoryService.Add(newUser);

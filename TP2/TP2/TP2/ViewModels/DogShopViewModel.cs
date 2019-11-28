@@ -12,13 +12,21 @@ namespace TP2.ViewModels
 {
     public class DogShopViewModel : ViewModelBase
     {
-        public DelegateCommand GoToDogsListPageCommand => new DelegateCommand(GoToDogsListPage);
         public DelegateCommand ModifyDogInformations => new DelegateCommand(ModifyMyDog);
         private IRepository<Dog> _dogRepositoryService;
         private IPageDialogService _pageDialogService;
         private IAuthenticationService _authenticationService;
         //public ObservableCollection<Dog> UserListOfDogs { get; set; }
-        public Dog MyDog;
+        public Dog _myDog;
+        public Dog MyDog
+        {
+            get { return _myDog; }
+            set
+            {
+                _myDog = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsAuthenticated
         {
             get { return _authenticationService.IsUserAuthenticated; }
@@ -73,11 +81,6 @@ namespace TP2.ViewModels
             return true;
         }
 
-        private void GoToDogsListPage()
-        {
-            NavigationService.NavigateAsync(nameof(DogsListPage));
-        }
-
         private void ModifyMyDog()
         {
             _dogRepositoryService.Update(MyDog);
@@ -86,7 +89,7 @@ namespace TP2.ViewModels
 
         private async void NavigateToAddNewDogPage()
         {
-            await NavigationService.NavigateAsync(nameof(AddNewDogPage));
+            await NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/AddNewDogPage", System.UriKind.Absolute));
         }
     }
 }

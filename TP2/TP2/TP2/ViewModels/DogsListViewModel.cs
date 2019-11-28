@@ -60,12 +60,12 @@ namespace TP2.ViewModels
             //page.DisplayAlert("Selected item", "Name: " + SelectedDog.Name + " Race: " + SelectedDog.Race, "OK");
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("selectedDogData", _selectedDog);
-            NavigationService.NavigateAsync("DogDetailPage", navigationParameters);
+            NavigationService.NavigateAsync(nameof(DogDetailPage), navigationParameters);
         }
 
         private void ChangePage()
         {
-            NavigationService.NavigateAsync("DogsListPage/" + nameof(DogShopPage));
+            NavigationService.NavigateAsync(nameof(DogShopPage));
         }
 
         private void LogOut()

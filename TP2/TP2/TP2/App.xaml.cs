@@ -36,8 +36,9 @@ namespace TP2
             InitializeComponent();
             SeedTestData();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
-            //await NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+            //await NavigationService.NavigateAsync("/NavigationPage/CustomMasterDetailPage/MainPage");
+            //await NavigationService.NavigateAsync(new System.Uri("/NavigationPage/CustomMasterDetailPage/MainPage", System.UriKind.Absolute));
+            await NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
             //await NavigationService.NavigateAsync("NavigationPage/CustomMasterDetailPage");
         }
 

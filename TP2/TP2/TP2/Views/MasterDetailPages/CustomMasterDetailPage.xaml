@@ -11,6 +11,8 @@
                 <Button Text="Go Test 1"
                         TextColor="White"
                         BackgroundColor="Red"
+                        Command="{Binding OnNavigateCommand}"
+                        CommandParameter="NavigationPage/DogShopPage"
                         />
                 <Button Text="Go Test 2" />
             </StackLayout>

@@ -12,6 +12,7 @@ namespace TP2.ViewModels.MasterDetailViews
     {
         public DelegateCommand<string> OnNavigateCommand { get; set; }
         public DelegateCommand DeconnectionCommand => new DelegateCommand(LogOut);
+        public DelegateCommand ShowUserProfileCommand => new DelegateCommand(UserProfile);
         private readonly IAuthenticationService _authenticationService;
         public bool IsAuthenticated
         {
@@ -27,14 +28,20 @@ namespace TP2.ViewModels.MasterDetailViews
             //DeconnectionCommand = new DelegateCommand(LogOut);
         }
 
-        private void NavigateAsync(string page) //CommandParameter !
+        private async void NavigateAsync(string page) //CommandParameter !
         {
-            NavigationService.NavigateAsync(new System.Uri(page, System.UriKind.Absolute));
+            await NavigationService.NavigateAsync(page);
         }
-        private void LogOut()
+        private async void LogOut()
         {
             _authenticationService.LogOut();
-            NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage));
+        }
+
+        private async void UserProfile()
+        {
+            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(UserProfilePage));
+
         }
     }
 }

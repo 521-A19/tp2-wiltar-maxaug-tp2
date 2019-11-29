@@ -19,5 +19,11 @@ namespace TP2.UITests.BaseObjects
         {
             App.Tap(UiText.SIGN_UP);
         }
+
+        public void GoToRegisterPageAndShowErrorMessage()
+        {
+            App.Tap(UiText.SIGN_UP);
+            App.Tap("Register");
+        }
     }
 }

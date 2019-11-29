@@ -37,9 +37,10 @@ namespace TP2.UnitTests
             _registerPageViewModel.UserName.Value = "email@test.com";
             _registerPageViewModel.Password.Value = "123456789aA";
             _registerPageViewModel.SecondPassword.Value = "123456789aA";
+
             _registerPageViewModel.NavigateToMainPageCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("/" + nameof(MainPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage)), Times.Once());
         }
 
         [Fact]
@@ -48,6 +49,7 @@ namespace TP2.UnitTests
             _registerPageViewModel.UserName.Value = "email@test.com";
             _registerPageViewModel.Password.Value = "123456789";
             _registerPageViewModel.SecondPassword.Value = "123456789aA";
+
             _registerPageViewModel.NavigateToMainPageCommand.Execute();
 
             _mockNavigationService.VerifyNoOtherCalls();
@@ -63,6 +65,7 @@ namespace TP2.UnitTests
             _registerPageViewModel.UserName.Value = "email@test.com";
             _registerPageViewModel.Password.Value = "123456789aA";
             _registerPageViewModel.SecondPassword.Value = "123456789aA";
+
             _registerPageViewModel.NavigateToMainPageCommand.Execute();
 
             

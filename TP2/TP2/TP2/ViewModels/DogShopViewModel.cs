@@ -89,7 +89,7 @@ namespace TP2.ViewModels
 
         private async void NavigateToAddNewDogPage()
         {
-            await NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/AddNewDogPage", System.UriKind.Absolute));
+            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(AddNewDogPage));
         }
     }
 }

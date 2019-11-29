@@ -49,6 +49,22 @@ namespace TP2.UnitTests
 
             _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogShopPage"), Times.Once());
         }
+
+        [Fact]
+        public void DeconnectionCommand_ShouldNavigateToMainPage()
+        {
+            _customMasterDetailViewModel.DeconnectionCommand.Execute();
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage)), Times.Once());
+        }
+
+        [Fact]
+        public void ShowUserProfileCommand_ShouldNavigateToUserProfilePage()
+        {
+            _customMasterDetailViewModel.ShowUserProfileCommand.Execute();
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(UserProfilePage)), Times.Once());
+        }
     }
 
 }

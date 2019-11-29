@@ -17,6 +17,12 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout BackgroundColor="Silver" Padding="20">
+                <Button Text="Profile"
+                        IsVisible="{Binding IsAuthenticated}"
+                        TextColor="White"
+                        BackgroundColor="Red"
+                        Command="{Binding ShowUserProfileCommand}"
+                        />
                 <Button Text="Mon chien en adoption"
                         TextColor="White"
                         BackgroundColor="Red"

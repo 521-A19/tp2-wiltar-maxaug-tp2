@@ -132,6 +132,7 @@ namespace TP2
             containerRegistry.RegisterForNavigation<DogShopPage, DogShopViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<AddNewDogPage, AddNewDogViewModel>();
+            containerRegistry.RegisterForNavigation<UserProfilePage, UserProfileViewModel>();
 
             //Repositories
             var databasePath = FileSystem.AppDataDirectory;  // FileSystem voir https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?tabs=android

@@ -119,7 +119,7 @@ namespace TP2.ViewModels
                 _registrationService.RegisterUser(_userName.Value, _password.Value);
                 if (!_registrationService.IsUserRegistered)
                 {
-                    NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+                    NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage));
                 }
                 else
                 {

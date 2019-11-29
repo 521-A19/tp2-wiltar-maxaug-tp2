@@ -85,7 +85,7 @@ namespace TP2.UnitTests
         {
             _dogShopViewModel.NavigateToAddNewDogPageCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync(nameof(AddNewDogPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(AddNewDogPage)), Times.Once());
         }
 
         /*

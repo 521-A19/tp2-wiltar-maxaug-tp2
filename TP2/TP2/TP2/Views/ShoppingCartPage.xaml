@@ -10,7 +10,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
+            <Label HorizontalOptions="Center" Text="Le coût total est " FontSize="Large"></Label>
             <ListView ItemsSource="{Binding DogListInShoppingCart}"
                       HasUnevenRows="True"
                       AutomationId="ListView">

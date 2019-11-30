@@ -151,6 +151,7 @@ namespace TP2
             containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IDogApiService, DogApiService>();
+            containerRegistry.RegisterSingleton<IShoppingCartService, ShoppingCartService>();
         }
     }
 }

@@ -12,6 +12,5 @@ namespace TP2.Services
         void Add(T entity);
         void Update(T entity);
         void DeleteAll();
-        bool IsExisting(string login);
     }
 }

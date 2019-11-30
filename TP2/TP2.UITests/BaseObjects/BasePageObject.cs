@@ -1,7 +1,7 @@
-﻿using TP1.UITests.Helpers;
+﻿using TP2.UITests.Helpers;
 using Xamarin.UITest;
 
-namespace TP1.UITests.PageObjects
+namespace TP2.UITests.BaseObjects
 {
     public class BasePageObject
     {

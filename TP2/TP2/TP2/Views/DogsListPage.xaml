@@ -3,14 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             xmlns:local="clr-namespace:TP2.Converters"
              mc:Ignorable="d"
-             x:Class="TP2.Views.DogsListPage">
-  <ContentPage.Content>
-      
+             x:Class="TP2.Views.DogsListPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NegateBoolConverter x:Key="NegateBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
-            <ListView x:Name ="dogsListView" 
-                      ItemsSource="{Binding Dogs}"
+            <!--
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Margin="0">
+                <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToDogShopCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="Liste" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label IsVisible="{Binding IsAuthenticated}" Text="Profil" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label IsVisible="{Binding IsAuthenticated}" Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DeconnectionCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label IsVisible="{Binding IsAuthenticated, Converter={StaticResource NegateBool}}" Text="Connexion" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToConnectionCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
+            </StackLayout> -->
+
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
+            <ListView ItemsSource="{Binding Dogs}"
                       SelectedItem="{Binding SelectedDog}"
                       HasUnevenRows="True"
                       AutomationId="ListView">

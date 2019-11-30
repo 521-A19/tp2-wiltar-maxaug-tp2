@@ -1,28 +1,71 @@
 using Moq;
 using Prism.Navigation;
+using Prism.Services;
 using System;
+using TP2.Models.Entities;
+using TP2.Services;
 using TP2.ViewModels;
 using TP2.Views;
 using Xunit;
+using Bogus;
+using FluentAssertions;
+using System.Collections.Generic;
 
 namespace TP2.UnitTests
 {
     public class DogsListViewModelTests
     {
-        private MainPageViewModel _mainPageViewModel;
+        private DogsListViewModel _dogsListViewModel;
+        private Mock<IRepository<Dog>> _mockRepositoryService;
         private Mock<INavigationService> _mockNavigationService;
+        private Mock<IAuthenticationService> _mockAuthenticationService;
+        private List<Dog> _dogList;
+
         public DogsListViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
-            _mainPageViewModel = new MainPageViewModel(_mockNavigationService.Object);
+            _mockRepositoryService = new Mock<IRepository<Dog>>();
+            _mockAuthenticationService = new Mock<IAuthenticationService>();
+            _dogList = CreateDogList();
+            _mockRepositoryService
+                .Setup(r => r.GetAll())
+                .Returns(_dogList);
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object, _mockAuthenticationService.Object);
         }
 
-        [Fact]
-        public void GoToDogsListCommand_ShouldChangePageToDogsList()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void OnArrival_DogsObservableListShouldBeLoaded(int indexOfDogList)
         {
-            _mainPageViewModel.GoToDogsListCommand.Execute();
+            Assert.Contains(_dogList[indexOfDogList], _dogsListViewModel.Dogs);
+        }
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("NavigationPage/" + nameof(DogsListPage)), Times.Once());
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void OnSelectedDog_ShouldGoToDogDetailPage(int indexOfDogList)
+        {
+            _dogsListViewModel.SelectedDog = _dogList[indexOfDogList];
+
+            _mockNavigationService.Verify(x => x.NavigateAsync(nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
+        }
+
+        private List<Dog> CreateDogList()
+        {
+            var dogList = new Faker<Dog>()
+                .StrictMode(true)
+                .RuleFor(u => u.Name, f => f.Person.FirstName)
+                .RuleFor(u => u.Price, f => (float)299.99)
+                .RuleFor(u => u.Race, f => "Husky")
+                .RuleFor(u => u.Description, f => "Dog")
+                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
+                .RuleFor(u => u.ImageUrl, f => "url")
+                .RuleFor(u => u.Id, f => f.IndexFaker)
+                .Generate(3);
+            return dogList;
         }
     }
 }

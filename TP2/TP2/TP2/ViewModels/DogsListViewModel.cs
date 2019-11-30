@@ -1,70 +1,75 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TP2.Models.Entities;
 using TP2.Services;
+using TP2.Views;
 using Xamarin.Forms;
 
 namespace TP2.ViewModels
 {
     public class DogsListViewModel : ViewModelBase
     {
+        private readonly IAuthenticationService _authenticationService;
+        public DelegateCommand DeconnectionCommand => new DelegateCommand(LogOut);
+        public DelegateCommand GoToConnectionCommand => new DelegateCommand(LogIn);
         public ObservableCollection<Dog> Dogs { get; set; }
+
         private Dog _selectedDog;
         public Dog SelectedDog
         {
             get { return _selectedDog; }
             set 
             { 
-                _selectedDog = value;
-                //HandleSelectedDog();
+                if (_selectedDog != value)
+                {
+                    _selectedDog = value;
+                    HandleSelectedDog();  //Change de page vers DogDetailPage
+                }
             }
         }
 
+        public bool IsAuthenticated
+        {
+            get { return _authenticationService.IsUserAuthenticated; }
+        }
+
         public DogsListViewModel(INavigationService navigationService,
-                                    IRepository<Dog> repositoryService)
+                                    IRepository<Dog> repositoryService,
+                                    IAuthenticationService authenticationService)
             : base(navigationService)
         {
-            Title = "Liste des chiens";
-            //_dogs = repositoryService.GetAll();
-            //var projects = _projects.ToList();
-            //return new Collection<Project>(projects);
-            Dogs = new ObservableCollection<Dog>
-            {
-                new Dog()
-                {
-                    Name = "Rex",
-                    ImageUrl = "https://images.dog.ceo/breeds/clumber/n02101556_823.jpg",
-                    Price = (float)259.99,
-                    Race = "Husky",
-                    Sex = "Male",
-                    Description = "Jeune chien de 4 mois, super énergique"
-                },
-                new Dog()
-                {
-                    Name = "Cloud",
-                    ImageUrl = "https://images.dog.ceo/breeds/shiba/shiba-11.jpg",
-                    Price = (float)399.99,
-                    Race = "Samoyede",
-                    Sex = "Male",
-                    Description = "13 mois, chien blanc"
-                },
-                new Dog()
-                {
-                    Name = "Leo",
-                    ImageUrl = "https://images.dog.ceo/breeds/pug/n02110958_1975.jpg",
-                    Price = (float)269.99,
-                    Race = "Husky",
-                    Sex = "Male",
-                    Description = "Gentil et calme"
-                },
-            };
+            Title = "Liste de chiens globale";
+            var _dogs = repositoryService.GetAll();
+            Dogs = new ObservableCollection<Dog>(_dogs);
+            _authenticationService = authenticationService;
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
+        {
+            base.OnNavigatedTo(parameters);
         }
 
         private void HandleSelectedDog()
         {
-            Page page = new Page();
-            page.DisplayAlert("Selected item", "Name: " + SelectedDog.Name + " Race: " + SelectedDog.Race, "OK");
+            //Page page = new Page();
+            //page.DisplayAlert("Selected item", "Name: " + SelectedDog.Name + " Race: " + SelectedDog.Race, "OK");
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("selectedDogData", _selectedDog);
+            NavigationService.NavigateAsync(nameof(DogDetailPage), navigationParameters);
+        }
+
+        private void LogOut()
+        {
+            _authenticationService.LogOut();
+            NavigationService.GoBackToRootAsync();
+        }
+
+        private void LogIn()
+        {
+            NavigationService.GoBackToRootAsync();
         }
     }
 }

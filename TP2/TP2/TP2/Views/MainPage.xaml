@@ -7,10 +7,10 @@
 
     <StackLayout HorizontalOptions="CenterAndExpand">
         <Label FontSize="Title" Text="{x:Static externalization:UiText.WELCOME_ON_DOGFINDER}" />
-        <Label FontSize="Medium" Text="Dog Adoption and Advices" />
+        <Label FontSize="Medium" Text="{x:Static externalization:UiText.SERVICES}" />
 
         <StackLayout VerticalOptions="End" Padding="25">
-            <Label FontSize="Medium" Text="Our Newest Stars" />
+            <Label FontSize="Medium" Text="{x:Static externalization:UiText.NEWEST_STARS}" />
         </StackLayout>
         <StackLayout VerticalOptions="Center" Orientation="Horizontal">
             <Image Source="https://images.dog.ceo/breeds/clumber/n02101556_823.jpg"
@@ -22,17 +22,16 @@
         </StackLayout>
 
         <StackLayout VerticalOptions="Center" Orientation="Horizontal">
-            <Label FontAttributes="Bold" FontSize="Medium" Text="Sign in"/>
-            <Label FontSize="Medium" Text="Sign up" Margin="200, 0, 0, 0" />
+            <Label FontAttributes="Bold" FontSize="Medium" Text="{x:Static externalization:UiText.SIGN_IN}"/>
+            <Button FontSize="Medium" Text="{x:Static externalization:UiText.SIGN_UP}" Margin="200, 0, 0, 0" Command="{Binding NavigateToRegisterPageCommand}"/>
         </StackLayout>
         <StackLayout>
-            <Entry x:Name="emailEntry" Placeholder="Email" Text=""/>
-            <Entry x:Name="passwordEntry" Placeholder="Password" Text="" IsPassword="true"/>
+            <Entry x:Name="emailEntry" Placeholder="{x:Static externalization:UiText.EMAIL}" Text="{Binding Login}"/>
+            <Entry x:Name="passwordEntry" Placeholder="{x:Static externalization:UiText.PASSWORD}" Text="{Binding Password}" IsPassword="true"/>
+            <Button Text="{x:Static externalization:UiText.CONNECTION}" HorizontalOptions="Start" FontSize="Small" Command="{Binding AuthentifivationUserCommand}"/>
         </StackLayout>
 
-        <Label FontSize="Medium" Text="See the dogs anytime" />
-        <Button FontSize="Medium" Text="Find a dog" Command="{Binding GoToDogsListCommand}"/>
-        <Label FontSize="Large" Text="Blog" />
+        <Button FontSize="Medium" Text="{x:Static externalization:UiText.GO_TO_DOG_LIST}" Command="{Binding GoToDogsListCommand}"/>
     </StackLayout>
 
 </ContentPage>

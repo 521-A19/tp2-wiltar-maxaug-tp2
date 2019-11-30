@@ -32,10 +32,10 @@ namespace TP2.ViewModels.MasterDetailViews
             await NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + page);
             //NavigationService.NavigateAsync(new System.Uri(page, System.UriKind.Absolute));
         }
-        private void LogOut()
+        private async void LogOut()
         {
             _authenticationService.LogOut();
-            NavigationService.GoBackToRootAsync();
+            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage));
         }
     }
 }

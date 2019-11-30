@@ -20,11 +20,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-<<<<<<< HEAD
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
-=======
-              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
->>>>>>> b66a632ed8956954b788d99d6670998e64860fc7
               .StartApp();
         }
 

@@ -30,7 +30,7 @@ namespace TP2.UnitTests
             _mockRepositoryService
                 .Setup(r => r.GetAll())
                 .Returns(_dogList);
-            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object, _mockAuthenticationService.Object);
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
         }
 
         [Theory]
@@ -50,7 +50,7 @@ namespace TP2.UnitTests
         {
             _dogsListViewModel.SelectedDog = _dogList[indexOfDogList];
 
-            _mockNavigationService.Verify(x => x.NavigateAsync(nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
         }
 
         private List<Dog> CreateDogList()

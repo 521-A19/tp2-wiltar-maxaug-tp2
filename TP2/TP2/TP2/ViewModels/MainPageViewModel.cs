@@ -69,7 +69,7 @@ namespace TP2.ViewModels
                 _authenticationService.LogIn(Login, Password);
                 if (_authenticationService.IsUserAuthenticated)
                 {
-                    await NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
+                    await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
                 }
                 else
                 {

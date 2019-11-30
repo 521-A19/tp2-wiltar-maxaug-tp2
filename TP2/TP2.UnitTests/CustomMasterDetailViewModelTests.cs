@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace TP2.UnitTests
 {
-    public class CostomMasterDetailViewModelTests
+    public class CustomMasterDetailViewModelTests
     {
         private CustomMasterDetailViewModel _customMasterDetailViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IAuthenticationService> _mockAuthenticationService;
 
-        public CostomMasterDetailViewModelTests()
+        public CustomMasterDetailViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockAuthenticationService = new Mock<IAuthenticationService>();
@@ -40,7 +40,7 @@ namespace TP2.UnitTests
         {
             _customMasterDetailViewModel.DeconnectionCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/MainPage"), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage)), Times.Once());
         }
 
         [Theory]

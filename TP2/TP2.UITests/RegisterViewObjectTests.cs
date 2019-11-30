@@ -20,12 +20,16 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
+<<<<<<< HEAD
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+=======
+              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+>>>>>>> b66a632ed8956954b788d99d6670998e64860fc7
               .StartApp();
         }
 
         [Test]
-        public void WelcomeTextIsDisplayed()
+        public void JeVeuxMeRendreALaPageDEnregistration()
         {
             const string REGISTER_BUTTON = "Register";
             var registerViewObject = new RegisterViewObject(app);
@@ -33,6 +37,18 @@ namespace TP2.UITests
             registerViewObject.GoToRegisterPage();
 
             AppResult[] results = app.WaitForElement(REGISTER_BUTTON);
+            Assert.IsTrue(results.Any());
+        }
+
+        [Test]
+        public void JeVeuxMeRendreALaPageDEnregistrationEtMenregistrerMaisDesMessagesDerreursApparaient()
+        {
+            const string EXPECTED_EROOR_MESSAGE = UiText.SecondPasswordIsTheSameOfTheFirst;
+            var registerViewObject = new RegisterViewObject(app);
+
+            registerViewObject.GoToRegisterPageAndShowErrorMessage();
+
+            AppResult[] results = app.WaitForElement(EXPECTED_EROOR_MESSAGE);
             Assert.IsTrue(results.Any());
         }
 

@@ -17,6 +17,13 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout BackgroundColor="Silver" Padding="20">
+                <Button Text="Mon panier"
+                        IsVisible="{Binding IsAuthenticated}"
+                        TextColor="White"
+                        BackgroundColor="Red"
+                        Command="{Binding OnNavigateCommand}"
+                        CommandParameter="ShoppingCartPage"
+                        />
                 <Button Text="Mon chien en adoption"
                         IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
@@ -29,6 +36,13 @@
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
                         CommandParameter="DogsListPage"
+                        />
+                <Button Text="Profile"
+                        IsVisible="{Binding IsAuthenticated}"
+                        TextColor="White"
+                        BackgroundColor="Red"
+                        Command="{Binding OnNavigateCommand}"
+                        CommandParameter="UserProfilePage"
                         />
                 <Button Text="Déconnection"
                         IsVisible="{Binding IsAuthenticated}"

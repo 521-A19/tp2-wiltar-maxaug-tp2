@@ -27,9 +27,9 @@ namespace TP2.ViewModels.MasterDetailViews
             DeconnectionCommand = new DelegateCommand(LogOut);
         }
 
-        private void NavigateAsync(string page) //CommandParameter !
+        private async void NavigateAsync(string page) //CommandParameter !
         {
-            NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + page);
+            await NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + page);
             //NavigationService.NavigateAsync(new System.Uri(page, System.UriKind.Absolute));
         }
         private void LogOut()

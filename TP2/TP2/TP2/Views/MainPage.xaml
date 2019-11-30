@@ -26,8 +26,8 @@
             <Button FontSize="Medium" Text="{x:Static externalization:UiText.SIGN_UP}" Margin="200, 0, 0, 0" Command="{Binding NavigateToRegisterPageCommand}"/>
         </StackLayout>
         <StackLayout>
-            <Entry x:Name="emailEntry" Placeholder="{x:Static externalization:UiText.EMAIL}" Text="{Binding Login}"/>
-            <Entry x:Name="passwordEntry" Placeholder="{x:Static externalization:UiText.PASSWORD}" Text="{Binding Password}" IsPassword="true"/>
+            <Entry x:Name="emailEntry" Placeholder="{x:Static externalization:UiText.EMAIL}" Text="{Binding Login}" AutomationId="NameId"/>
+            <Entry x:Name="passwordEntry" Placeholder="{x:Static externalization:UiText.PASSWORD}" Text="{Binding Password}" IsPassword="true" AutomationId="PasswordId"/>
             <Button Text="{x:Static externalization:UiText.CONNECTION}" HorizontalOptions="Start" FontSize="Small" Command="{Binding AuthentifivationUserCommand}"/>
         </StackLayout>
 

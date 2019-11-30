@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TP2.ViewModels.MasterDetailViews;
 using TP2.Services;
+using System.Threading.Tasks;
 
 namespace TP2.UnitTests
 {
@@ -46,6 +47,7 @@ namespace TP2.UnitTests
         [InlineData("DogShopPage")]
         [InlineData("DogsListPage")]
         [InlineData("MainPage")]
+        [InlineData("UserProfilePage")]
         public void OnNavigateCommand_ShouldNavigateToOtherPage(string namePage)
         {
             _customMasterDetailViewModel.OnNavigateCommand.Execute(namePage);

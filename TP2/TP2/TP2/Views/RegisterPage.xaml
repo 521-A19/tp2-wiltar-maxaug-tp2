@@ -15,7 +15,7 @@
 
     <StackLayout>
         <Label Text="Email address" HorizontalOptions="Start" FontSize="Small"/>
-        <Entry Text="{Binding UserName.Value}">
+        <Entry Text="{Binding UserName.Value}" AutomationId="NameId">
             <Entry.Behaviors>
                 <!--Behaviors lets you add functionality to user interface controls 
                     without having to subclass them.-->
@@ -28,7 +28,7 @@
                               Converter={StaticResource ErrorToTextConverter}}" 
                TextColor="Red"/>
         <Label Text="Password" HorizontalOptions="Start" FontSize="Small"/>
-        <Entry Text="{Binding Password.Value}">
+        <Entry Text="{Binding Password.Value}" AutomationId="PasswordId">
             <Entry.Behaviors>
                 <behaviors:EventToCommandBehavior
                     EventName="TextChanged"
@@ -39,7 +39,7 @@
                               Converter={StaticResource ErrorToTextConverter}}" 
                TextColor="Red"/>
         <Label Text="ConfirmPassword" HorizontalOptions="Start" FontSize="Small"/>
-        <Entry Text="{Binding SecondPassword.Value}">
+        <Entry Text="{Binding SecondPassword.Value}" AutomationId="SecondPasswordId">
         </Entry>
         <Label Text="{Binding SecondPassword.Errors,
                               Converter={StaticResource ErrorToTextConverter}}" 

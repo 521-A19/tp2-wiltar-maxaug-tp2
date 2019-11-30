@@ -41,7 +41,13 @@ namespace TP2.ViewModels
             _repository = repository;
             _DogBreeds = _dogBreedsService.GetDogBreeds();
             _breedsList = _DogBreeds.message;
-            RandomImageURL();
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            
+             RandomImageURL();
+
         }
 
         private void RandomImageURL()

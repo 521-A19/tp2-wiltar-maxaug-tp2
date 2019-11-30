@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             mc:Ignorable="d"
+             x:Class="TP2.Views.ShoppingCartPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
+            <ListView ItemsSource="{Binding DogListInShoppingCart}"
+                      HasUnevenRows="True"
+                      AutomationId="ListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Image Source="{Binding ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                                <Label Text="{Binding Name}"></Label>
+                                <Label Text="{Binding Race}"></Label>
+                                <Label Text="{Binding Sex}"></Label>
+                                <Label Text="{Binding Price}"></Label>
+                                <Label Text="{Binding Description}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

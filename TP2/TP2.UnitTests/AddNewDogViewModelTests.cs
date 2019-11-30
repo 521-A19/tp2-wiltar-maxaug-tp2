@@ -60,16 +60,20 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void AddNewDogCommand_WhenAllDogAttributIsNotHonored_ShouldNotNavigateToDogsList()
+        public void AddNewDogCommand_WhenExectionIsThrow_ShouldSetAlert()
         {
             //Arrange
             _addNewDogViewModel.Breed = "african";
             _addNewDogViewModel.Price = 120;
 
+            _mockNavigationService
+                .Setup(a => a.NavigateAsync("AddNewDogPage/DogsListPage"))
+                .Throws<Exception>();
+
             //Act
             _addNewDogViewModel.AddNewDogCommand.Execute();
             //Assert
-            _mockNavigationService.VerifyNoOtherCalls();
+            _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay));
         }
 
         

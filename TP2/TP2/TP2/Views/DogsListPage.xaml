@@ -4,16 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:externalization="clr-namespace:TP2.Externalization"
-             xmlns:local="clr-namespace:TP2.Converters"
              mc:Ignorable="d"
              x:Class="TP2.Views.DogsListPage"
              Title="{Binding Title}">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:NegateBoolConverter x:Key="NegateBool" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout>
@@ -62,7 +55,6 @@
             </ListView>
             <StackLayout HorizontalOptions="Start">
                 <Button Text="Trier"></Button>
-                <Button Text="Rechercher"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

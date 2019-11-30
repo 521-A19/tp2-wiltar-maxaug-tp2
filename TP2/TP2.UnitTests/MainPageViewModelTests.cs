@@ -41,7 +41,7 @@ namespace TP2.UnitTests
         {
             _mainPageViewModel.GoToDogsListCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("NavigationPage/DogsListPage"), Times.Once());
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace TP2.UnitTests
             _mainPageViewModel.AuthentifivationUserCommand.Execute();
 
             //Assert
-            _mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
             //_mockNavigationService.Verify(x => x.NavigateAsync("MainPage/" + nameof(DogsListPage), navigationParameters), Times.Once());
         }
 

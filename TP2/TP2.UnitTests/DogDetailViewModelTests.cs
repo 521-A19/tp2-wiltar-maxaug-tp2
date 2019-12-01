@@ -45,6 +45,19 @@ namespace TP2.UnitTests
         }
 
         [Fact]
+        public void OnNavigatedTo_ShouldCallContainsFromShoppingCartService()
+        {
+            INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
+            Dog dog = CreateFakeDog();
+            navigationParameters.Add("selectedDogData", dog);
+
+            _dogDetailViewModel.OnNavigatedTo(navigationParameters);
+
+            _mockShoppingCartService.Verify(x => x.Contains(It.IsAny<int>()), Times.Once());
+            _mockShoppingCartService.VerifyNoOtherCalls();
+        }
+
+        [Fact]
         public void SelectedDog_AddSelectedDogToTheShoppingCart_ShouldAddDogToTheShoppingCartInShoppingCartService()
         {
             _dogDetailViewModel.SelectedDog = CreateFakeDog();

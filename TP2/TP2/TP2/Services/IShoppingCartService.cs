@@ -12,8 +12,6 @@ namespace TP2.Services
         float TotalPrice { get; }
         void AddDogToTheShoppingCart(Dog dogToAdd);
         void RemoveDogFromTheShoppingCart(Dog dogToRemove);
-        Collection<Dog> GetAllDogsFromShoppingCart();
-
         bool Contains(int id);
     }
 }

@@ -52,12 +52,5 @@ namespace TP2.Services
             ShoppingCartDogList.Remove(dogToRemove);
             TotalPrice -= dogToRemove.Price;
         }
-
- 
-
-        public Collection<Dog> GetAllDogsFromShoppingCart()
-        {
-            return new Collection<Dog>(_shoppingCartDogList);
-        }
     }
 }

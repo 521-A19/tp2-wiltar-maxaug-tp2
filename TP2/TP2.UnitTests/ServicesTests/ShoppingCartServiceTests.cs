@@ -63,6 +63,15 @@ namespace TP2.UnitTests.ServicesTests
             _shoppingCartService.TotalPrice.Should().Be(0);
         }
 
+        [Fact]
+        public void DogList_Contains_ShouldReturnTrueIfFound()
+        {
+            var dogs = CreateDogList();
+            foreach(Dog cur in dogs) _shoppingCartService.AddDogToTheShoppingCart(cur); //No Set
+
+            foreach (Dog cur in _shoppingCartService.ShoppingCartDogList) _shoppingCartService.Contains(cur.Id).Should().BeTrue();
+        }
+
         private Dog CreateFakeDog()
         {
             var fakeDog = new Faker<Dog>()
@@ -76,6 +85,21 @@ namespace TP2.UnitTests.ServicesTests
                 .RuleFor(u => u.Price, f => ANY_DOG_PRICE)
                 .Generate();
             return fakeDog;
+        }
+
+        private List<Dog> CreateDogList()
+        {
+            var dogList = new Faker<Dog>()
+                .StrictMode(true)
+                .RuleFor(u => u.Name, f => f.Person.FirstName)
+                .RuleFor(u => u.Price, f => (float)299.99)
+                .RuleFor(u => u.Race, f => "Husky")
+                .RuleFor(u => u.Description, f => "Dog")
+                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
+                .RuleFor(u => u.ImageUrl, f => "url")
+                .RuleFor(u => u.Id, f => f.IndexFaker)
+                .Generate(3);
+            return dogList;
         }
     }
 }

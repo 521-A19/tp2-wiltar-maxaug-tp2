@@ -73,7 +73,7 @@ namespace TP2.ViewModels
                 };
                 _repository.Add(newDog);
 
-                await NavigationService.NavigateAsync("AddNewDogPage/DogsListPage");
+                await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogsListPage");
             }
             catch
             {

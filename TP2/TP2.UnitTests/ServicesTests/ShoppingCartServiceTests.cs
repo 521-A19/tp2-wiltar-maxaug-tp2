@@ -26,9 +26,9 @@ namespace TP2.UnitTests.ServicesTests
 
             _shoppingCartService.AddDogToTheShoppingCart(dog);
 
-            _shoppingCartService.DogListInShoppingCart.Should().Contain(dog);
-            _shoppingCartService.DogListInShoppingCart[0].Should().BeEquivalentTo(dog);
-            _shoppingCartService.DogListInShoppingCart.Should().NotBeEmpty();
+            _shoppingCartService.ShoppingCartDogList.Should().Contain(dog);
+            _shoppingCartService.ShoppingCartDogList[0].Should().BeEquivalentTo(dog);
+            _shoppingCartService.ShoppingCartDogList.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -49,8 +49,7 @@ namespace TP2.UnitTests.ServicesTests
 
             _shoppingCartService.RemoveDogFromTheShoppingCart(dog);
 
-            //_shoppingCartService.DogListInShoppingCart[0].Should().BeEquivalentTo(dog);
-            _shoppingCartService.DogListInShoppingCart.Should().BeEmpty();
+            _shoppingCartService.ShoppingCartDogList.Should().BeEmpty();
         }
 
         [Fact]

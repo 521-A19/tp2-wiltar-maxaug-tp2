@@ -41,7 +41,7 @@ namespace TP2.ViewModels
         {
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("selectedDogData", _selectedDog);
-            NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), navigationParameters);
+            NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), navigationParameters);
         }
     }
 }

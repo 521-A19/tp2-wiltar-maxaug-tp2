@@ -43,7 +43,7 @@ namespace TP2.UnitTests
 
             _addNewDogViewModel.AddNewDogCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("AddNewDogPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace TP2.UnitTests
 
             _addNewDogViewModel.AddNewDogCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("AddNewDogPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace TP2.UnitTests
             _addNewDogViewModel.Price = 120;
 
             _mockNavigationService
-                .Setup(a => a.NavigateAsync("AddNewDogPage/DogsListPage"))
+                .Setup(a => a.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogsListPage"))
                 .Throws<Exception>();
 
             //Act

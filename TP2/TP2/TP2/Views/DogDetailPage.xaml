@@ -13,12 +13,12 @@
                 <Image Source="{Binding SelectedDog.ImageUrl}"
                     HeightRequest="226" WidthRequest="250"></Image>
             </StackLayout>
-
-                <Label Text="{Binding SelectedDog.Name}"/>
-                <Label Text="{Binding SelectedDog.Race}"/>
-                <Label Text="{Binding SelectedDog.Sex}"/>
-                <Label Text="{Binding SelectedDog.Price}"/>
-                <Label Text="{Binding SelectedDog.Description}"/>
-            </StackLayout>
+            <Label Text="{Binding SelectedDog.Name}"/>
+            <Label Text="{Binding SelectedDog.Race}"/>
+            <Label Text="{Binding SelectedDog.Sex}"/>
+            <Label Text="{Binding SelectedDog.Price}"/>
+            <Label Text="{Binding SelectedDog.Description}"/>
+            <Button Text="Ajouter au panier" Command="{Binding AddSelectedDogToTheShoppingCart}" />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

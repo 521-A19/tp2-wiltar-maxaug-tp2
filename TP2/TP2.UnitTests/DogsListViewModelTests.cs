@@ -50,7 +50,7 @@ namespace TP2.UnitTests
         {
             _dogsListViewModel.SelectedDog = _dogList[indexOfDogList];
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
         }
 
         private List<Dog> CreateDogList()

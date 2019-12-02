@@ -20,11 +20,8 @@ namespace TP2.ViewModels
             get { return _selectedDog; }
             set 
             { 
-                if (_selectedDog != value)
-                {
-                    _selectedDog = value;
-                    HandleSelectedDog();  //Change de page vers DogDetailPage
-                }
+                _selectedDog = value;
+                HandleSelectedDog();
             }
         }
 

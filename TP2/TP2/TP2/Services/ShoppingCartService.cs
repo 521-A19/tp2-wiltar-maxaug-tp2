@@ -11,8 +11,30 @@ namespace TP2.Services
         private List<Dog> _shoppingCartDogList;
         public ShoppingCartService()
         {
-            TotalPrice = 0;
-            _shoppingCartDogList = new List<Dog>();
+            _shoppingCartDogList  = new List<Dog>()
+            {
+                new Dog()
+                {
+                    Id= 9,
+                    Name = "Rex",
+                    Description = "fsdkfdsfdfd",
+                    ImageUrl = "url",
+                    Price = (float)299.99,
+                    Race = "Husky",
+                    Sex = "Male"
+                },
+                new Dog()
+                {
+                    Id= 10,
+                    Name = "Cloud",
+                    Description = "fsdkfdsfdfd",
+                    ImageUrl = "url",
+                    Price = (float)199.99,
+                    Race = "Samo",
+                    Sex = "Male"
+                }
+            };
+            TotalPrice = _shoppingCartDogList[0].Price + _shoppingCartDogList[1].Price;
         }
 
         public List<Dog> ShoppingCartDogList

@@ -1,8 +1,8 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
+using Prism.Services;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using TP2.Models.Entities;
 using TP2.Services;
 using TP2.Views;
@@ -12,30 +12,32 @@ namespace TP2.ViewModels
 {
     public class ShoppingCartViewModel : ViewModelBase
     {
-        //private readonly IAuthenticationService _authenticationService;
-        public ObservableCollection<Dog> DogListInShoppingCart { get; set; }
-        private readonly IShoppingCartService _shoppinfCartService;
+        public ObservableCollection<Dog> DogList { get; set; }
+        public float TotalPrice { get; set; }
+        private readonly IShoppingCartService _shoppingCartService;
 
         public ShoppingCartViewModel(INavigationService navigationService,
                                     IShoppingCartService shoppingCartService)
             : base(navigationService)
         {
-            _shoppinfCartService = shoppingCartService;
-            /*
-            var dogs = shoppingCartService.GetAllDogsFromShoppingCart();
-            DogListInShoppingCart.Clear();
-            foreach (var dog in dogs)
-            {
-                DogListInShoppingCart.Add(dog);
-            }*/
+            _shoppingCartService = shoppingCartService;
             Title = "Mon panier";
             var _dogs = shoppingCartService.ShoppingCartDogList;
-            DogListInShoppingCart = new ObservableCollection<Dog>(_dogs);
+            DogList = new ObservableCollection<Dog>(_dogs);
+            TotalPrice = _shoppingCartService.TotalPrice;
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
+        public ICommand DeleteDogFromTheShoppingCartCommand
         {
-            base.OnNavigatedTo(parameters);
+            get
+            {
+                return new Command((item) =>
+                {
+                    var dog = (item as Dog);
+                    _shoppingCartService.RemoveDogFromTheShoppingCart(dog);
+                    NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(ShoppingCartPage));
+                });
+            }
         }
     }
 }

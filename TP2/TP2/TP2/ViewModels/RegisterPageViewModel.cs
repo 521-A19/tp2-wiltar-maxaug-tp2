@@ -125,10 +125,7 @@ namespace TP2.ViewModels
                 {
                     _pageDialogService.DisplayAlertAsync(UiText.USER_REGISTER_ALERT, UiText.USER_IS_ALREADY_REGISTED, UiText.OKAY_CHANGE_NAME);
                 }
-               
-
             }
-
         }
     }
 }

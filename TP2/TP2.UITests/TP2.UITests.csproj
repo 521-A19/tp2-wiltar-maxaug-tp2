@@ -43,9 +43,11 @@
     <Compile Include="BaseObjects\BasePageObject.cs" />
     <Compile Include="BaseObjects\DogDetailViewObject.cs" />
     <Compile Include="BaseObjects\DogShopViewObject.cs" />
+    <Compile Include="BaseObjects\ShoppingCartViewObject.cs" />
     <Compile Include="BaseObjects\DogsListViewObject.cs" />
     <Compile Include="BaseObjects\MainPageViewObject.cs" />
     <Compile Include="BaseObjects\RegisterViewObject.cs" />
+    <Compile Include="ShoppingCartViewObjectTests.cs" />
     <Compile Include="DogDetailViewObjectTests.cs" />
     <Compile Include="DogShopViewObjectTests.cs" />
     <Compile Include="Helpers\UiTestsHelper.cs" />

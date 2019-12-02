@@ -10,21 +10,28 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="Le coût total est " FontSize="Large"></Label>
-            <ListView ItemsSource="{Binding DogListInShoppingCart}"
-                      HasUnevenRows="True"
-                      AutomationId="ListView">
+            <Label HorizontalOptions="Center" FontSize="Large" Text="{Binding Path=TotalPrice, StringFormat='Le coût total est {0} $'}" />
+            <ListView Grid.Row="1" x:Name="DogList" ItemsSource="{Binding DogList}" SelectedItem="{Binding SelectedItem}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Image Source="{Binding ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
-                                <Label Text="{Binding Name}"></Label>
-                                <Label Text="{Binding Race}"></Label>
-                                <Label Text="{Binding Sex}"></Label>
-                                <Label Text="{Binding Price}"></Label>
-                                <Label Text="{Binding Description}"></Label>
-                            </StackLayout>
+                            <ViewCell.View>
+                                <Grid x:Name="Item">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageUrl}" HeightRequest="120" WidthRequest="150"></Image>
+                                    <Label Grid.Column="1" Text="{Binding Name}"></Label>
+                                    <Label Grid.Column="2" Text="{Binding Price}"></Label>
+                                    <Label Grid.Column="3" Text="{Binding Race}"></Label>
+                                    <Label Grid.Column="4" Text="{Binding Sex}"></Label>
+                                    <Button Grid.Column="5" BindingContext="{Binding Source={x:Reference DogList}, Path=BindingContext}" Command="{Binding DeleteDogFromTheShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"></Button>
+                                </Grid>
+                            </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

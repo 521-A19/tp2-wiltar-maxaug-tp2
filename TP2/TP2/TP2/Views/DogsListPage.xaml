@@ -34,7 +34,7 @@
 
             <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
             <ListView ItemsSource="{Binding Dogs}"
-                      SelectedItem="{Binding SelectedDog}"
+                      SelectedItem="{Binding SelectedDog, Mode=TwoWay}"
                       HasUnevenRows="True"
                       AutomationId="ListView">
                 <ListView.ItemTemplate>

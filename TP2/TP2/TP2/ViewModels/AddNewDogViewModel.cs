@@ -77,7 +77,8 @@ namespace TP2.ViewModels
                     Price = Price
                 };
                 _repository.Add(newDog);
-                MakeTheRelationBetweenUserAndDog();
+                _authenticationService.AuthenticatedUser.DogId = newDog.Id;
+               // MakeTheRelationBetweenUserAndDog();
 
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
             }
@@ -87,13 +88,13 @@ namespace TP2.ViewModels
             }
         }
 
-        private void MakeTheRelationBetweenUserAndDog()
+       /* private void MakeTheRelationBetweenUserAndDog()
         {
             var DogList = _repository.GetAll().ToList();
             var lastDogAddLocation = DogList.Count() - 1;
             var newDogAddId = DogList[lastDogAddLocation];
-            _authenticationService.AuthenticatedUser.DogId = newDogAddId.Id;
-        }
+           
+        }*/
 
         public List<string> DogBreeds
         {

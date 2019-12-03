@@ -97,7 +97,7 @@ namespace TP2.UnitTests
             _addNewDogViewModel.Price = 120;
 
             _mockNavigationService
-                .Setup(a => a.NavigateAsync("AddNewDogPage/DogsListPage"))
+                .Setup(a => a.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)))
                 .Throws<Exception>();
 
             //Act

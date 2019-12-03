@@ -15,7 +15,7 @@
                 VerticalOptions="Center" 
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"/>
-            
+
             <Label Text="Votre Chien"
                 VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand"
@@ -31,6 +31,8 @@
             <Label Text="{Binding MyDog.Sex}"/>
             <Label Text="{Binding MyDog.Price}"/>
             <Label Text="{Binding MyDog.Description}"/>
+
+            <Button Text="Supprimer le chien X" Command="{Binding DeleteDogShopCommand}" IsVisible="{Binding IsButtonToAddNewDogPageVisible}"  BackgroundColor="Red" HorizontalOptions="End" FontSize="Small" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

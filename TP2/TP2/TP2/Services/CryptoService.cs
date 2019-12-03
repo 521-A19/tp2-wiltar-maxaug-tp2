@@ -121,5 +121,9 @@ namespace TP2.Services
             return plaintext;
         }
 
+        public string Encrypt(object notEncryptedCreditCard, object encryptionKey)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

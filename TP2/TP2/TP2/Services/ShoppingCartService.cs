@@ -15,7 +15,7 @@ namespace TP2.Services
             {
                 new Dog()
                 {
-                    Id= 9,
+                    Id= 1,
                     Name = "Rex",
                     Description = "fsdkfdsfdfd",
                     ImageUrl = "url",
@@ -25,7 +25,7 @@ namespace TP2.Services
                 },
                 new Dog()
                 {
-                    Id= 10,
+                    Id= 2,
                     Name = "Cloud",
                     Description = "fsdkfdsfdfd",
                     ImageUrl = "url",

@@ -8,6 +8,8 @@ using Prism.Services;
 using Prism.Commands;
 using TP2.Models.Entities;
 using TP2.Externalization;
+using TP2.Views;
+using System.Linq;
 
 namespace TP2.ViewModels
 {
@@ -16,6 +18,7 @@ namespace TP2.ViewModels
         IPageDialogService _dialogService;
         IDogApiService _dogBreedsService;
         IRepository<Dog> _repository;
+        IAuthenticationService _authenticationService;
         private RootObject _DogBreeds;
         private List<string> _breedsList;
         private int _selectedBreed = 0;
@@ -33,12 +36,14 @@ namespace TP2.ViewModels
         public AddNewDogViewModel(INavigationService navigationService,
                                     IDogApiService dogBreedsService,
                                     IRepository<Dog> repository,
-                                     IPageDialogService dialogService)
+                                     IPageDialogService dialogService,
+                                     IAuthenticationService authenticationService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _dogBreedsService = dogBreedsService;
             _repository = repository;
+            _authenticationService = authenticationService;
             _DogBreeds = _dogBreedsService.GetDogBreeds();
             _breedsList = _DogBreeds.message;
         }
@@ -72,14 +77,27 @@ namespace TP2.ViewModels
                     Price = Price
                 };
                 _repository.Add(newDog);
+                MakeTheRelationBetweenUserAndDog();
 
+<<<<<<< HEAD
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogsListPage");
+=======
+                await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
+>>>>>>> 311979002bc43e4b5e2d9800513d246f1a66b834
             }
             catch
             {
                 await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
-    }
+        }
+
+        private void MakeTheRelationBetweenUserAndDog()
+        {
+            var DogList = _repository.GetAll().ToList();
+            var lastDogAddLocation = DogList.Count() - 1;
+            var newDogAddId = DogList[lastDogAddLocation];
+            _authenticationService.AuthenticatedUser.DogId = newDogAddId.Id;
+        }
 
         public List<string> DogBreeds
         {

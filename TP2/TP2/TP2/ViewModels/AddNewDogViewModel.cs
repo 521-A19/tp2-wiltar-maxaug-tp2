@@ -17,7 +17,8 @@ namespace TP2.ViewModels
     {
         IPageDialogService _dialogService;
         IDogApiService _dogBreedsService;
-        IRepository<Dog> _repository;
+        IRepository<Dog> _dogRepository;
+        IRepository<User> _userRepository;
         IAuthenticationService _authenticationService;
         private RootObject _DogBreeds;
         private List<string> _breedsList;
@@ -35,14 +36,16 @@ namespace TP2.ViewModels
 
         public AddNewDogViewModel(INavigationService navigationService,
                                     IDogApiService dogBreedsService,
-                                    IRepository<Dog> repository,
+                                    IRepository<Dog> dogRepository,
+                                     IRepository<User> userRepository,
                                      IPageDialogService dialogService,
                                      IAuthenticationService authenticationService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _dogBreedsService = dogBreedsService;
-            _repository = repository;
+            _dogRepository = dogRepository;
+            _userRepository = userRepository;
             _authenticationService = authenticationService;
             _DogBreeds = _dogBreedsService.GetDogBreeds();
             _breedsList = _DogBreeds.message;
@@ -76,14 +79,10 @@ namespace TP2.ViewModels
                     ImageUrl = ImageUrl,
                     Price = Price
                 };
-                _repository.Add(newDog);
-                MakeTheRelationBetweenUserAndDog();
-
-<<<<<<< HEAD
-                await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogsListPage");
-=======
+                _dogRepository.Add(newDog);
+                _authenticationService.AuthenticatedUser.DogId = newDog.Id;
+                _userRepository.Update(_authenticationService.AuthenticatedUser);
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
->>>>>>> 311979002bc43e4b5e2d9800513d246f1a66b834
             }
             catch
             {
@@ -93,7 +92,7 @@ namespace TP2.ViewModels
 
         private void MakeTheRelationBetweenUserAndDog()
         {
-            var DogList = _repository.GetAll().ToList();
+            var DogList = _dogRepository.GetAll().ToList();
             var lastDogAddLocation = DogList.Count() - 1;
             var newDogAddId = DogList[lastDogAddLocation];
             _authenticationService.AuthenticatedUser.DogId = newDogAddId.Id;

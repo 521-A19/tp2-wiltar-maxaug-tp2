@@ -27,6 +27,14 @@ namespace TP2.UnitTests
             _mockRepositoryService = new Mock<IRepository<Dog>>();
             _mockAuthenticationService = new Mock<IAuthenticationService>();
             _dogList = CreateDogList();
+            Dog newDog = new Dog()
+            {
+                Name = "Yulu",
+                Race = "african",
+                ImageUrl = "url",
+                Price = 123
+            };
+            _dogList.Add(newDog);
             _mockRepositoryService
                 .Setup(r => r.GetAll())
                 .Returns(_dogList);
@@ -51,6 +59,30 @@ namespace TP2.UnitTests
             _dogsListViewModel.SelectedDog = _dogList[indexOfDogList];
 
             _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), It.IsAny<INavigationParameters>()), Times.Once());
+        }
+
+        [Fact]
+        public void SortDogListByName_WhenOrderByBreed_ShouldSortListAndFirstDogChange()
+        {
+            
+            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+
+            _dogsListViewModel.SelectedSortType = 1;
+            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+
+            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+        }
+
+        [Fact]
+        public void SortDogListByName_WhenOrderByPrice_ShouldSortListAndFirstDogChange()
+        {
+
+            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+
+            _dogsListViewModel.SelectedSortType = 2;
+            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+
+            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
         }
 
         private List<Dog> CreateDogList()

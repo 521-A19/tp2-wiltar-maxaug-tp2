@@ -10,28 +10,6 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <!--
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Azure" Margin="0">
-                <Label Text="Mon chien" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToDogShopCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label Text="Liste" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label IsVisible="{Binding IsAuthenticated}" Text="Profil" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label IsVisible="{Binding IsAuthenticated}" Text="Déconnexion" HorizontalOptions="End" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="End" VerticalTextAlignment="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding DeconnectionCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label IsVisible="{Binding IsAuthenticated, Converter={StaticResource NegateBool}}" Text="Connexion" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToConnectionCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Image IsVisible="{Binding IsAuthenticated}" Source="https://images.dog.ceo/breeds/pug/n02110958_1975.jpg" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Azure" HeightRequest="40"/>
-            </StackLayout> -->
-
             <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
             <ListView ItemsSource="{Binding Dogs}"
                       SelectedItem="{Binding SelectedDog, Mode=TwoWay}"
@@ -54,7 +32,14 @@
 
             </ListView>
             <StackLayout HorizontalOptions="Start">
-                <Button Text="Trier"></Button>
+                <Label Text="Trier Par :" HorizontalOptions="Start"/>
+                <Picker Title="Trier Par" SelectedIndex="{Binding SelectedSortType}"  HorizontalOptions="Center" >
+                    <Picker.Items>
+                        <x:String>Nom</x:String>
+                        <x:String>Race</x:String>
+                        <x:String>Prix</x:String>
+                    </Picker.Items>
+                </Picker>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

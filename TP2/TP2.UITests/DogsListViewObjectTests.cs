@@ -15,15 +15,17 @@ namespace TP2.UITests
     class DogsListViewObjectTests
     {
         private AndroidApp app;
+        private DogsListViewObject _dogListPageViewObject;
 
         [SetUp]
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
             var mainPageViewObject = new MainPageViewObject(app);
-            var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
+            _dogListPageViewObject = new DogsListViewObject(app);
+            mainPageViewObject.OpenDogsListPage();
         }
 
         [Test]
@@ -31,6 +33,15 @@ namespace TP2.UITests
         {
             AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
             //app.Screenshot("Welcome screen.");
+            Assert.IsTrue(results.Any());
+        }
+
+        [Test]
+        public void TrierParRaceChangeLOrdreDesChienEtLeDernierChienEstEnHautDeLaListe()
+        {
+            //app.Repl();
+            _dogListPageViewObject.SelectSortType();
+            AppResult[] results = app.WaitForElement("Rex");
             Assert.IsTrue(results.Any());
         }
     }

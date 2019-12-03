@@ -7,5 +7,11 @@ namespace TP2.UITests.BaseObjects
         public DogsListViewObject(IApp app) : base(app)
         {
         }
+
+        public void SelectSortType()
+        {
+            App.Tap("Nom");
+            App.Tap("Race");
+        }
     }
 }

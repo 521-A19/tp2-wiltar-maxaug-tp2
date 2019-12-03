@@ -39,5 +39,29 @@ namespace TP2.ViewModels
                 });
             }
         }
+
+        public ICommand BuyShoppingCartCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    _shoppingCartService.BuyShoppingCart();  //Remove dogs from the repo
+                    NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
+                });
+            }
+        }
+
+        public ICommand CancelShoppingCartCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    _shoppingCartService.SetNewEmptyShoppingCart();
+                    NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
+                });
+            }
+        }
     }
 }

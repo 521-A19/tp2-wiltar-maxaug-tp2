@@ -8,9 +8,13 @@ namespace TP2.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
+        private readonly IRepository<Dog> _dogRepository;
         private List<Dog> _shoppingCartDogList;
-        public ShoppingCartService()
+        public ShoppingCartService(IRepository<Dog> dogRepository)
         {
+            _dogRepository = dogRepository;
+            SetNewEmptyShoppingCart();
+            /* Seeder pour tester
             _shoppingCartDogList  = new List<Dog>()
             {
                 new Dog()
@@ -34,7 +38,7 @@ namespace TP2.Services
                     Sex = "Male"
                 }
             };
-            TotalPrice = _shoppingCartDogList[0].Price + _shoppingCartDogList[1].Price;
+            TotalPrice = _shoppingCartDogList[0].Price + _shoppingCartDogList[1].Price;*/
         }
 
         public List<Dog> ShoppingCartDogList
@@ -73,6 +77,22 @@ namespace TP2.Services
         public void RemoveDogFromTheShoppingCart(Dog dogToRemove) {
             ShoppingCartDogList.Remove(dogToRemove);
             TotalPrice -= dogToRemove.Price;
+        }
+
+        public void SetNewEmptyShoppingCart()
+        {
+            //_shoppingCartDogList.RemoveAll();
+            _shoppingCartDogList = new List<Dog>();
+            TotalPrice = 0;
+        }
+
+        public void BuyShoppingCart()
+        {
+            foreach (Dog cur in ShoppingCartDogList)
+            {
+                _dogRepository.Delete(cur);
+            }
+            SetNewEmptyShoppingCart();
         }
     }
 }

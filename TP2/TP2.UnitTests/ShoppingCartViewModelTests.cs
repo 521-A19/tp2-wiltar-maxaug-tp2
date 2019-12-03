@@ -46,6 +46,38 @@ namespace TP2.UnitTests
             _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(ShoppingCartPage)), Times.Once());
         }
 
+        [Fact]
+        public void BuyShoppingCartCommand_ShouldNavigateToConfirmationPage()
+        {
+            _shoppingCartViewModel.BuyShoppingCartCommand.Execute(null);
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
+        }
+
+        [Fact]
+        public void BuyShoppingCartCommand_ShouldCallBuyShoppingCart()
+        {
+            _shoppingCartViewModel.BuyShoppingCartCommand.Execute(null);
+
+            _mockShoppingCartService.Verify(x => x.BuyShoppingCart(), Times.Once());
+        }
+   
+        [Fact]
+        public void CancelShoppingCartCommand_ShouldNavigateToConfirmationPage()
+        {
+            _shoppingCartViewModel.CancelShoppingCartCommand.Execute(null);
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
+        }
+
+        [Fact]
+        public void CancelShoppingCartCommand_ShouldCallSetNewEmptyShoppingCart()
+        {
+            _shoppingCartViewModel.CancelShoppingCartCommand.Execute(null);
+
+            _mockShoppingCartService.Verify(x => x.SetNewEmptyShoppingCart(), Times.Once());
+        }
+
         private List<Dog> CreateDogList()
         {
             var dogList = new Faker<Dog>()

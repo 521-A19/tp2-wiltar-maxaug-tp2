@@ -35,18 +35,18 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void UserIsConnectedWithNoCurrentDog_OnNavigatedTo_IsButtonToAddNewDogVisibleShuldBeTrue()
+        public void AuthenticatedUserHasNoDog_OnNavigatedTo_UserHasAnyDogShouldGetFalse()
         {
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(-1));
             var navigationParameters = new NavigationParameters();
 
             _dogShopViewModel.OnNavigatedTo(navigationParameters);
 
-            _dogShopViewModel.IsButtonToAddNewDogPageVisible.Should().BeTrue();
+            _dogShopViewModel.UserHasAnyDog.Should().BeFalse();
         }
 
         [Fact]
-        public void UserIsConnectedWithNoCurrentDog_OnNavigatedTo_ShouldDisplayAlertMessage()
+        public void AuthenticatedUserHasNoDog_OnNavigatedTo_ShouldDisplayAlertMessage()
         {
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(-1));
             var navigationParameters = new NavigationParameters();
@@ -57,7 +57,7 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void AuthenticatedUserHasADog_OnNavigatedTo_IsButtonToAddNewDogVisibleShuldBeTrue()
+        public void AuthenticatedUserHasADog_OnNavigatedTo_UserHasAnyDogShouldGetTrue()
         {
             const int ID_DOG_OF_USER = 1;
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(ID_DOG_OF_USER));
@@ -67,7 +67,7 @@ namespace TP2.UnitTests
 
             _dogShopViewModel.OnNavigatedTo(navigationParameters);
 
-            _dogShopViewModel.IsButtonToAddNewDogPageVisible.Should().BeFalse();
+            _dogShopViewModel.UserHasAnyDog.Should().BeTrue();
         }
 
         [Fact]
@@ -115,15 +115,6 @@ namespace TP2.UnitTests
             Assert.True(_eventRaisedProperty);
         }
 
-        [Fact]
-        public void IsButtonToDogRegisterVisible_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
-        {
-            _dogShopViewModel.PropertyChanged += RaiseProperty;
-
-            _dogShopViewModel.IsButtonToAddNewDogPageVisible = true;
-
-            Assert.True(_eventRaisedProperty);
-        }
 
         private void RaiseProperty(object sender, PropertyChangedEventArgs e)
         {

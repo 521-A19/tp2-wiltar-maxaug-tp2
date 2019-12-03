@@ -12,11 +12,14 @@ namespace TP2.UnitTests.ServicesTests
     public class ShoppingCartServiceTests
     {
         private ShoppingCartService _shoppingCartService;
+        private Mock<IRepository<Dog>> _mockRepositoryService;
         private const float ANY_DOG_PRICE = (float)299.99;
+        private const float ZERO = 0;
 
         public ShoppingCartServiceTests()
         {
-            _shoppingCartService = new ShoppingCartService();
+            _mockRepositoryService = new Mock<IRepository<Dog>>();
+            _shoppingCartService = new ShoppingCartService(_mockRepositoryService.Object);
         }
 
         [Fact]
@@ -60,7 +63,7 @@ namespace TP2.UnitTests.ServicesTests
 
             _shoppingCartService.RemoveDogFromTheShoppingCart(dog);
 
-            _shoppingCartService.TotalPrice.Should().Be(0);
+            _shoppingCartService.TotalPrice.Should().Be(ZERO);
         }
 
         [Fact]
@@ -70,6 +73,20 @@ namespace TP2.UnitTests.ServicesTests
             foreach(Dog cur in dogs) _shoppingCartService.AddDogToTheShoppingCart(cur); //No Set
 
             foreach (Dog cur in _shoppingCartService.ShoppingCartDogList) _shoppingCartService.Contains(cur.Id).Should().BeTrue();
+        }
+
+        [Fact]
+        public void GivenAShoppingCartWithElements_WhenSetNewEmptyShoppingCart_ShouldInitializeNewEmptyShoppingCart()
+        {
+            var oldPrice = _shoppingCartService.TotalPrice = ANY_DOG_PRICE;
+            _shoppingCartService.AddDogToTheShoppingCart(CreateFakeDog());
+            _shoppingCartService.ShoppingCartDogList.Should().NotBeEmpty();
+            _shoppingCartService.TotalPrice.Should().NotBe(ZERO);
+
+            _shoppingCartService.SetNewEmptyShoppingCart();
+
+            _shoppingCartService.ShoppingCartDogList.Should().BeEmpty();
+            _shoppingCartService.TotalPrice.Should().Be(ZERO);
         }
 
         private Dog CreateFakeDog()

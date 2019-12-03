@@ -36,6 +36,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Acheter" Command="{Binding BuyShoppingCartCommand}" />
+                <Button Text="Annuler" Command="{Binding CancelShoppingCartCommand}"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

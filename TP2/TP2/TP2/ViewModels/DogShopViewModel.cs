@@ -17,7 +17,7 @@ namespace TP2.ViewModels
         private IPageDialogService _pageDialogService;
         private IAuthenticationService _authenticationService;
         //public ObservableCollection<Dog> UserListOfDogs { get; set; }
-        public Dog _myDog;
+        private Dog _myDog;
         public Dog MyDog
         {
             get { return _myDog; }
@@ -27,22 +27,11 @@ namespace TP2.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public bool IsAuthenticated
+        public bool UserHasAnyDog
         {
-            get { return _authenticationService.IsUserAuthenticated; }
+            get { return AuthenticatedUserHasAnyDog(); }
         }
         public DelegateCommand NavigateToAddNewDogPageCommand => new DelegateCommand(NavigateToAddNewDogPage);
-
-        private bool _isButtonToAddNewDogPageVisible;
-        public bool IsButtonToAddNewDogPageVisible
-        {
-            get { return _isButtonToAddNewDogPageVisible; }
-            set
-            {
-                _isButtonToAddNewDogPageVisible = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public DogShopViewModel(INavigationService navigationService,
                                 IAuthenticationService authenticationService,
@@ -60,12 +49,10 @@ namespace TP2.ViewModels
         {
             if (!AuthenticatedUserHasAnyDog())
             {
-                IsButtonToAddNewDogPageVisible = true;
                 _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM);
             }
             else
             {
-                IsButtonToAddNewDogPageVisible = false;
                 MyDog = _dogRepositoryService.GetById(_authenticationService.AuthenticatedUser.DogId);
             }
         }

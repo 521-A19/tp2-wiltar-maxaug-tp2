@@ -13,5 +13,7 @@ namespace TP2.Services
         void AddDogToTheShoppingCart(Dog dogToAdd);
         void RemoveDogFromTheShoppingCart(Dog dogToRemove);
         bool Contains(int id);
+        void BuyShoppingCart();
+        void SetNewEmptyShoppingCart();
     }
 }

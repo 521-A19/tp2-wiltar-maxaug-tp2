@@ -27,7 +27,6 @@ namespace TP2.UITests
         [Test]
         public void JeVeuxMeRendreALaPageDAdoptionDeChien()
         {
-            app.Repl();
             const string CONFIRMATION_BUTTON = "Confirmer l'ajout";
             var addNewDogViewObject = new AddNewDogViewObject(app);
 
@@ -42,12 +41,12 @@ namespace TP2.UITests
         {
 
             //app.Repl();
-            const string EXPECTED_BREED = "affenpinscher";
+            //const string EXPECTED_BREED = "affenpinscher";
             var addNewDogViewObject = new AddNewDogViewObject(app);
 
             addNewDogViewObject.NavigateToAddNewDogPage();
             addNewDogViewObject.AddNewDog();
-            app.ScrollDownTo(EXPECTED_BREED);
+            //app.ScrollDownTo(EXPECTED_BREED);
             
 
             AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);

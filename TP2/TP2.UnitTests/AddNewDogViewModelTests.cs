@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using Moq;
 using Prism.Navigation;
 using Prism.Services;
@@ -17,23 +18,40 @@ namespace TP2.UnitTests
     public class AddNewDogViewModelTests
     {
         AddNewDogViewModel _addNewDogViewModel;
+        private const string NotHashedPassword = "Qwertyuiop1";
+        private const string NotEncryptedCreditCard = "5105105105105100";
+        private const string EncryptionKey = "--AnEncryptionKey--";
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IRepository<Dog>> _mockRepository;
+        private Mock<IAuthenticationService> _mockAuthentification;
         private IDogApiService _dogApiService;
+        private List<User> _userList;
+        private List<Dog> _dogList;
 
         public AddNewDogViewModelTests()
         {
+            _userList = CreateUserList();
+            _dogList = CreateDogList();
             _mockNavigationService = new Mock<INavigationService>();
             _mockPageDialogService = new Mock<IPageDialogService>();
             _mockRepository = new Mock<IRepository<Dog>>();
             _dogApiService = new DogApiService();
-            _addNewDogViewModel = new AddNewDogViewModel(_mockNavigationService.Object, _dogApiService, _mockRepository.Object, _mockPageDialogService.Object);
+            _mockAuthentification = new Mock<IAuthenticationService>();
+            _addNewDogViewModel = new AddNewDogViewModel(_mockNavigationService.Object, _dogApiService, _mockRepository.Object, _mockPageDialogService.Object, _mockAuthentification.Object);
         }
 
         [Fact]
         public void AddNewDogCommand_WhenAllDogAttributIsHonored_ShouldNavigateToDogsList()
         {
+            _mockAuthentification
+              .Setup(a => a.AuthenticatedUser)
+              .Returns(_userList[0]);
+
+            _mockRepository
+                .Setup(n => n.GetAll())
+                .Returns(_dogList);
+
             _addNewDogViewModel.Name = "Dog";
             _addNewDogViewModel.Breed = "african";
             _addNewDogViewModel.Description = "Description";
@@ -43,12 +61,20 @@ namespace TP2.UnitTests
 
             _addNewDogViewModel.AddNewDogCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("AddNewDogPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
         }
 
         [Fact]
         public void AddNewDogCommand_WhenAllDogAttributIsNotReallyHonored_ShouldStillNavigateToDogsList()
         {
+            _mockAuthentification
+              .Setup(a => a.AuthenticatedUser)
+              .Returns(_userList[0]); ;
+
+            _mockRepository
+               .Setup(n => n.GetAll())
+               .Returns(_dogList);
+
             _addNewDogViewModel.Name = "Dog";
             _addNewDogViewModel.Breed = "african";
             _addNewDogViewModel.Price = 120;
@@ -56,13 +82,17 @@ namespace TP2.UnitTests
 
             _addNewDogViewModel.AddNewDogCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("AddNewDogPage/" + nameof(DogsListPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)), Times.Once());
         }
 
         [Fact]
         public void AddNewDogCommand_WhenExectionIsThrow_ShouldSetAlert()
         {
             //Arrange
+            _mockAuthentification
+               .Setup(a => a.AuthenticatedUser)
+               .Returns(_userList[0]); ;
+
             _addNewDogViewModel.Breed = "african";
             _addNewDogViewModel.Price = 120;
 
@@ -81,6 +111,10 @@ namespace TP2.UnitTests
         [Fact]
         public void FetchARandomImageCommand_WhenAllDogAttributIsNotReallyHonored_ShouldStillNavigateToDogsList()
         {
+            _mockAuthentification
+              .Setup(a => a.AuthenticatedUser)
+              .Returns(_userList[0]); ;
+
             _addNewDogViewModel.Breed = "african";
 
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
@@ -91,6 +125,10 @@ namespace TP2.UnitTests
         [Fact]
         public void FetchARandomImageCommand_WhenAllDogAttributNotReallyHonored_ShouldStillNavigateToDogsList()
         {
+            _mockAuthentification
+              .Setup(a => a.AuthenticatedUser)
+              .Returns(_userList[0]); ;
+
             _addNewDogViewModel.Breed = "african";
 
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
@@ -100,6 +138,37 @@ namespace TP2.UnitTests
             string SECOND_IMAGE_RETURN = _addNewDogViewModel.ImageUrl;
 
             FIRST_IMAGE_RETURN.Should().NotContainEquivalentOf(SECOND_IMAGE_RETURN);
+        }
+
+        private List<User> CreateUserList()
+        {
+            var crypto = new CryptoService();
+            var salt = crypto.GenerateSalt();
+            var userList = new Faker<User>()
+                .StrictMode(true)
+                .RuleFor(u => u.Login, f => f.Person.Email)
+                .RuleFor(u => u.PasswordSalt, f => salt)
+                .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
+                .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
+                .RuleFor(u => u.Id, f => f.IndexFaker)
+                .RuleFor(u => u.DogId, f => 1)
+                .Generate(3);
+            return userList;
+        }
+
+        private List<Dog> CreateDogList()
+        {
+            var dogList = new Faker<Dog>()
+                .StrictMode(true)
+                .RuleFor(u => u.Name, f => f.Person.FirstName)
+                .RuleFor(u => u.Price, f => (float)299.99)
+                .RuleFor(u => u.Race, f => "Husky")
+                .RuleFor(u => u.Description, f => "Dog")
+                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
+                .RuleFor(u => u.ImageUrl, f => "url")
+                .RuleFor(u => u.Id, f => f.IndexFaker)
+                .Generate(3);
+            return dogList;
         }
 
     }

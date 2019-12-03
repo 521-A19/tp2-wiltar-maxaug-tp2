@@ -39,6 +39,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseObjects\UserProfileViewObject.cs" />
+    <Compile Include="UserProfileViewObjectTests.cs" />
     <Compile Include="BaseObjects\AddNewDogViewObject.cs" />
     <Compile Include="BaseObjects\BasePageObject.cs" />
     <Compile Include="BaseObjects\DogDetailViewObject.cs" />

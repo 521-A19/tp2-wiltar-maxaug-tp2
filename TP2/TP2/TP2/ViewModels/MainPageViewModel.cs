@@ -53,7 +53,7 @@ namespace TP2.ViewModels
         {
             //var navigationParameters = new NavigationParameters();
             //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
-            NavigationService.NavigateAsync("NavigationPage/DogsListPage");
+            NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/"+ nameof(DogsListPage));
         }
 
         private async void NavigateToRegisterPage()
@@ -69,13 +69,7 @@ namespace TP2.ViewModels
                 _authenticationService.LogIn(Login, Password);
                 if (_authenticationService.IsUserAuthenticated)
                 {
-                    //var navigationParameters = new NavigationParameters();
-                    //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
                     await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
-
-                    //var navigationParameters = new NavigationParameters();
-                    //navigationParameters.Add("data", _authenticationService.AuthenticatedUser);
-                    //await NavigationService.NavigateAsync("MainPage/" + nameof(DogsListPage), navigationParameters);
                 }
                 else
                 {

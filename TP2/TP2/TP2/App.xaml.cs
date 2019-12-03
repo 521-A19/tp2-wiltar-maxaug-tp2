@@ -108,15 +108,14 @@ namespace TP2
             };
             list.Add(dog);
             */
-            int test = dog1.Id;
             var user1 = new User()
             {
                 Login = "123",
                 HashedPassword = cryptoService.HashSHA512("456", salt),
                 PasswordSalt = salt,
                 CreditCard = cryptoService.Encrypt("5162042483342023", key),
-                DogId = test
-            };
+                DogId = dog1.Id
+        };
             secureStorageService.SetUserEncryptionKeyAsync(user1, key);
             usersRepository.Add(user1);   // après le add, product1 contient un id
         }
@@ -133,6 +132,7 @@ namespace TP2
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<AddNewDogPage, AddNewDogViewModel>();
             containerRegistry.RegisterForNavigation<UserProfilePage, UserProfileViewModel>();
+            containerRegistry.RegisterForNavigation<ShoppingCartPage, ShoppingCartViewModel>();
 
             //Repositories
             var databasePath = FileSystem.AppDataDirectory;  // FileSystem voir https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?tabs=android
@@ -150,6 +150,7 @@ namespace TP2
             containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IDogApiService, DogApiService>();
+            containerRegistry.RegisterSingleton<IShoppingCartService, ShoppingCartService>();
         }
     }
 }

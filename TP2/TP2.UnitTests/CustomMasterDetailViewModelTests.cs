@@ -10,16 +10,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TP2.ViewModels.MasterDetailViews;
 using TP2.Services;
+using System.Threading.Tasks;
 
 namespace TP2.UnitTests
 {
-    public class CostomMasterDetailViewModelTests
+    public class CustomMasterDetailViewModelTests
     {
         private CustomMasterDetailViewModel _customMasterDetailViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IAuthenticationService> _mockAuthenticationService;
 
-        public CostomMasterDetailViewModelTests()
+        public CustomMasterDetailViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockAuthenticationService = new Mock<IAuthenticationService>();
@@ -35,36 +36,23 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void ConnecterUser_WhenLogOut_ShouldNavigateToMainPage()
-        {
-            _customMasterDetailViewModel.OnNavigateCommand.Execute("/CustomMasterDetailPage/NavigationPage/DogShopPage");
-
-            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogShopPage"), Times.Once());
-        }
-
-        [Fact]
-        public void OnNavigateCommand_ShouldNavigateToOtherPage()
-        {
-            _customMasterDetailViewModel.OnNavigateCommand.Execute("/CustomMasterDetailPage/NavigationPage/DogShopPage");
-
-            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogShopPage"), Times.Once());
-        }
-
-        [Fact]
-        public void DeconnectionCommand_ShouldNavigateToMainPage()
+        public void ConnecterUser_DeconnectionCommand_ShouldNavigateToMainPage()
         {
             _customMasterDetailViewModel.DeconnectionCommand.Execute();
 
             _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage)), Times.Once());
         }
 
-        [Fact]
-        public void ShowUserProfileCommand_ShouldNavigateToUserProfilePage()
+        [Theory]
+        [InlineData("DogShopPage")]
+        [InlineData("DogsListPage")]
+        [InlineData("MainPage")]
+        [InlineData("UserProfilePage")]
+        public void OnNavigateCommand_ShouldNavigateToOtherPage(string namePage)
         {
-            _customMasterDetailViewModel.ShowUserProfileCommand.Execute();
+            _customMasterDetailViewModel.OnNavigateCommand.Execute(namePage);
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(UserProfilePage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + namePage), Times.Once());
         }
     }
-
 }

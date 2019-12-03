@@ -17,7 +17,8 @@ namespace TP2.ViewModels
     {
         IPageDialogService _dialogService;
         IDogApiService _dogBreedsService;
-        IRepository<Dog> _repository;
+        IRepository<Dog> _dogRepository;
+        IRepository<User> _userRepository;
         IAuthenticationService _authenticationService;
         private RootObject _DogBreeds;
         private List<string> _breedsList;
@@ -35,14 +36,16 @@ namespace TP2.ViewModels
 
         public AddNewDogViewModel(INavigationService navigationService,
                                     IDogApiService dogBreedsService,
-                                    IRepository<Dog> repository,
+                                    IRepository<Dog> dogRepository,
+                                     IRepository<User> userRepository,
                                      IPageDialogService dialogService,
                                      IAuthenticationService authenticationService)
             : base(navigationService)
         {
             _dialogService = dialogService;
             _dogBreedsService = dogBreedsService;
-            _repository = repository;
+            _dogRepository = dogRepository;
+            _userRepository = userRepository;
             _authenticationService = authenticationService;
             _DogBreeds = _dogBreedsService.GetDogBreeds();
             _breedsList = _DogBreeds.message;
@@ -66,7 +69,6 @@ namespace TP2.ViewModels
         private async void AddNewDog()
         {
             try {
-                
                 Dog newDog = new Dog() 
                 {
                     Name = Name,
@@ -76,10 +78,9 @@ namespace TP2.ViewModels
                     ImageUrl = ImageUrl,
                     Price = Price
                 };
-                _repository.Add(newDog);
+                _dogRepository.Add(newDog);  // Le Add du repo incrémente les nouveaux chiens
                 _authenticationService.AuthenticatedUser.DogId = newDog.Id;
-               // MakeTheRelationBetweenUserAndDog();
-
+                _userRepository.Update(_authenticationService.AuthenticatedUser);
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
             }
             catch
@@ -87,14 +88,6 @@ namespace TP2.ViewModels
                 await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
         }
-
-       /* private void MakeTheRelationBetweenUserAndDog()
-        {
-            var DogList = _repository.GetAll().ToList();
-            var lastDogAddLocation = DogList.Count() - 1;
-            var newDogAddId = DogList[lastDogAddLocation];
-           
-        }*/
 
         public List<string> DogBreeds
         {

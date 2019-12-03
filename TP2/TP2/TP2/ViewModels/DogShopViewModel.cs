@@ -17,7 +17,7 @@ namespace TP2.ViewModels
         private IPageDialogService _pageDialogService;
         private IAuthenticationService _authenticationService;
         //public ObservableCollection<Dog> UserListOfDogs { get; set; }
-        public Dog _myDog;
+        private Dog _myDog;
         public Dog MyDog
         {
             get { return _myDog; }
@@ -27,22 +27,11 @@ namespace TP2.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public bool IsAuthenticated
+        public bool UserHasAnyDog
         {
-            get { return _authenticationService.IsUserAuthenticated; }
+            get { return AuthenticatedUserHasAnyDog(); }
         }
         public DelegateCommand NavigateToAddNewDogPageCommand => new DelegateCommand(NavigateToAddNewDogPage);
-
-        private bool _isButtonToAddNewDogPageVisible;
-        public bool IsButtonToAddNewDogPageVisible
-        {
-            get { return _isButtonToAddNewDogPageVisible; }
-            set
-            {
-                _isButtonToAddNewDogPageVisible = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public DogShopViewModel(INavigationService navigationService,
                                 IAuthenticationService authenticationService,
@@ -53,26 +42,19 @@ namespace TP2.ViewModels
             _pageDialogService = pageDialogService;
             _authenticationService = authenticationService;
             _dogRepositoryService = dogRepositoryService;
-            IsButtonToAddNewDogPageVisible = false;
-            if (!authenticationService.IsUserAuthenticated)
+            Title = "Mon chien en adoption";
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (!AuthenticatedUserHasAnyDog())
             {
-                _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.USER_NOT_CONNECTED, UiText.CONFIRM);
+                _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM);
             }
             else
             {
-                if(!AuthenticatedUserHasAnyDog())
-                {
-                    IsButtonToAddNewDogPageVisible = true;
-                    _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM);
-                }
-                else
-                {
-                    MyDog = dogRepositoryService.GetById(authenticationService.AuthenticatedUser.DogId);
-                }
-                //var _dogs = authenticationService.AuthenticatedUser.Dog;
-                //UserListOfDogs = new ObservableCollection<Dog>(_dogs);
+                MyDog = _dogRepositoryService.GetById(_authenticationService.AuthenticatedUser.DogId);
             }
-            Title = "Mon chien en adoption";
         }
 
         private bool AuthenticatedUserHasAnyDog()
@@ -89,7 +71,7 @@ namespace TP2.ViewModels
 
         private async void NavigateToAddNewDogPage()
         {
-            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(AddNewDogPage));
+            await NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + nameof(AddNewDogPage));
         }
     }
 }

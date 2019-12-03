@@ -17,23 +17,32 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout BackgroundColor="Silver" Padding="20">
-                <Button Text="Profile"
+                <Button Text="Mon panier"
                         IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
                         BackgroundColor="Red"
-                        Command="{Binding ShowUserProfileCommand}"
+                        Command="{Binding OnNavigateCommand}"
+                        CommandParameter="ShoppingCartPage"
                         />
                 <Button Text="Mon chien en adoption"
+                        IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
-                        CommandParameter="/CustomMasterDetailPage/NavigationPage/DogShopPage"
+                        CommandParameter="DogShopPage"
                         />
                 <Button Text="Liste de chiens"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
-                        CommandParameter="/CustomMasterDetailPage/NavigationPage/DogsListPage"
+                        CommandParameter="DogsListPage"
+                        />
+                <Button Text="Profile"
+                        IsVisible="{Binding IsAuthenticated}"
+                        TextColor="White"
+                        BackgroundColor="Red"
+                        Command="{Binding OnNavigateCommand}"
+                        CommandParameter="UserProfilePage"
                         />
                 <Button Text="Déconnection"
                         IsVisible="{Binding IsAuthenticated}"
@@ -46,7 +55,7 @@
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
-                        CommandParameter="/CustomMasterDetailPage/NavigationPage/MainPage"
+                        CommandParameter="MainPage"
                         />
             </StackLayout>
         </ContentPage>

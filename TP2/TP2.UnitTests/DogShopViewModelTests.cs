@@ -33,47 +33,63 @@ namespace TP2.UnitTests
             //_mockRepositoryService.Setup(r => r.GetAll()).Returns(_dogList);
             _dogShopViewModel = new DogShopViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object, _mockPageDialogService.Object, _mockRepositoryService.Object);
         }
-    
+
         [Fact]
-        public void UserIsNotConnected_OnNavigatedPage_ShouldDisplayAlertMessage()
+        public void AuthenticatedUserHasNoDog_OnNavigatedTo_UserHasAnyDogShouldGetFalse()
         {
-            //_mockUserRepository.Setup(r => r.IsExisting(It.IsAny<string>())).Returns(false);
-            _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.WARNING, UiText.USER_NOT_CONNECTED, UiText.CONFIRM));
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(-1));
+            var navigationParameters = new NavigationParameters();
+
+            _dogShopViewModel.OnNavigatedTo(navigationParameters);
+
+            _dogShopViewModel.UserHasAnyDog.Should().BeFalse();
         }
 
         [Fact]
-        public void UserIsNotConnected_OnNavigatedPage_ButtonToDogRegisterPageShouldNotBeVisible()
+        public void AuthenticatedUserHasNoDog_OnNavigatedTo_ShouldDisplayAlertMessage()
         {
-            _dogShopViewModel.IsButtonToAddNewDogPageVisible.Should().BeFalse();
-        }
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(-1));
+            var navigationParameters = new NavigationParameters();
 
-        [Fact]
-        public void UserIsConnectedWithNoCurrentDog_OnNavigatedPage_ButtonToDogRegisterPageShouldBeVisible()
-        {
-            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser());
-
-            _dogShopViewModel = new DogShopViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object, _mockPageDialogService.Object, _mockRepositoryService.Object);
-            
-            _dogShopViewModel.IsButtonToAddNewDogPageVisible.Should().BeTrue();
-        }
-
-        [Fact]
-        public void UserIsConnectedWithNoCurrentDog_OnNavigatedPage_ShouldDisplayAlertMessage()
-        {
-            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser());
-
-            _dogShopViewModel = new DogShopViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object, _mockPageDialogService.Object, _mockRepositoryService.Object);
+            _dogShopViewModel.OnNavigatedTo(navigationParameters);
 
             _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.WARNING, UiText.NO_CURRENT_DOG, UiText.CONFIRM));
         }
 
         [Fact]
+        public void AuthenticatedUserHasADog_OnNavigatedTo_UserHasAnyDogShouldGetTrue()
+        {
+            const int ID_DOG_OF_USER = 1;
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(ID_DOG_OF_USER));
+            var dog = CreateFakeDog();
+            _mockRepositoryService.Setup(r => r.GetById(1)).Returns(dog);
+            var navigationParameters = new NavigationParameters();
+
+            _dogShopViewModel.OnNavigatedTo(navigationParameters);
+
+            _dogShopViewModel.UserHasAnyDog.Should().BeTrue();
+        }
+
+        [Fact]
+        public void AuthenticatedUserHasADog_OnNavigatedTo_MyDogShouldBeInstantiate()
+        {
+            const int ID_DOG_OF_USER = 1;
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(ID_DOG_OF_USER));
+            var dog = CreateFakeDog();
+            _mockRepositoryService.Setup(r => r.GetById(1)).Returns(dog);
+            var navigationParameters = new NavigationParameters();
+
+            _dogShopViewModel.OnNavigatedTo(navigationParameters);
+
+            _dogShopViewModel.MyDog.Should().NotBeNull();
+        }
+
+
+        [Fact]
         public void MyDog_ModifyMyDog_ShouldDisplayAlert()
         {
             _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser());
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(1));
 
             _dogShopViewModel.ModifyDogInformations.Execute();
 
@@ -85,10 +101,10 @@ namespace TP2.UnitTests
         {
             _dogShopViewModel.NavigateToAddNewDogPageCommand.Execute();
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(AddNewDogPage)), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + nameof(AddNewDogPage)), Times.Once());
         }
 
-        /*
+        
         [Fact]
         public void MyDog_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {
@@ -97,17 +113,8 @@ namespace TP2.UnitTests
             _dogShopViewModel.MyDog = new Faker<Dog>();
 
             Assert.True(_eventRaisedProperty);
-        }*/
-
-        [Fact]
-        public void IsButtonToDogRegisterVisible_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
-        {
-            _dogShopViewModel.PropertyChanged += RaiseProperty;
-
-            _dogShopViewModel.IsButtonToAddNewDogPageVisible = true;
-
-            Assert.True(_eventRaisedProperty);
         }
+
 
         private void RaiseProperty(object sender, PropertyChangedEventArgs e)
         {
@@ -115,7 +122,7 @@ namespace TP2.UnitTests
         }
 
 
-        private Faker<User> CreateFakeUser()
+        private Faker<User> CreateFakeUser(int dogId)
         {
             var fakeUser = new Faker<User>()
                 .StrictMode(true)
@@ -124,14 +131,13 @@ namespace TP2.UnitTests
                 .RuleFor(u => u.CreditCard, f => "556468486")
                 .RuleFor(u => u.HashedPassword, f => "264531")
                 .RuleFor(u => u.PasswordSalt, f => "adskadk")
-                .RuleFor(u => u.DogId, f => -1);
+                .RuleFor(u => u.DogId, f => dogId);
             return fakeUser;
         }
 
         private Faker<Dog> CreateFakeDog()
         {
             var fakeDog = new Faker<Dog>()
-                .StrictMode(true)
                 .RuleFor(u => u.Name, f => f.Person.FirstName)
                 .RuleFor(u => u.Price, f => (float)299.99)
                 .RuleFor(u => u.Race, f => "Husky")

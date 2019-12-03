@@ -69,7 +69,6 @@ namespace TP2.ViewModels
         private async void AddNewDog()
         {
             try {
-                
                 Dog newDog = new Dog() 
                 {
                     Name = Name,
@@ -79,7 +78,7 @@ namespace TP2.ViewModels
                     ImageUrl = ImageUrl,
                     Price = Price
                 };
-                _dogRepository.Add(newDog);
+                _dogRepository.Add(newDog);  // Le Add du repo incrémente les nouveaux chiens
                 _authenticationService.AuthenticatedUser.DogId = newDog.Id;
                 _userRepository.Update(_authenticationService.AuthenticatedUser);
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
@@ -90,13 +89,14 @@ namespace TP2.ViewModels
             }
         }
 
+        /*
         private void MakeTheRelationBetweenUserAndDog()
         {
             var DogList = _dogRepository.GetAll().ToList();
             var lastDogAddLocation = DogList.Count() - 1;
             var newDogAddId = DogList[lastDogAddLocation];
             _authenticationService.AuthenticatedUser.DogId = newDogAddId.Id;
-        }
+        }*/
 
         public List<string> DogBreeds
         {

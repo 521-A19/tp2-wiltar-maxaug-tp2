@@ -10,21 +10,23 @@ using Xunit;
 using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
+using TP2.UnitTests.Fixture;
 
 namespace TP2.UnitTests
 {
-    public class ShoppingCartViewModelTests
+    public class ShoppingCartViewModelTests : BaseFixture
     {
         private ShoppingCartViewModel _shoppingCartViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IShoppingCartService> _mockShoppingCartService;
         private List<Dog> _dogList;
+        private Fixture.Fixture _fixture = new Fixture.Fixture();
 
         public ShoppingCartViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockShoppingCartService = new Mock<IShoppingCartService>();
-            _dogList = CreateDogList();
+            _dogList = _fixture.BuildDogsList();
             _mockShoppingCartService
                 .Setup(r => r.ShoppingCartDogList)
                 .Returns(_dogList);
@@ -76,21 +78,6 @@ namespace TP2.UnitTests
             _shoppingCartViewModel.CancelShoppingCartCommand.Execute(null);
 
             _mockShoppingCartService.Verify(x => x.SetNewEmptyShoppingCart(), Times.Once());
-        }
-
-        private List<Dog> CreateDogList()
-        {
-            var dogList = new Faker<Dog>()
-                .StrictMode(true)
-                .RuleFor(u => u.Name, f => f.Person.FirstName)
-                .RuleFor(u => u.Price, f => (float)299.99)
-                .RuleFor(u => u.Race, f => "Husky")
-                .RuleFor(u => u.Description, f => "Dog")
-                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
-                .RuleFor(u => u.ImageUrl, f => "url")
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .Generate(3);
-            return dogList;
         }
     }
 }

@@ -10,31 +10,34 @@ using Xunit;
 using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
+using TP2.UnitTests.Fixture;
 
 namespace TP2.UnitTests
 {
-    public class DogsListViewModelTests
+    public class DogsListViewModelTests : BaseFixture
     {
         private DogsListViewModel _dogsListViewModel;
         private Mock<IRepository<Dog>> _mockRepositoryService;
         private Mock<INavigationService> _mockNavigationService;
-        private Mock<IAuthenticationService> _mockAuthenticationService;
         private List<Dog> _dogList;
+        private Fixture.Fixture _fixture = new Fixture.Fixture();
+        private Dog _newDog = new Dog()
+        {
+            Name = "Yulu",
+            Race = "african",
+            Sex = "M",
+            Description = "dog",
+            ImageUrl = "url",
+            Price = 123,
+            Id = 9999
+        };
 
         public DogsListViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockRepositoryService = new Mock<IRepository<Dog>>();
-            _mockAuthenticationService = new Mock<IAuthenticationService>();
-            _dogList = CreateDogList();
-            Dog newDog = new Dog()
-            {
-                Name = "Yulu",
-                Race = "african",
-                ImageUrl = "url",
-                Price = 123
-            };
-            _dogList.Add(newDog);
+            _dogList = _fixture.BuildDogsList();
+            _dogList.Add(_newDog);
             _mockRepositoryService
                 .Setup(r => r.GetAll())
                 .Returns(_dogList);
@@ -83,21 +86,6 @@ namespace TP2.UnitTests
             string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
 
             firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
-        }
-
-        private List<Dog> CreateDogList()
-        {
-            var dogList = new Faker<Dog>()
-                .StrictMode(true)
-                .RuleFor(u => u.Name, f => f.Person.FirstName)
-                .RuleFor(u => u.Price, f => (float)299.99)
-                .RuleFor(u => u.Race, f => "Husky")
-                .RuleFor(u => u.Description, f => "Dog")
-                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
-                .RuleFor(u => u.ImageUrl, f => "url")
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .Generate(3);
-            return dogList;
         }
     }
 }

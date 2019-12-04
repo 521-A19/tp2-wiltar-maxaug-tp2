@@ -11,16 +11,14 @@ using TP2.Models.Entities;
 using TP2.Services;
 using TP2.ViewModels;
 using TP2.Views;
+using TP2.UnitTests.Fixture;
 using Xunit;
 
 namespace TP2.UnitTests
 {
-    public class AddNewDogViewModelTests
+    public class AddNewDogViewModelTests : BaseFixture
     {
         AddNewDogViewModel _addNewDogViewModel;
-        private const string NotHashedPassword = "Qwertyuiop1";
-        private const string NotEncryptedCreditCard = "5105105105105100";
-        private const string EncryptionKey = "--AnEncryptionKey--";
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IRepository<Dog>> _mockDogRepository;
@@ -29,11 +27,12 @@ namespace TP2.UnitTests
         private IDogApiService _dogApiService;
         private List<User> _userList;
         private List<Dog> _dogList;
+        private Fixture.Fixture _fixture = new Fixture.Fixture();
 
         public AddNewDogViewModelTests()
         {
-            _userList = CreateUserList();
-            _dogList = CreateDogList();
+            _userList = _fixture.BuildUsersList();
+            _dogList = _fixture.BuildDogsList();
             _mockNavigationService = new Mock<INavigationService>();
             _mockPageDialogService = new Mock<IPageDialogService>();
             _mockDogRepository = new Mock<IRepository<Dog>>();
@@ -162,37 +161,6 @@ namespace TP2.UnitTests
 
             //Assert
             FIRST_IMAGE_RETURN.Should().NotContainEquivalentOf(SECOND_IMAGE_RETURN);
-        }
-
-        private List<User> CreateUserList()
-        {
-            var crypto = new CryptoService();
-            var salt = crypto.GenerateSalt();
-            var userList = new Faker<User>()
-                .StrictMode(true)
-                .RuleFor(u => u.Login, f => f.Person.Email)
-                .RuleFor(u => u.PasswordSalt, f => salt)
-                .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
-                .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .RuleFor(u => u.DogId, f => 1)
-                .Generate(3);
-            return userList;
-        }
-
-        private List<Dog> CreateDogList()
-        {
-            var dogList = new Faker<Dog>()
-                .StrictMode(true)
-                .RuleFor(u => u.Name, f => f.Person.FirstName)
-                .RuleFor(u => u.Price, f => (float)299.99)
-                .RuleFor(u => u.Race, f => "Husky")
-                .RuleFor(u => u.Description, f => "Dog")
-                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
-                .RuleFor(u => u.ImageUrl, f => "url")
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .Generate(3);
-            return dogList;
         }
     }
 }

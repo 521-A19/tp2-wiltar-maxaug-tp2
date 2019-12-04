@@ -61,6 +61,7 @@ namespace TP2.ViewModels
         {
             _dogRepository.Delete(MyDog);
             UserLogIn.DogId = -1;
+
             await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
         }
 

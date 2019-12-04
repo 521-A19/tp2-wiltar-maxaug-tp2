@@ -86,13 +86,14 @@ namespace TP2.UnitTests
 
 
         [Fact]
-        public void MyDog_ModifyMyDog_ShouldDisplayAlert()
+        public void MyDog_ModifyMyDog_ShouldCallUpdateMethodAndDisplayAlertMessage()
         {
             _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(1));
 
             _dogShopViewModel.ModifyDogInformations.Execute();
 
+            _mockRepositoryService.Verify(x => x.Update(It.IsAny<Dog>()), Times.Once());
             _mockPageDialogService.Verify(x => x.DisplayAlertAsync(UiText.SUCCESS, UiText.DOG_INFO_MODIFIED, UiText.CONFIRM));
         }
 

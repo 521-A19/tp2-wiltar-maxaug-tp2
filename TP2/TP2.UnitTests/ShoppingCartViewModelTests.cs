@@ -38,11 +38,11 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void DeleteDogFromTheShoppingCartCommand_ShouldRemoveTheDogFromTheShoppingCart()
+        public void DeleteDogFromTheShoppingCartCommand_ShouldCallRemoveTheDogFromTheShoppingCartAndNavigateToShoppingCartPage()
         {
             _shoppingCartViewModel.DeleteDogFromTheShoppingCartCommand.Execute(_dogList[0]);
 
-            //_shoppingCartViewModel.DogList[0].Should().NotBe(_dogList[0]);
+            _mockShoppingCartService.Verify(x => x.RemoveDogFromTheShoppingCart(It.IsAny<Dog>()), Times.Once());
             _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(ShoppingCartPage)), Times.Once());
         }
 

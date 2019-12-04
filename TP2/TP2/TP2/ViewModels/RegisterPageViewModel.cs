@@ -79,6 +79,7 @@ namespace TP2.ViewModels
             _secondPassword.AddValidationRule(passwordIsTheSame);
             _secondPassword.Validate();
         }
+
         private void AddValidationRulesToValidatable()
         {
 

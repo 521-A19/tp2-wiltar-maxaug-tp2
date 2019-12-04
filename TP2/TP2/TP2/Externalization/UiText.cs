@@ -27,6 +27,9 @@ namespace TP2.Externalization
         //DogsList
         public const string MAIN_LABEL = "Voici les petits amis en adoption";
 
+        //ShoppingCart
+        public const string INVALID_CONFIRMATION_CREDIT_CARD = "La carte de crédit n'est pas valide.";
+
         //DogDetail
 
         public static string USER_ALREADY_CONNECTED = "User is already connected";

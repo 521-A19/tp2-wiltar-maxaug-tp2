@@ -113,7 +113,7 @@ namespace TP2
                 Login = "123",
                 HashedPassword = cryptoService.HashSHA512("456", salt),
                 PasswordSalt = salt,
-                CreditCard = cryptoService.Encrypt("5162042483342023", key),
+                CreditCard = cryptoService.Encrypt("1234", key),
                 DogId = dog1.Id
         };
             secureStorageService.SetUserEncryptionKeyAsync(user1, key);

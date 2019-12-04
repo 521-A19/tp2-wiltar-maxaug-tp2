@@ -36,8 +36,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Entry x:Name="CreditEntry" IsEnabled="{Binding IsShoppingCartEnabled}" Placeholder="Entrez votre carte de crédit"></Entry>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Acheter" Command="{Binding BuyShoppingCartCommand}" />
+                <Button Text="Acheter" Command="{Binding BuyShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference CreditEntry}, Path=Text}"/>
                 <Button Text="Annuler" Command="{Binding CancelShoppingCartCommand}"></Button>
             </StackLayout>
         </StackLayout>

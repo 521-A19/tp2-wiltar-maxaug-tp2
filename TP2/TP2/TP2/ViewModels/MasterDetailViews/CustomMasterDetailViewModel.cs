@@ -13,28 +13,32 @@ namespace TP2.ViewModels.MasterDetailViews
         public DelegateCommand<string> OnNavigateCommand { get; set; }
         public DelegateCommand DeconnectionCommand { get; set; }
         private readonly IAuthenticationService _authenticationService;
+        private readonly IShoppingCartService _shoppingCartService;
         public bool IsAuthenticated
         {
             get { return _authenticationService.IsUserAuthenticated; }
         }
 
         public CustomMasterDetailViewModel(INavigationService navigationService,
-                                            IAuthenticationService authenticationService)
+                                            IAuthenticationService authenticationService,
+                                            IShoppingCartService shoppingCartService)
             : base(navigationService)
         {
             _authenticationService = authenticationService;
+            _shoppingCartService = shoppingCartService;
             OnNavigateCommand = new DelegateCommand<string>(NavigateAsync);
             DeconnectionCommand = new DelegateCommand(LogOut);
         }
 
-        private async void NavigateAsync(string page) //CommandParameter !
+        private async void NavigateAsync(string page) //page from CommandParameter !
         {
             await NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + page);
             //NavigationService.NavigateAsync(new System.Uri(page, System.UriKind.Absolute));
         }
         private async void LogOut()
         {
-            _authenticationService.LogOut();
+            _authenticationService.LogOut();                //Vide le User
+            _shoppingCartService.SetNewEmptyShoppingCart(); //Vide la liste et le price
             await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage));
         }
     }

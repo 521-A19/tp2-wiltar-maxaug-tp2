@@ -19,16 +19,18 @@ namespace TP2.UnitTests
         private CustomMasterDetailViewModel _customMasterDetailViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IAuthenticationService> _mockAuthenticationService;
+        private Mock<IShoppingCartService> _mockShoppingCartService;
 
         public CustomMasterDetailViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockAuthenticationService = new Mock<IAuthenticationService>();
-            _customMasterDetailViewModel = new CustomMasterDetailViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object);
+            _mockShoppingCartService = new Mock<IShoppingCartService>();
+            _customMasterDetailViewModel = new CustomMasterDetailViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object, _mockShoppingCartService.Object);
         }
 
         [Fact]
-        public void ConnecterUser_DeconnectionCommand_ShouldCallLogOut()
+        public void WhenDeconnectionCommandIsCalled_ShouldCallLogOut()
         {
             _customMasterDetailViewModel.DeconnectionCommand.Execute();
 
@@ -36,7 +38,15 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void ConnecterUser_DeconnectionCommand_ShouldNavigateToMainPage()
+        public void WhenDeconnectionCommandIsCalled_ShouldCallSetNewEmptyShoppingCart()
+        {
+            _customMasterDetailViewModel.DeconnectionCommand.Execute();
+
+            _mockShoppingCartService.Verify(x => x.SetNewEmptyShoppingCart(), Times.Once());
+        }
+
+        [Fact]
+        public void WhenDeconnectionCommandIsCalled_ShouldNavigateToMainPage()
         {
             _customMasterDetailViewModel.DeconnectionCommand.Execute();
 

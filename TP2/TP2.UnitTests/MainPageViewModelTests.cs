@@ -12,7 +12,7 @@ using TP2.Models.Entities;
 using Bogus;
 using System.Linq;
 using System.ComponentModel;
-using TP2.UnitTests.Fixture;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
@@ -23,7 +23,7 @@ namespace TP2.UnitTests
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IAuthenticationService> _mockAuthenticationService;
         private List<User> _userList;
-        private Fixture.Fixture _fixture = new Fixture.Fixture();
+        private Fixture _fixture = new Fixture();
         private bool _eventRaisedProperty;
 
         public MainPageViewModelTests()

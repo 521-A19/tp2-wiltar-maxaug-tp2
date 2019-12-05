@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using TP2.Models.Entities;
 using TP2.Services;
-using TP2.UnitTests.Fixture;
+using TP2.UnitTests.Fixtures;
 using TP2.ViewModels;
 using TP2.Views;
 using Xunit;
@@ -22,7 +22,7 @@ namespace TP2.UnitTests
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IRepository<Dog>> _mockRepository;
         private Mock<IAuthenticationService> _mockAuthentification;
-        private Fixture.Fixture _fixture = new Fixture.Fixture();
+        private Fixture _fixture = new Fixture();
         public UserProfileViewModelTests()
         {
             _fixture.BuildUsersList();

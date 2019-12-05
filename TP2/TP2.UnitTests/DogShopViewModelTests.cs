@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Prism.Services;
 using TP2.Externalization;
-using TP2.UnitTests.Fixture;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
@@ -26,7 +26,7 @@ namespace TP2.UnitTests
         private bool _eventRaisedProperty;
         private List<User> _userList;
         private List<Dog> _dogList;
-        private Fixture.Fixture _fixture = new Fixture.Fixture();
+        private Fixture _fixture = new Fixture();
 
         public DogShopViewModelTests()
         {

@@ -6,7 +6,7 @@ using TP2.Models.Entities;
 using TP2.Services;
 using Xunit;
 
-namespace TP2.UnitTests.Fixture
+namespace TP2.UnitTests.Fixtures
 {
     public class Fixture 
     {

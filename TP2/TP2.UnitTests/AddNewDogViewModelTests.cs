@@ -11,7 +11,7 @@ using TP2.Models.Entities;
 using TP2.Services;
 using TP2.ViewModels;
 using TP2.Views;
-using TP2.UnitTests.Fixture;
+using TP2.UnitTests.Fixtures;
 using Xunit;
 
 namespace TP2.UnitTests
@@ -27,7 +27,7 @@ namespace TP2.UnitTests
         private IDogApiService _dogApiService;
         private List<User> _userList;
         private List<Dog> _dogList;
-        private Fixture.Fixture _fixture = new Fixture.Fixture();
+        private Fixture _fixture = new Fixture();
 
         public AddNewDogViewModelTests()
         {

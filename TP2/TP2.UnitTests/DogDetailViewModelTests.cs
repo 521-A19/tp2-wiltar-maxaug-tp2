@@ -10,7 +10,7 @@ using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.ComponentModel;
-using TP2.UnitTests.Fixture;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
@@ -21,7 +21,7 @@ namespace TP2.UnitTests
         private Mock<IShoppingCartService> _mockShoppingCartService;
         private bool _eventRaisedProperty;
         private List<Dog> _dogList;
-        private Fixture.Fixture _fixture = new Fixture.Fixture();
+        private Fixture _fixture = new Fixture();
 
         public DogDetailViewModelTests()
         {

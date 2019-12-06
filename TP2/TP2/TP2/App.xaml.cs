@@ -14,6 +14,7 @@ using Xamarin.Essentials;
 using System.Collections.Generic;
 using TP2.Views.MasterDetailPages;
 using TP2.ViewModels.MasterDetailViews;
+using TP2.Externalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TP2
@@ -52,12 +53,12 @@ namespace TP2
 
             var dog1 = new Dog()
             {
-                Name = "Rex",
-                ImageUrl = "https://images.dog.ceo/breeds/clumber/n02101556_823.jpg",
-                Price = (float)259.99,
-                Race = "Husky",
-                Sex = "Male",
-                Description = "Jeune chien de 4 mois, super énergique"
+                Name = UiText.ANY_DOG_NAME,
+                ImageUrl = UiText.ANY_DOG_IMAGE_URL,
+                Price = UiText.ANY_DOG_PRICE,
+                Race = UiText.ANY_DOG_RACE,
+                Sex = UiText.ANY_DOG_SEX,
+                Description = UiText.ANY_DOG_DESCRIPTION
             };
             var dog2 = new Dog()
             {
@@ -93,21 +94,7 @@ namespace TP2
             ISecureStorageService secureStorageService = new SecureStorageService();
             string salt = cryptoService.GenerateSalt();
             string key = cryptoService.GenerateEncryptionKey();
-            //List<Dog> list = new List<Dog>();
-            //list.Add(dog1);
-            /*
-            Dog dog = new Dog()
-            {
-                Name = "Leo",
-                ImageUrl = "https://images.dog.ceo/breeds/pug/n02110958_1975.jpg",
-                Price = (float)269.99,
-                Race = "Husky",
-                Sex = "Male",
-                Description = "Gentil et calme"
-
-            };
-            list.Add(dog);
-            */
+ 
             var user1 = new User()
             {
                 Login = "123",
@@ -115,9 +102,23 @@ namespace TP2
                 PasswordSalt = salt,
                 CreditCard = cryptoService.Encrypt("1234", key),
                 DogId = dog1.Id
-        };
+            };
             secureStorageService.SetUserEncryptionKeyAsync(user1, key);
-            usersRepository.Add(user1);   // après le add, product1 contient un id
+            usersRepository.Add(user1);   // après le add, user1 contient un id
+
+            salt = cryptoService.GenerateSalt();
+            key = cryptoService.GenerateEncryptionKey();
+
+            var user2 = new User()
+            {
+                Login = "456",
+                HashedPassword = cryptoService.HashSHA512("789", salt),
+                PasswordSalt = salt,
+                CreditCard = cryptoService.Encrypt("1234", key),
+                DogId = -1
+            };
+            secureStorageService.SetUserEncryptionKeyAsync(user2, key);
+            usersRepository.Add(user2);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

@@ -21,7 +21,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
         }
 
@@ -55,6 +55,7 @@ namespace TP2.UITests
         {
 
             const string DELETE_DOG_NAME = "Rex";
+            
             var userProfileViewObject = new UserProfileViewObject(app);
 
             userProfileViewObject.DeleteDogShop();

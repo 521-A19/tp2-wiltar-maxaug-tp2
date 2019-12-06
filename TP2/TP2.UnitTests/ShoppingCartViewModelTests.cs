@@ -10,6 +10,8 @@ using Xunit;
 using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace TP2.UnitTests
 {
@@ -18,17 +20,31 @@ namespace TP2.UnitTests
         private ShoppingCartViewModel _shoppingCartViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IShoppingCartService> _mockShoppingCartService;
+        private Mock<IPageDialogService> _mockPageDialogService;
+        private Mock<ISecureStorageService> _mockSecureStorageService;
+        private Mock<IAuthenticationService> _mockAuthenticationService;
+        private readonly ICryptoService _cryptoService;
+        private const string NotEncryptedCreditCard = "5105105105105100";
+        private const string EncryptionKey = "--AnEncryptionKey--";
         private List<Dog> _dogList;
 
         public ShoppingCartViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockShoppingCartService = new Mock<IShoppingCartService>();
+            _mockPageDialogService = new Mock<IPageDialogService>();
+            _mockSecureStorageService = new Mock<ISecureStorageService>();
+            _mockAuthenticationService = new Mock<IAuthenticationService>();
+            _cryptoService = new CryptoService();
+            var user = CreateFakeUser(-1).Generate();
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(user);
+            _mockSecureStorageService.Setup(r => r.GetUserEncryptionKeyAsync(It.IsAny<User>())).Returns(Task.FromResult(EncryptionKey));
             _dogList = CreateDogList();
             _mockShoppingCartService
                 .Setup(r => r.ShoppingCartDogList)
                 .Returns(_dogList);
-            _shoppingCartViewModel = new ShoppingCartViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object);
+            _shoppingCartViewModel = new ShoppingCartViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object,
+                       _mockPageDialogService.Object, _mockAuthenticationService.Object, _mockSecureStorageService.Object, _cryptoService);
         }
 
         [Fact]
@@ -76,6 +92,38 @@ namespace TP2.UnitTests
             _shoppingCartViewModel.CancelShoppingCartCommand.Execute(null);
 
             _mockShoppingCartService.Verify(x => x.SetNewEmptyShoppingCart(), Times.Once());
+        }
+
+        
+        [Fact]
+        public void OnNavigatedTo_ShouldCallGetUserEncryptionKey()
+        {
+            INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
+
+            _shoppingCartViewModel.OnNavigatedTo(navigationParameters);
+
+            _mockSecureStorageService.Verify(x => x.GetUserEncryptionKeyAsync(It.IsAny<User>()), Times.Once());
+        }
+
+        [Fact]
+        public void NotEmptyDogList_BuyShoppingCartCommand_CanExecuteShoulReturnTrue()
+        {
+            _shoppingCartViewModel.DogList = new ObservableCollection<Dog>(_dogList);
+
+            _shoppingCartViewModel.BuyShoppingCartCommand.CanExecute(null).Should().BeTrue();
+        }
+
+        private Faker<User> CreateFakeUser(int dogId)
+        {
+            var fakeUser = new Faker<User>()
+                .StrictMode(true)
+                .RuleFor(u => u.Id, f => f.IndexFaker)
+                .RuleFor(u => u.Login, f => f.Person.Email)
+                .RuleFor(u => u.CreditCard, f => _cryptoService.Encrypt(NotEncryptedCreditCard, EncryptionKey))
+                .RuleFor(u => u.HashedPassword, f => "264531")
+                .RuleFor(u => u.PasswordSalt, f => "adskadk")
+                .RuleFor(u => u.DogId, f => dogId);
+            return fakeUser;
         }
 
         private List<Dog> CreateDogList()

@@ -46,7 +46,6 @@ namespace TP2.ViewModels
             var _dogs = shoppingCartService.ShoppingCartDogList;
             DogList = new ObservableCollection<Dog>(_dogs);
             TotalPrice = _shoppingCartService.TotalPrice;
-
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters) //Est appelé avant l'affichage de la page
@@ -57,13 +56,6 @@ namespace TP2.ViewModels
             string key = await _secureStorageService.GetUserEncryptionKeyAsync(user);
             var decryptedCard = _cryptoService.Decrypt(user.CreditCard, key);
             _creditCard = decryptedCard;
-            //if(IsShoppingCartEmpty()) ChangeCanExecute();
-        }
-
-        private void ChangeCanExecute()
-        {
-            //_isSelectedDogAlreadyInTheShoppingCart = false;
-            //((Command)AddSelectedDogToTheShoppingCart).ChangeCanExecute();
         }
 
         private bool IsShoppingCartEmpty()
@@ -78,31 +70,41 @@ namespace TP2.ViewModels
             {
                 return new Command(execute: (item) =>
                 {
-                    var dog = (item as Dog);
-                    _shoppingCartService.RemoveDogFromTheShoppingCart(dog);
-                    NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(ShoppingCartPage));
+                    DeleteDogFromTheShoppingCart(item);
                 });
             }
         }
-    
+
+        private void DeleteDogFromTheShoppingCart(object item)
+        {
+            var dog = (item as Dog);
+            _shoppingCartService.RemoveDogFromTheShoppingCart(dog);
+            NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(ShoppingCartPage));
+        }
+
         public ICommand BuyShoppingCartCommand
         {
             get
             {
                 return new Command(execute: (item) =>
                 {
-                    var creditCardEntered = (string)item;
-                    if (creditCardEntered == _creditCard)
-                    {
-                        _shoppingCartService.BuyShoppingCart();  //Remove dogs from the repo
-                        NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
-                    }
-                    else
-                    {
-                        _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.INVALID_CONFIRMATION_CREDIT_CARD, UiText.OK);
-                    }
+                    BuyShoppingCart(item);
                 },
                 canExecute: (item) => !IsShoppingCartEmpty());
+            }
+        }
+
+        private void BuyShoppingCart(object item)
+        {
+            var creditCardEntered = (string)item;
+            if (creditCardEntered == _creditCard)
+            {
+                _shoppingCartService.BuyShoppingCart();  //Remove dogs from the repo
+                NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
+            }
+            else
+            {
+                _pageDialogService.DisplayAlertAsync(UiText.WARNING, UiText.INVALID_CONFIRMATION_CREDIT_CARD, UiText.OK);
             }
         }
 
@@ -112,10 +114,15 @@ namespace TP2.ViewModels
             {
                 return new Command(execute: () =>
                 {
-                    _shoppingCartService.SetNewEmptyShoppingCart();
-                    NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
+                    CancelShoppingCart();
                 });
             }
+        }
+
+        private void CancelShoppingCart()
+        {
+            _shoppingCartService.SetNewEmptyShoppingCart();
+            NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
         }
     }
 }

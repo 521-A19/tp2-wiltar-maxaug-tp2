@@ -1,4 +1,5 @@
-﻿using Xamarin.UITest;
+﻿using TP2.Externalization;
+using Xamarin.UITest;
 
 namespace TP2.UITests.BaseObjects
 {
@@ -7,5 +8,6 @@ namespace TP2.UITests.BaseObjects
         public DogShopViewObject(IApp app) : base(app)
         {
         }
+       
     }
 }

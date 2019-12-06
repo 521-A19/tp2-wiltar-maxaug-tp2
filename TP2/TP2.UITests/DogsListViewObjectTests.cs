@@ -15,6 +15,7 @@ namespace TP2.UITests
     class DogsListViewObjectTests
     {
         private AndroidApp app;
+        private DogsListViewObject _dogsListViewObject;
 
         [SetUp]
         public void BeforeEachTest()
@@ -23,7 +24,7 @@ namespace TP2.UITests
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
             var mainPageViewObject = new MainPageViewObject(app);
-            var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
+            _dogsListViewObject = mainPageViewObject.OpenDogsListPage();
         }
 
         [Test]
@@ -32,6 +33,37 @@ namespace TP2.UITests
             AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
             //app.Screenshot("Welcome screen.");
             Assert.IsTrue(results.Any());
+        }
+
+        [Test]
+        public void DogsInformationsShouldBeDisplayed()
+        {
+            const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;
+            const string EXPECTED_DESCRIPTION_DISPLAYED = UiText.ANY_DOG_DESCRIPTION;
+            const string EXPECTED_RACE_DISPLAYED = UiText.ANY_DOG_RACE;
+            const string EXPECTED_SEX_DISPLAYED = UiText.ANY_DOG_SEX;
+
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_NAME_DISPLAYED));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_DESCRIPTION_DISPLAYED));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_RACE_DISPLAYED));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_SEX_DISPLAYED));
+        }
+
+        [Test]
+        public void OnDogClick_ShouldOpenDogDetailView()
+        {
+            const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
+
+            var projectDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
+
+            const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;
+            const string EXPECTED_DESCRIPTION_DISPLAYED = UiText.ANY_DOG_DESCRIPTION;
+            const string EXPECTED_RACE_DISPLAYED = UiText.ANY_DOG_RACE;
+            const string EXPECTED_SEX_DISPLAYED = UiText.ANY_DOG_SEX;
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_NAME_DISPLAYED));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_DESCRIPTION_DISPLAYED));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_RACE_DISPLAYED));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_SEX_DISPLAYED));
         }
     }
 }

@@ -5,6 +5,9 @@ namespace TP2.UITests.BaseObjects
 {
     public class MainPageViewObject : BasePageObject
     {
+
+        const string ID_EMAIL_ENTRY = "NameId";
+        const string ID_PASSWORD_ENTRY = "PasswordId";
         public MainPageViewObject(IApp app) : base(app)
         {
         }
@@ -32,7 +35,39 @@ namespace TP2.UITests.BaseObjects
             App.EnterText(UiText.PASSWORD, password);
             App.DismissKeyboard();
         }
-        
+
+        public DogsListViewObject SignIn()
+        {
+            EnterLoginAndPasswordAndSignIn();
+            var dogsListViewObject = new DogsListViewObject(App);
+
+            return dogsListViewObject;
+        }
+
+        private void EnterLoginAndPasswordAndSignIn()
+        {
+            App.Tap(ID_EMAIL_ENTRY);
+            App.EnterText("123");
+            App.Tap(ID_PASSWORD_ENTRY);
+            App.EnterText(ID_PASSWORD_ENTRY, "456");
+            App.Tap(UiText.CONNECTION);
+            App.Tap(UiText.CONNECTION);
+            App.WaitForElement(UiText.MAIN_LABEL);
+        }
+
+        public void FromMasterDetailPageNavigateTo(string urlPage)
+        {
+            App.TapCoordinates(100, 100);
+            /*
+            BasePageObject viewObject;
+            if (urlPage == UiText.DOG_SHOP_PAGE_MAIN_TITLE)
+            {
+                viewObject = new DogShopViewObject(App);
+            }*/
+            App.Tap(urlPage);
+            //return viewObject;
+        }
+
         public void ClickSignInButton()
         {
             App.Tap(UiText.CONNECTION);

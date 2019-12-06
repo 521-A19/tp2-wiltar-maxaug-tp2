@@ -41,6 +41,12 @@ namespace TP2.UITests.BaseObjects
             App.Tap("Supprimer le chien X");
         }
 
+        public void TapDeleteDogShop()
+        {
+            App.Tap("Supprimer le chien X");
+            App.Tap("Supprimer le chien X");
+        }
+
         public void NavigateToPrifileStartingToDogListPage()
         {
             App.TapCoordinates(100, 100);

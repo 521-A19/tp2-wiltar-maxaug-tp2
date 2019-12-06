@@ -42,7 +42,7 @@ namespace TP2.ViewModels
             _pageDialogService = pageDialogService;
             _authenticationService = authenticationService;
             _dogRepositoryService = dogRepositoryService;
-            Title = "Mon chien en adoption";
+            Title = UiText.DOG_SHOP_PAGE_MAIN_TITLE;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

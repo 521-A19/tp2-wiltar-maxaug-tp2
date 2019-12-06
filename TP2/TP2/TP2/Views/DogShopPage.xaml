@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              xmlns:local="clr-namespace:TP2.Converters"
              x:Class="TP2.Views.DogShopPage"
              Title="{Binding Title}">
@@ -46,7 +47,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>-->
-            <Button IsVisible="{Binding UserHasAnyDog, Converter={StaticResource NegateBool}}" Text="Ajouter un chien" Command="{Binding NavigateToAddNewDogPageCommand}"/>
+            <Button IsVisible="{Binding UserHasAnyDog, Converter={StaticResource NegateBool}}" Text="{x:Static externalization:UiText.BUTTON_ADD_NEW_DOG}" Command="{Binding NavigateToAddNewDogPageCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

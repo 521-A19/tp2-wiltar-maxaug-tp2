@@ -15,6 +15,8 @@ namespace TP2.UITests
     class DogDetailViewObjectTests
     {
         private AndroidApp app;
+        private MainPageViewObject _mainPageViewObject;
+        private DogsListViewObject _dogsListViewObject;
 
         [SetUp]
         public void BeforeEachTest()
@@ -22,16 +24,31 @@ namespace TP2.UITests
             app = ConfigureApp.Android
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
-            var mainPageViewObject = new MainPageViewObject(app);
-            var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
+            _mainPageViewObject = new MainPageViewObject(app);
+            _mainPageViewObject.SignIn();
+            _dogsListViewObject = _mainPageViewObject.OpenDogsListPage();
         }
 
         [Test]
-        public void WelcomeTextIsDisplayed()
+        public void MainTitleIsDisplayed()
         {
-            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
-            //app.Screenshot("Welcome screen.");
-            Assert.IsTrue(results.Any());
+            _mainPageViewObject.FromMasterDetailPageNavigateTo(UiText.TITLE_DOG_DETAIL);
+
+            Assert.IsTrue(_mainPageViewObject.IsTextDisplayed(UiText.DOG_SHOP_PAGE_MAIN_TITLE));
+        }
+
+        [Test]
+        public void DogInformationsShouldBeDisplayed()
+        {
+            const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
+            var projectDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
+            const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;
+            const string EXPECTED_DESCRIPTION_DISPLAYED = UiText.ANY_DOG_DESCRIPTION;
+            const float EXPECTED_PRICE_DISPLAYED = UiText.ANY_DOG_PRICE;
+
+            Assert.IsTrue(projectDetailViewObject.IsTextDisplayed(EXPECTED_NAME_DISPLAYED));
+            Assert.IsTrue(projectDetailViewObject.IsTextDisplayed(EXPECTED_DESCRIPTION_DISPLAYED));
+            Assert.IsTrue(projectDetailViewObject.IsTextDisplayed(EXPECTED_PRICE_DISPLAYED.ToString()));
         }
     }
 }

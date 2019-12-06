@@ -17,40 +17,40 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout BackgroundColor="Silver" Padding="20">
-                <Button Text="Mon panier"
+                <Button Text="{x:Static externalization:UiText.BUTTON_TO_SHOPPING_CART_PAGE}"
                         IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
                         CommandParameter="ShoppingCartPage"
                         />
-                <Button Text="Mon chien en adoption"
+                <Button Text="{x:Static externalization:UiText.BUTTON_TO_DOG_SHOP_PAGE}"
                         IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
                         CommandParameter="DogShopPage"
                         />
-                <Button Text="Liste de chiens"
+                <Button Text="{x:Static externalization:UiText.BUTTON_TO_DOGS_LIST_PAGE}"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
                         CommandParameter="DogsListPage"
                         />
-                <Button Text="Profile"
+                <Button Text="{x:Static externalization:UiText.BUTTON_TO_USER_PROFIL_PAGE}"
                         IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding OnNavigateCommand}"
                         CommandParameter="UserProfilePage"
                         />
-                <Button Text="Déconnection"
+                <Button Text="{x:Static externalization:UiText.BUTTON_DECONNEXION}"
                         IsVisible="{Binding IsAuthenticated}"
                         TextColor="White"
                         BackgroundColor="Red"
                         Command="{Binding DeconnectionCommand}"
                         />
-                <Button Text="Connection"
+                <Button Text="{x:Static externalization:UiText.CONNECTION}"
                         IsVisible="{Binding IsAuthenticated, Converter={StaticResource NegateBool}}"
                         TextColor="White"
                         BackgroundColor="Red"

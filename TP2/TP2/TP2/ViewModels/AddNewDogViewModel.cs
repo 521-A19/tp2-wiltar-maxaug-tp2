@@ -10,6 +10,8 @@ using TP2.Models.Entities;
 using TP2.Externalization;
 using TP2.Views;
 using System.Linq;
+using TP2.Validation;
+using TP2.Validation.Rules;
 
 namespace TP2.ViewModels
 {
@@ -24,15 +26,17 @@ namespace TP2.ViewModels
         private List<string> _breedsList;
         private int _selectedBreed = 0;
 
-        private string _name;
+        private ValidatableObject<string> _name;
         private string _breed;
         private string _sex;
         private string _description;
         private string _imageURl;
-        private float _price = 0;
+        private ValidatableObject<float> _price;
 
         public DelegateCommand FetchARandomImageCommand => new DelegateCommand(RandomImageURL);
         public DelegateCommand AddNewDogCommand => new DelegateCommand(AddNewDog);
+        public DelegateCommand ValidateDogNameCommand => new DelegateCommand(ValidateDogName);
+        public DelegateCommand ValidateDogPriceCommand => new DelegateCommand(ValidateDogPrice);
 
         public AddNewDogViewModel(INavigationService navigationService,
                                     IDogApiService dogBreedsService,
@@ -44,18 +48,28 @@ namespace TP2.ViewModels
         {
             _dialogService = dialogService;
             _dogBreedsService = dogBreedsService;
+            _DogBreeds = _dogBreedsService.GetDogBreeds();
+            _breedsList = _DogBreeds.message;
             _dogRepository = dogRepository;
             _userRepository = userRepository;
             _authenticationService = authenticationService;
-            _DogBreeds = _dogBreedsService.GetDogBreeds();
-            _breedsList = _DogBreeds.message;
+            _name = new ValidatableObject<string>();
+            _price = new ValidatableObject<float>();
+            AddValidationRulesToValidatable();
+        }
+        private void ValidateDogName()
+        {
+            _name.Validate();
+        }
+
+        private void ValidateDogPrice()
+        {
+            _price.Validate();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            
-             RandomImageURL();
-
+            RandomImageURL();
         }
 
         private void RandomImageURL()
@@ -69,24 +83,43 @@ namespace TP2.ViewModels
         private async void AddNewDog()
         {
             try {
-                Dog newDog = new Dog() 
+                ValidateDogName();
+                ValidateDogPrice();
+                if (Name.Errors.Count + Price.Errors.Count == 0)
                 {
-                    Name = Name,
+                    Dog newDog = new Dog() 
+                {
+                    Name = Name.Value,
                     Race = Breed,
                     Sex = Sex,
                     Description = Description,
                     ImageUrl = ImageUrl,
-                    Price = Price
+                    Price = Price.Value
                 };
                 _dogRepository.Add(newDog);  // Le Add du repo incrémente les nouveaux chiens
                 _authenticationService.AuthenticatedUser.DogId = newDog.Id;
                 _userRepository.Update(_authenticationService.AuthenticatedUser);
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
             }
+            }
             catch
             {
                 await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
+        }
+
+        private void AddValidationRulesToValidatable()
+        {
+            var isBiggerThanZero = new IsBiggerThanZero<float>
+            {
+                ErrorMessage = UiText.DOG_NEED_A_GOOD_PRICE
+            };
+            var haveAName = new HaveAName<string>
+            {
+                ErrorMessage = UiText.DOG_NEED_A_NAME
+            };
+            _name.AddValidationRule(haveAName);
+            _price.AddValidationRule(isBiggerThanZero);
         }
 
         public List<string> DogBreeds
@@ -108,14 +141,10 @@ namespace TP2.ViewModels
             }
         }
 
-        public string Name
+        public ValidatableObject<string> Name
         {
             get => _name;
-            set
-            {
-                _name = value;
-                RaisePropertyChanged();
-            }
+
         }
         public string Breed
         {
@@ -153,14 +182,9 @@ namespace TP2.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public float Price
+        public ValidatableObject<float> Price
         {
             get => _price;
-            set
-            {
-                _price = value;
-                RaisePropertyChanged();
-            }
         }
     }
 

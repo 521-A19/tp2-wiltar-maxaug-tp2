@@ -54,11 +54,11 @@ namespace TP2.UnitTests
                 .Setup(n => n.GetAll())
                 .Returns(_dogList);
 
-            _addNewDogViewModel.Name = "Dog";
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
             _addNewDogViewModel.Description = "Description";
             _addNewDogViewModel.Sex = "Male";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
 
             //Act
@@ -79,9 +79,9 @@ namespace TP2.UnitTests
                .Setup(n => n.GetAll())
                .Returns(_dogList);
 
-            _addNewDogViewModel.Name = "Dog";
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
 
             _addNewDogViewModel.AddNewDogCommand.Execute();
@@ -99,9 +99,9 @@ namespace TP2.UnitTests
             _mockDogRepository
                .Setup(n => n.GetAll())
                .Returns(_dogList);
-            _addNewDogViewModel.Name = "Dog";
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
 
             //Act
@@ -118,8 +118,9 @@ namespace TP2.UnitTests
             _mockAuthentification
                .Setup(a => a.AuthenticatedUser)
                .Returns(_userList[0]);
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _mockNavigationService
                 .Setup(a => a.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)))
                 .Throws<Exception>();
@@ -161,6 +162,41 @@ namespace TP2.UnitTests
 
             //Assert
             FIRST_IMAGE_RETURN.Should().NotContainEquivalentOf(SECOND_IMAGE_RETURN);
+        }
+
+        [Fact]
+        public void AddNewDogCommand_WhenNameIsNotHonored_ShouldHaveNoOtherCall()
+        {
+            //Arrange
+            _mockAuthentification
+               .Setup(a => a.AuthenticatedUser)
+               .Returns(_userList[0]);
+            _addNewDogViewModel.Breed = "african";
+            _addNewDogViewModel.Price.Value = 120;
+
+            //Act
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            //Assert
+            _mockPageDialogService.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public void AddNewDogCommand_WhenPriceIsNotHonored_ShouldHaveNoOtherCall()
+        {
+            //Arrange
+            _mockAuthentification
+               .Setup(a => a.AuthenticatedUser)
+               .Returns(_userList[0]);
+
+            _addNewDogViewModel.Name.Value = "Dog";
+            _addNewDogViewModel.Breed = "african";
+
+            //Act
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            //Assert
+            _mockPageDialogService.VerifyNoOtherCalls();
         }
     }
 }

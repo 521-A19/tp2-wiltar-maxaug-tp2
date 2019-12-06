@@ -53,5 +53,10 @@ namespace TP2.Externalization
         public const string USER_IS_ALREADY_REGISTED = "Ce nom d'utilisateur est déjà utilisé!";
         public const string USER_REGISTER_ALERT = "Désolé";
         public const string OKAY_CHANGE_NAME = "D'accord";
+
+        //AddNewDog
+
+        public const string DOG_NEED_A_NAME = "Le chien a besoin d'un nom";
+        public const string DOG_NEED_A_GOOD_PRICE = "Le chien doit avoir un prx supérieur à 0$";
     }
 }

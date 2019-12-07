@@ -23,7 +23,6 @@ namespace TP2.UITests.BaseObjects
             return new DogsListViewObject(App);
         }
 
-
         public void EnterCreditCard(string creditCard)
         {
             App.Tap(ID_CREDIT_CARD_ENTRY);

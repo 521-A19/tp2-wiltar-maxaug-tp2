@@ -15,8 +15,7 @@ namespace TP2.UITests.BaseObjects
         public DogsListViewObject OpenDogsListPage()
         {
             TapButton(UiText.GO_TO_DOG_LIST);
-            var dogsListViewObject = new DogsListViewObject(App);
-            return dogsListViewObject;
+            return new DogsListViewObject(App);
         }
 
         public void EnterLogin(string login)
@@ -52,9 +51,7 @@ namespace TP2.UITests.BaseObjects
         public RegisterViewObject ClickSignUpButton()
         {
             App.Tap(UiText.SIGN_UP);
-            var registerViewObject = new RegisterViewObject(App);
-
-            return registerViewObject;
+            return new RegisterViewObject(App);
         }
     }
 }

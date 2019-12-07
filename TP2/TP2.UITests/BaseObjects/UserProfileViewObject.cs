@@ -22,11 +22,5 @@ namespace TP2.UITests.BaseObjects
             App.Tap(UiText.BUTTON_DELETE_MY_DOG); 
             return new DogsListViewObject(App);
         }
-
-        public void NavigateToPrifileStartingToDogListPage()
-        {
-            App.TapCoordinates(100, 100);
-            App.Tap("Profile");
-        }
     }
 }

@@ -64,6 +64,7 @@ namespace TP2.UITests
             Assert.IsTrue(_dogShopViewObject.IsTextDisplayed(UiText.DOG_INFO_MODIFIED));
         }
 
+        //Bug
         [Test]
         public void UserHasOneDog_SaveChangesButton_ShouldModifyMyDogInformationsInDogListPage()
         {

@@ -31,6 +31,7 @@ namespace TP2.UITests.BaseObjects
             App.Tap(ID_EMAIL_ENTRY);
             App.EnterText(email);
         }
+
         public void EnterPassword(string password)
         {
             App.Tap(ID_PASSWORD_ENTRY);
@@ -42,14 +43,5 @@ namespace TP2.UITests.BaseObjects
             App.Tap(ID_CONFIRM_PASSWORD_ENTRY);
             App.EnterText(confirmation);
         }
-
-        /*
-        App.Tap(ID_EMAIL_ENTRY);
-            App.EnterText("123");
-            App.Tap(ID_PASSWORD_ENTRY);
-            App.EnterText(ID_PASSWORD_ENTRY, "456");
-            App.DismissKeyboard();
-            App.Tap(UiText.CONNECTION); // ou x2
-            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);*/
     }
 }

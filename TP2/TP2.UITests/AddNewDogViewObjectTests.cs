@@ -23,7 +23,7 @@ namespace TP2.UITests
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
         }
-
+        /*
         [Test]
         public void JeVeuxMeRendreALaPageDAdoptionDeChien()
         {
@@ -51,7 +51,7 @@ namespace TP2.UITests
 
             AppResult[] results = app.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
             Assert.IsTrue(results.Any());
-        }
+        }*/
 
     }
 }

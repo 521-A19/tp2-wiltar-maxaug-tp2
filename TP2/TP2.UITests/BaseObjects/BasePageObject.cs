@@ -25,6 +25,23 @@ namespace TP2.UITests.BaseObjects
             App.Tap(buttonName);
         }
 
+        public void AlertConfirm()
+        {
+            App.TapCoordinates(100, 100);
+        }
+
+        public void OrderByBreed()
+        {
+            App.Tap("Trier Par");
+            App.Tap("Race");
+        }
+
+        public void OrderByPrice()
+        {
+            App.Tap("Trier Par");
+            App.Tap("Prix");
+        }
+
         public BasePageObject FromMasterDetailPageNavigateTo(string urlPage)
         {
             App.TapCoordinates(100, 100);

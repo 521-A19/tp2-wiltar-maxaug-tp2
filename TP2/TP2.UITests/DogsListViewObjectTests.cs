@@ -37,6 +37,7 @@ namespace TP2.UITests
         [Test]
         public void OnDogsListPage_DogsInformationsShouldBeDisplayed()
         {
+            _dogsListViewObject.OrderByPrice();
             const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;
             const string EXPECTED_DESCRIPTION_DISPLAYED = UiText.ANY_DOG_DESCRIPTION;
             const string EXPECTED_RACE_DISPLAYED = UiText.ANY_DOG_RACE;
@@ -52,7 +53,7 @@ namespace TP2.UITests
         public void DogDetailClick_ShouldOpenDogDetailView()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-
+            _dogsListViewObject.OrderByBreed();
             var projectDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
 
             const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;

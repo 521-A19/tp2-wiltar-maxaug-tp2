@@ -29,7 +29,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
             _mainPageViewObject = new MainPageViewObject(app);
             _dogsListViewObject = _mainPageViewObject.SignIn();
@@ -79,12 +79,12 @@ namespace TP2.UITests
             _dogShopViewObject.EnterTextEntry(NEW_SEX, ID_SEX_ENTRY);
 
             _dogShopViewObject.TapButton(UiText.BUTTON_SAVE_CHANGES);
+            _dogShopViewObject.AlertConfirm();
             _dogsListViewObject = _dogShopViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_DOGS_LIST_PAGE) as DogsListViewObject;
+            _dogShopViewObject.OrderByBreed();
 
             Assert.IsFalse(_dogsListViewObject.IsTextDisplayed(UiText.ANY_DOG_NAME));
             Assert.IsFalse(_dogsListViewObject.IsTextDisplayed(UiText.ANY_DOG_DESCRIPTION));
-            Assert.IsFalse(_dogsListViewObject.IsTextDisplayed(UiText.ANY_DOG_RACE));
-            Assert.IsFalse(_dogsListViewObject.IsTextDisplayed(UiText.ANY_DOG_SEX));
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(NEW_NAME));
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(NEW_DESCRIPTION));
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(NEW_RACE));

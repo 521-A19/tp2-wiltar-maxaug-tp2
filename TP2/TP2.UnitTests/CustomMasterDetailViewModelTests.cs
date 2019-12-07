@@ -53,16 +53,40 @@ namespace TP2.UnitTests
             _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage)), Times.Once());
         }
 
-        [Theory]
-        [InlineData("DogShopPage")]
-        [InlineData("DogsListPage")]
-        [InlineData("MainPage")]
-        [InlineData("UserProfilePage")]
-        public void OnNavigateCommand_ShouldNavigateToOtherPage(string namePage)
+        [Fact]
+        public void OnNavigateCommand_WhenMainPageIsChosen_ShouldNavigateToOtherPage()
         {
-            _customMasterDetailViewModel.OnNavigateCommand.Execute(namePage);
+            const string PAGE_TO_NAVIGATE = "MainPage";
+            _customMasterDetailViewModel.OnNavigateCommand.Execute(PAGE_TO_NAVIGATE);
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + namePage), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + PAGE_TO_NAVIGATE), Times.Once());
+        }
+
+        [Fact]
+        public void OnNavigateCommand_WhenDogListPageIsChosen_ShouldNavigateToOtherPage()
+        {
+            const string PAGE_TO_NAVIGATE = "DogListPage";
+            _customMasterDetailViewModel.OnNavigateCommand.Execute(PAGE_TO_NAVIGATE);
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + PAGE_TO_NAVIGATE), Times.Once());
+        }
+
+        [Fact]
+        public void OnNavigateCommand_WhenDogShopPageIsChosen_ShouldNavigateToOtherPage()
+        {
+            const string PAGE_TO_NAVIGATE = "DogShopPage";
+            _customMasterDetailViewModel.OnNavigateCommand.Execute(PAGE_TO_NAVIGATE);
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + PAGE_TO_NAVIGATE), Times.Once());
+        }
+
+        [Fact]
+        public void OnNavigateCommand_WhenUserProfilePageIsChosen_ShouldNavigateToOtherPage()
+        {
+            const string PAGE_TO_NAVIGATE = "UserProfilePage";
+            _customMasterDetailViewModel.OnNavigateCommand.Execute(PAGE_TO_NAVIGATE);
+
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + PAGE_TO_NAVIGATE), Times.Once());
         }
     }
 }

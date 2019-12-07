@@ -40,7 +40,6 @@ namespace TP2.UnitTests
         [Fact]
         public void AuthenticatedUserHasNoDog_DeleteDogShopCommand_ShouldSetIsDeleteMyDogButtonVisibleToFalse()
         {
-            const int EXPECTED_USER_DOG_ID = -1;
             _userProfileViewModel.MyDog = _dogList[0];
 
             _userProfileViewModel.DeleteDogShopCommand.Execute();

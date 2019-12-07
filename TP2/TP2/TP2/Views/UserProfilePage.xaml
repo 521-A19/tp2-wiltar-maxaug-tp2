@@ -19,7 +19,7 @@
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"/>
 
-            <Label Text="Votre Chien"
+            <Label Text="Votre chien"
                 VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand"
                    FontSize="Large"/>
@@ -35,7 +35,7 @@
             <Label Text="{Binding MyDog.Price}"/>
             <Label Text="{Binding MyDog.Description}"/>
 
-            <Button Text="{x:Static externalization:UiText.BUTTON_DELETE_MY_DOG}" Command="{Binding DeleteDogShopCommand}" IsVisible="{Binding IsButtonToAddNewDogPageVisible}"  BackgroundColor="Red" HorizontalOptions="End" FontSize="Small" />
+            <Button Text="{x:Static externalization:UiText.BUTTON_DELETE_MY_DOG}" Command="{Binding DeleteDogShopCommand}" IsVisible="{Binding IsDeleteMyDogButtonVisible}"  BackgroundColor="Red" HorizontalOptions="End" FontSize="Small" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -21,7 +21,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
             var mainPageViewObject = new MainPageViewObject(app);
             _dogsListViewObject = mainPageViewObject.OpenDogsListPage();
@@ -63,6 +63,15 @@ namespace TP2.UITests
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_DESCRIPTION_DISPLAYED));
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_RACE_DISPLAYED));
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_SEX_DISPLAYED));
+        }
+
+        [Test]
+        public void TrierParRaceChangeLOrdreDesChienEtLeDernierChienEstEnHautDeLaListe()
+        {
+            //app.Repl();
+            _dogsListViewObject.SelectSortType();
+            AppResult[] results = app.WaitForElement("Rex");
+            Assert.IsTrue(results.Any());
         }
     }
 }

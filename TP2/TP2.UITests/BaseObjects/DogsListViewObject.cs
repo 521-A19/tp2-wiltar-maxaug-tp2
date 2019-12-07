@@ -7,6 +7,7 @@ namespace TP2.UITests.BaseObjects
         public DogsListViewObject(IApp app) : base(app)
         {
         }
+
         public DogDetailViewObject OpenDogDetailViewPage(string dogToSelect)
         {
             ClickDogDetail(dogToSelect);
@@ -17,6 +18,12 @@ namespace TP2.UITests.BaseObjects
         private void ClickDogDetail(string dogToSelect)
         {
             App.Tap(dogToSelect);
+        }
+
+        public void SelectSortType()
+        {
+            App.Tap("Nom");
+            App.Tap("Race");
         }
     }
 }

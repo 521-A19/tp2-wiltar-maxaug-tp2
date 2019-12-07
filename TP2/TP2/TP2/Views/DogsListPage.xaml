@@ -10,7 +10,9 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.DOGS_LIST_PAGE_MAIN_LABEL}" FontSize="Large"></Label>
+
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.DOGS_LIST_PAGE_MAIN_LABEL}" FontSize="Large" />
+          
             <ListView ItemsSource="{Binding Dogs}"
                       SelectedItem="{Binding SelectedDog, Mode=TwoWay}"
                       HasUnevenRows="True"
@@ -32,7 +34,14 @@
 
             </ListView>
             <StackLayout HorizontalOptions="Start">
-                <Button Text="Trier"></Button>
+                <Label Text="Trier Par :" HorizontalOptions="Start"/>
+                <Picker Title="Trier Par" SelectedIndex="{Binding SelectedSortType}"  HorizontalOptions="Center" >
+                    <Picker.Items>
+                        <x:String>Nom</x:String>
+                        <x:String>Race</x:String>
+                        <x:String>Prix</x:String>
+                    </Picker.Items>
+                </Picker>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

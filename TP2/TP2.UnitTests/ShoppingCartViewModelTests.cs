@@ -12,10 +12,11 @@ using FluentAssertions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
-    public class ShoppingCartViewModelTests
+    public class ShoppingCartViewModelTests : BaseFixture
     {
         private ShoppingCartViewModel _shoppingCartViewModel;
         private Mock<INavigationService> _mockNavigationService;
@@ -27,6 +28,7 @@ namespace TP2.UnitTests
         private const string NotEncryptedCreditCard = "5105105105105100";
         private const string EncryptionKey = "--AnEncryptionKey--";
         private List<Dog> _dogList;
+        private Fixture _fixture = new Fixture();
 
         public ShoppingCartViewModelTests()
         {
@@ -39,7 +41,8 @@ namespace TP2.UnitTests
             var user = CreateFakeUser(-1).Generate();
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(user);
             _mockSecureStorageService.Setup(r => r.GetUserEncryptionKeyAsync(It.IsAny<User>())).Returns(Task.FromResult(EncryptionKey));
-            _dogList = CreateDogList();
+            //_dogList = CreateDogList();
+            _dogList = _fixture.BuildDogsList();
             _mockShoppingCartService
                 .Setup(r => r.ShoppingCartDogList)
                 .Returns(_dogList);

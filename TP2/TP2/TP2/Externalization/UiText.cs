@@ -86,5 +86,8 @@ namespace TP2.Externalization
         public const string USER_PROFILE_PAGE_MAIN_TITLE = "Profile";
         public const string BUTTON_DELETE_MY_DOG = "Supprimer le chien X";
 
+        //AddNewDog
+        public const string DOG_NEED_A_NAME = "Le chien a besoin d'un nom";
+        public const string DOG_NEED_A_GOOD_PRICE = "Le chien doit avoir un prx supérieur à 0$";
     }
 }

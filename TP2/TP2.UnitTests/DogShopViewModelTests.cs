@@ -12,10 +12,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Prism.Services;
 using TP2.Externalization;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
-    public class DogShopViewModelTests
+    public class DogShopViewModelTests : BaseFixture
     {
         private DogShopViewModel _dogShopViewModel;
         private Mock<INavigationService> _mockNavigationService;
@@ -23,9 +24,14 @@ namespace TP2.UnitTests
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IRepository<Dog>> _mockRepositoryService;
         private bool _eventRaisedProperty;
-         
+        private List<User> _userList;
+        private List<Dog> _dogList;
+        private Fixture _fixture = new Fixture();
+
         public DogShopViewModelTests()
         {
+            _userList = _fixture.BuildUsersList();
+            _dogList = _fixture.BuildDogsList();
             _mockNavigationService = new Mock<INavigationService>();
             _mockAuthenticationService = new Mock<IAuthenticationService>();
             _mockPageDialogService = new Mock<IPageDialogService>();
@@ -37,7 +43,8 @@ namespace TP2.UnitTests
         [Fact]
         public void AuthenticatedUserHasNoDog_OnNavigatedTo_UserHasAnyDogShouldGetFalse()
         {
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(-1));
+            _userList[0].DogId = -1;
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
             var navigationParameters = new NavigationParameters();
 
             _dogShopViewModel.OnNavigatedTo(navigationParameters);
@@ -48,7 +55,8 @@ namespace TP2.UnitTests
         [Fact]
         public void AuthenticatedUserHasNoDog_OnNavigatedTo_ShouldDisplayAlertMessage()
         {
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(-1));
+            _userList[0].DogId = -1;
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
             var navigationParameters = new NavigationParameters();
 
             _dogShopViewModel.OnNavigatedTo(navigationParameters);
@@ -59,9 +67,8 @@ namespace TP2.UnitTests
         [Fact]
         public void AuthenticatedUserHasADog_OnNavigatedTo_UserHasAnyDogShouldGetTrue()
         {
-            const int ID_DOG_OF_USER = 1;
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(ID_DOG_OF_USER));
-            var dog = CreateFakeDog();
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
+            var dog = _dogList[0];
             _mockRepositoryService.Setup(r => r.GetById(1)).Returns(dog);
             var navigationParameters = new NavigationParameters();
 
@@ -73,9 +80,8 @@ namespace TP2.UnitTests
         [Fact]
         public void AuthenticatedUserHasADog_OnNavigatedTo_MyDogShouldBeInstantiate()
         {
-            const int ID_DOG_OF_USER = 1;
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(ID_DOG_OF_USER));
-            var dog = CreateFakeDog();
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
+            var dog = _dogList[0];
             _mockRepositoryService.Setup(r => r.GetById(1)).Returns(dog);
             var navigationParameters = new NavigationParameters();
 
@@ -89,7 +95,7 @@ namespace TP2.UnitTests
         public void MyDog_ModifyMyDog_ShouldCallUpdateMethodAndDisplayAlertMessage()
         {
             _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
-            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(CreateFakeUser(1));
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
 
             _dogShopViewModel.ModifyDogInformations.Execute();
 
@@ -120,33 +126,6 @@ namespace TP2.UnitTests
         private void RaiseProperty(object sender, PropertyChangedEventArgs e)
         {
             _eventRaisedProperty = true;
-        }
-
-
-        private Faker<User> CreateFakeUser(int dogId)
-        {
-            var fakeUser = new Faker<User>()
-                .StrictMode(true)
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .RuleFor(u => u.Login, f => f.Person.Email)
-                .RuleFor(u => u.CreditCard, f => "556468486")
-                .RuleFor(u => u.HashedPassword, f => "264531")
-                .RuleFor(u => u.PasswordSalt, f => "adskadk")
-                .RuleFor(u => u.DogId, f => dogId);
-            return fakeUser;
-        }
-
-        private Faker<Dog> CreateFakeDog()
-        {
-            var fakeDog = new Faker<Dog>()
-                .RuleFor(u => u.Name, f => f.Person.FirstName)
-                .RuleFor(u => u.Price, f => (float)299.99)
-                .RuleFor(u => u.Race, f => "Husky")
-                .RuleFor(u => u.Description, f => "Dog")
-                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
-                .RuleFor(u => u.ImageUrl, f => "url")
-                .RuleFor(u => u.Id, f => f.IndexFaker);
-            return fakeDog;
         }
     }
 }

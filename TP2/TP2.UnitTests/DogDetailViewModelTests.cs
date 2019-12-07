@@ -10,29 +10,35 @@ using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
-    public class DogDetailViewModelTests
+    public class DogDetailViewModelTests : BaseFixture
     {
         private DogDetailViewModel _dogDetailViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IShoppingCartService> _mockShoppingCartService;
+        private Mock<IAuthenticationService> _mockAuthenticationService;
         private bool _eventRaisedProperty;
+        private List<Dog> _dogList;
+        private Fixture _fixture = new Fixture();
 
         public DogDetailViewModelTests()
         {
+            _dogList = _fixture.BuildDogsList();
             _mockNavigationService = new Mock<INavigationService>();
             _mockShoppingCartService = new Mock<IShoppingCartService>();
+            _mockAuthenticationService = new Mock<IAuthenticationService>();
             //_mockRepositoryService.Setup(r => r.GetAll()).Returns(_dogList);
-            _dogDetailViewModel = new DogDetailViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object);
+            _dogDetailViewModel = new DogDetailViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object, _mockAuthenticationService.Object);
         }
 
         [Fact]
         public void OnNavigatedTo_SelectedDogInformations_ShouldBeDisplayed()
         {
             INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
-            Dog dog = CreateFakeDog();
+            Dog dog = _dogList[0];
             navigationParameters.Add("selectedDogData", dog);
 
             _dogDetailViewModel.OnNavigatedTo(navigationParameters);
@@ -48,7 +54,7 @@ namespace TP2.UnitTests
         public void OnNavigatedTo_ShouldCallContainsFromShoppingCartService()
         {
             INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
-            Dog dog = CreateFakeDog();
+            Dog dog = _dogList[0];
             navigationParameters.Add("selectedDogData", dog);
 
             _dogDetailViewModel.OnNavigatedTo(navigationParameters);
@@ -60,7 +66,7 @@ namespace TP2.UnitTests
         [Fact]
         public void SelectedDog_AddSelectedDogToTheShoppingCart_ShouldAddDogToTheShoppingCartInShoppingCartService()
         {
-            _dogDetailViewModel.SelectedDog = CreateFakeDog();
+            _dogDetailViewModel.SelectedDog = _dogList[0];
 
             _dogDetailViewModel.AddSelectedDogToTheShoppingCart.Execute(null);
 
@@ -70,7 +76,7 @@ namespace TP2.UnitTests
         [Fact]
         public void DogAlreadyInTheShoppingCart_AddSelectedDogToTheShoppingCart_ShouldNotBeAccessed()
         {
-            _dogDetailViewModel.SelectedDog = CreateFakeDog();
+            _dogDetailViewModel.SelectedDog = _dogList[0];
 
             _dogDetailViewModel.AddSelectedDogToTheShoppingCart.Execute(null);
 
@@ -81,9 +87,9 @@ namespace TP2.UnitTests
         public void DogAlreadyInTheShoppingCart_AddSelectedDogToTheShoppingCartCommand_ShouldNotBeExecutable()
         {
             _mockShoppingCartService.Setup(r => r.Contains(It.IsAny<int>())).Returns(true);
-            _dogDetailViewModel = new DogDetailViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object);
+            _dogDetailViewModel = new DogDetailViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object, _mockAuthenticationService.Object);
             INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
-            _dogDetailViewModel.SelectedDog = CreateFakeDog();
+            _dogDetailViewModel.SelectedDog = _dogList[0];
 
             _dogDetailViewModel.OnNavigatedTo(navigationParameters);
 
@@ -113,20 +119,6 @@ namespace TP2.UnitTests
         private void RaiseProperty(object sender, PropertyChangedEventArgs e)
         {
             _eventRaisedProperty = true;
-        }
-
-        private Faker<Dog> CreateFakeDog()
-        {
-            var fakeDog = new Faker<Dog>()
-                .StrictMode(true)
-                .RuleFor(u => u.Name, f => f.Person.FirstName)
-                .RuleFor(u => u.Price, f => (float)299.99)
-                .RuleFor(u => u.Race, f => "Husky")
-                .RuleFor(u => u.Description, f => "Dog")
-                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
-                .RuleFor(u => u.ImageUrl, f => "url")
-                .RuleFor(u => u.Id, f => f.IndexFaker);
-            return fakeDog;
         }
     }
 }

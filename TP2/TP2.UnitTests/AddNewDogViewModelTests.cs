@@ -11,16 +11,14 @@ using TP2.Models.Entities;
 using TP2.Services;
 using TP2.ViewModels;
 using TP2.Views;
+using TP2.UnitTests.Fixtures;
 using Xunit;
 
 namespace TP2.UnitTests
 {
-    public class AddNewDogViewModelTests
+    public class AddNewDogViewModelTests : BaseFixture
     {
         AddNewDogViewModel _addNewDogViewModel;
-        private const string NotHashedPassword = "Qwertyuiop1";
-        private const string NotEncryptedCreditCard = "5105105105105100";
-        private const string EncryptionKey = "--AnEncryptionKey--";
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IRepository<Dog>> _mockDogRepository;
@@ -29,11 +27,12 @@ namespace TP2.UnitTests
         private IDogApiService _dogApiService;
         private List<User> _userList;
         private List<Dog> _dogList;
+        private Fixture _fixture = new Fixture();
 
         public AddNewDogViewModelTests()
         {
-            _userList = CreateUserList();
-            _dogList = CreateDogList();
+            _userList = _fixture.BuildUsersList();
+            _dogList = _fixture.BuildDogsList();
             _mockNavigationService = new Mock<INavigationService>();
             _mockPageDialogService = new Mock<IPageDialogService>();
             _mockDogRepository = new Mock<IRepository<Dog>>();
@@ -55,11 +54,11 @@ namespace TP2.UnitTests
                 .Setup(n => n.GetAll())
                 .Returns(_dogList);
 
-            _addNewDogViewModel.Name = "Dog";
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
             _addNewDogViewModel.Description = "Description";
             _addNewDogViewModel.Sex = "Male";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
 
             //Act
@@ -80,9 +79,9 @@ namespace TP2.UnitTests
                .Setup(n => n.GetAll())
                .Returns(_dogList);
 
-            _addNewDogViewModel.Name = "Dog";
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
 
             _addNewDogViewModel.AddNewDogCommand.Execute();
@@ -100,9 +99,9 @@ namespace TP2.UnitTests
             _mockDogRepository
                .Setup(n => n.GetAll())
                .Returns(_dogList);
-            _addNewDogViewModel.Name = "Dog";
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _addNewDogViewModel.FetchARandomImageCommand.Execute();
 
             //Act
@@ -119,10 +118,11 @@ namespace TP2.UnitTests
             _mockAuthentification
                .Setup(a => a.AuthenticatedUser)
                .Returns(_userList[0]);
+            _addNewDogViewModel.Name.Value = "Dog";
             _addNewDogViewModel.Breed = "african";
-            _addNewDogViewModel.Price = 120;
+            _addNewDogViewModel.Price.Value = 120;
             _mockNavigationService
-                .Setup(a => a.NavigateAsync("/CustomMasterDetailPage/NavigationPage/DogsListPage"))
+                .Setup(a => a.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage)))
                 .Throws<Exception>();
 
             //Act
@@ -164,35 +164,39 @@ namespace TP2.UnitTests
             FIRST_IMAGE_RETURN.Should().NotContainEquivalentOf(SECOND_IMAGE_RETURN);
         }
 
-        private List<User> CreateUserList()
+        [Fact]
+        public void AddNewDogCommand_WhenNameIsNotHonored_ShouldHaveNoOtherCall()
         {
-            var crypto = new CryptoService();
-            var salt = crypto.GenerateSalt();
-            var userList = new Faker<User>()
-                .StrictMode(true)
-                .RuleFor(u => u.Login, f => f.Person.Email)
-                .RuleFor(u => u.PasswordSalt, f => salt)
-                .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
-                .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .RuleFor(u => u.DogId, f => 1)
-                .Generate(3);
-            return userList;
+            //Arrange
+            _mockAuthentification
+               .Setup(a => a.AuthenticatedUser)
+               .Returns(_userList[0]);
+            _addNewDogViewModel.Breed = "african";
+            _addNewDogViewModel.Price.Value = 120;
+
+            //Act
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            //Assert
+            _mockPageDialogService.VerifyNoOtherCalls();
         }
 
-        private List<Dog> CreateDogList()
+        [Fact]
+        public void AddNewDogCommand_WhenPriceIsNotHonored_ShouldHaveNoOtherCall()
         {
-            var dogList = new Faker<Dog>()
-                .StrictMode(true)
-                .RuleFor(u => u.Name, f => f.Person.FirstName)
-                .RuleFor(u => u.Price, f => (float)299.99)
-                .RuleFor(u => u.Race, f => "Husky")
-                .RuleFor(u => u.Description, f => "Dog")
-                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
-                .RuleFor(u => u.ImageUrl, f => "url")
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .Generate(3);
-            return dogList;
+            //Arrange
+            _mockAuthentification
+               .Setup(a => a.AuthenticatedUser)
+               .Returns(_userList[0]);
+
+            _addNewDogViewModel.Name.Value = "Dog";
+            _addNewDogViewModel.Breed = "african";
+
+            //Act
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            //Assert
+            _mockPageDialogService.VerifyNoOtherCalls();
         }
     }
 }

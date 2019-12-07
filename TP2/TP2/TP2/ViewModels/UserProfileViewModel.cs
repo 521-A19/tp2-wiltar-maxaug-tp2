@@ -14,16 +14,17 @@ namespace TP2.ViewModels
     {
         IAuthenticationService _authenticationService;
         IRepository<Dog> _dogRepository;
+        IRepository<User> _userRepository;
 
         public DelegateCommand DeleteDogShopCommand => new DelegateCommand(DeleteDogShop);
 
-        private bool _isButtonToAddNewDogPageVisible = true;
-        public bool IsButtonToAddNewDogPageVisible
+        private bool _isDeleteMyDogButtonVisible = true;
+        public bool IsDeleteMyDogButtonVisible
         {
-            get { return _isButtonToAddNewDogPageVisible; }
+            get { return _isDeleteMyDogButtonVisible; }
             set
             {
-                _isButtonToAddNewDogPageVisible = value;
+                _isDeleteMyDogButtonVisible = value;
                 RaisePropertyChanged();
             }
         }
@@ -40,36 +41,38 @@ namespace TP2.ViewModels
         }
 
 
-        public UserProfileViewModel(INavigationService navigationService, IAuthenticationService authenticationService, IRepository<Dog> dogRepository)
+        public UserProfileViewModel(INavigationService navigationService, IAuthenticationService authenticationService, IRepository<Dog> dogRepository,
+                                        IRepository<User> userRepository)
             : base(navigationService)
         {
             Title = UiText.USER_PROFILE_PAGE_MAIN_TITLE;
             _authenticationService = authenticationService;
             _dogRepository = dogRepository;
-            _isButtonToAddNewDogPageVisible = AuthenticatedUserHasAnyDog();
+            _userRepository = userRepository;
+            IsDeleteMyDogButtonVisible = AuthenticatedUserHasAnyDog();
         }
-        public User UserLogIn
+        public User GetAuthenticatedUser
         {
             get { return _authenticationService.AuthenticatedUser; }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            MyDog = _dogRepository.GetById(UserLogIn.DogId);
+            MyDog = _dogRepository.GetById(GetAuthenticatedUser.DogId);
 
         }
 
         private async void DeleteDogShop()
         {
             _dogRepository.Delete(MyDog);
-            UserLogIn.DogId = -1;
-
+            GetAuthenticatedUser.DogId = -1;
+            _userRepository.Update(GetAuthenticatedUser);
             await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
         }
 
         private bool AuthenticatedUserHasAnyDog()
         {
-            if (UserLogIn.DogId == -1) return false;
+            if (GetAuthenticatedUser.DogId == -1) return false;
             return true;
         }
     }

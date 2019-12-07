@@ -12,19 +12,18 @@ using TP2.Models.Entities;
 using Bogus;
 using System.Linq;
 using System.ComponentModel;
+using TP2.UnitTests.Fixtures;
 
 namespace TP2.UnitTests
 {
-    public class MainPageViewModelTests
+    public class MainPageViewModelTests : BaseFixture
     {
         private MainPageViewModel _mainPageViewModel;
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IPageDialogService> _mockPageDialogService;
         private Mock<IAuthenticationService> _mockAuthenticationService;
-        private const string NotHashedPassword = "123";
-        private const string NotEncryptedCreditCard = "5105105105105100";
-        private const string EncryptionKey = "--AnEncryptionKey--";
         private List<User> _userList;
+        private Fixture _fixture = new Fixture();
         private bool _eventRaisedProperty;
 
         public MainPageViewModelTests()
@@ -33,7 +32,7 @@ namespace TP2.UnitTests
             _mockPageDialogService = new Mock<IPageDialogService>();
             _mockAuthenticationService = new Mock<IAuthenticationService>();
             _mainPageViewModel = new MainPageViewModel(_mockNavigationService.Object, _mockAuthenticationService.Object, _mockPageDialogService.Object);
-            _userList = CreateUserList();
+            _userList = _fixture.BuildUsersList();
         }
 
         [Fact]
@@ -137,23 +136,6 @@ namespace TP2.UnitTests
         {
             _eventRaisedProperty = true;
         }
-
-        private List<User> CreateUserList()
-        {
-            var crypto = new CryptoService();
-            var salt = crypto.GenerateSalt();
-            var userList = new Faker<User>()
-                .StrictMode(true)
-                .RuleFor(u => u.Login, f => f.Person.Email)
-                .RuleFor(u => u.PasswordSalt, f => salt)
-                .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
-                .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
-                .RuleFor(u => u.Id, f => f.IndexFaker)
-                .RuleFor(u => u.DogId, f => 1)
-                .Generate(3);
-            return userList;
-        }
-
 
     }
 }

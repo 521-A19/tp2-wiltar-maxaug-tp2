@@ -16,6 +16,9 @@ namespace TP2.UITests
 
     {
         private AndroidApp app;
+        private MainPageViewObject _mainPageViewObject;
+        private DogsListViewObject _dogsListViewObject;
+        private UserProfileViewObject _userProfileViewObject;
 
         [SetUp]
         public void BeforeEachTest()
@@ -23,46 +26,50 @@ namespace TP2.UITests
             app = ConfigureApp.Android
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
+            _mainPageViewObject = new MainPageViewObject(app);
+            _dogsListViewObject = _mainPageViewObject.SignIn();
         }
 
         [Test]
-        public void JeVeuxMeRendreALaPageDuProfile()
+        public void OnUserProfilePage_TitleAndDogsInformationsAreDisplayed()
         {
-            const string EXPECTED_ELEMENT = "Profile";
-            var userProfileViewObject = new UserProfileViewObject(app);
+            _userProfileViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_USER_PROFIL_PAGE) as UserProfileViewObject;
 
-            userProfileViewObject.NavigateToUserProfilePage();
-
-            AppResult[] results = app.WaitForElement(EXPECTED_ELEMENT);
-            Assert.IsTrue(results.Any());
+            const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;
+            const string EXPECTED_RACE_DISPLAYED = UiText.ANY_DOG_RACE;
+            const string EXPECTED_SEX_DISPLAYED = UiText.ANY_DOG_SEX;
+            const string EXPECTED_DESCRIPTION_DISPLAYED = UiText.ANY_DOG_DESCRIPTION;
+            Assert.IsTrue(_userProfileViewObject.IsTextDisplayed(UiText.USER_PROFILE_PAGE_MAIN_TITLE));
+            Assert.IsTrue(_userProfileViewObject.IsTextDisplayed(EXPECTED_NAME_DISPLAYED));
+            Assert.IsTrue(_userProfileViewObject.IsTextDisplayed(EXPECTED_RACE_DISPLAYED));
+            Assert.IsTrue(_userProfileViewObject.IsTextDisplayed(EXPECTED_SEX_DISPLAYED));
+            Assert.IsTrue(_userProfileViewObject.IsTextDisplayed(EXPECTED_DESCRIPTION_DISPLAYED));
         }
 
         [Test]
-        public void JeVeuxMeRendreALaProfilePourSupprimerMonChienEnAdoption()
+        public void DeleteMyDog_ShouldRemoveMyDogFromUserProfilePage()
         {
+            _userProfileViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_USER_PROFIL_PAGE) as UserProfileViewObject;
 
-            const string DELETE_DOG_NAME = "Rex";
-            var userProfileViewObject = new UserProfileViewObject(app);
+            _userProfileViewObject.TapDeleteDogShop();
 
-            userProfileViewObject.DeleteDogShop();
-
-            bool findElement = userProfileViewObject.IsTextDisplayed(DELETE_DOG_NAME);
-            Assert.IsFalse(findElement);
+            Assert.IsFalse(_userProfileViewObject.IsTextDisplayed(UiText.ANY_DOG_NAME));
+            Assert.IsFalse(_userProfileViewObject.IsTextDisplayed(UiText.ANY_DOG_DESCRIPTION));
         }
 
         [Test]
-        public void JeVeuxMeRendreALaProfilePourSupprimerMonChienEnAdoptionEtIlNeDevraisPasApparaitreDansMonProfile()
+        public void DeleteMyDog_ShouldRemoveMyDogFromDogShopPageAndDisplayAddNewDogButton()
         {
+            _userProfileViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_USER_PROFIL_PAGE) as UserProfileViewObject;
 
-            const string DELETE_DOG_NAME = "Rex";
-            
-            var userProfileViewObject = new UserProfileViewObject(app);
+            _dogsListViewObject = _userProfileViewObject.TapDeleteDogShop();
+            DogShopViewObject dogShopViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_DOG_SHOP_PAGE) as DogShopViewObject;
 
-            userProfileViewObject.DeleteDogShop();
-            userProfileViewObject.NavigateToPrifileStartingToDogListPage();
-
-            bool findElement = userProfileViewObject.IsTextDisplayed(DELETE_DOG_NAME);
-            Assert.IsFalse(findElement);
+            Assert.IsFalse(dogShopViewObject.IsTextDisplayed(UiText.ANY_DOG_NAME));
+            Assert.IsFalse(dogShopViewObject.IsTextDisplayed(UiText.ANY_DOG_DESCRIPTION));
+            Assert.IsTrue(dogShopViewObject.IsTextDisplayed(UiText.WARNING));
+            Assert.IsTrue(dogShopViewObject.IsTextDisplayed(UiText.NO_CURRENT_DOG));
+            Assert.IsTrue(dogShopViewObject.IsTextDisplayed(UiText.BUTTON_ADD_NEW_DOG));
         }
     }
 }

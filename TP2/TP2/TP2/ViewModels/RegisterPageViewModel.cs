@@ -26,13 +26,6 @@ namespace TP2.ViewModels
         public ValidatableObject<string> UserName
         {
             get => _userName;
-
-            // Non nécessaire. Les "raises" sont gérés dans le ValidatableObject. 
-            //set
-            //{
-            //    _userName = value;
-            //    RaisePropertyChanged();
-            //}
         }
         public ValidatableObject<string> Password
         {
@@ -47,7 +40,7 @@ namespace TP2.ViewModels
         public RegisterPageViewModel(INavigationService navigationService, IRegistrationService registrationService, IPageDialogService dialogService)
             : base(navigationService)
         {
-            Title = "Register Page";
+            Title = UiText.REGISTER_PAGE_MAIN_TITLE;
             _registrationService = registrationService;
             _pageDialogService = dialogService;
             _userName = new ValidatableObject<string>();

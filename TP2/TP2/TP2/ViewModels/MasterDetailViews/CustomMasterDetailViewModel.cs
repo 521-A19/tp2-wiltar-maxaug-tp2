@@ -32,7 +32,7 @@ namespace TP2.ViewModels.MasterDetailViews
 
         private async void NavigateAsync(string page) //page from CommandParameter !
         {
-            await NavigationService.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + page);
+            await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + page);
             //NavigationService.NavigateAsync(new System.Uri(page, System.UriKind.Absolute));
         }
         private async void LogOut()

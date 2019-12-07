@@ -40,15 +40,21 @@ namespace TP2.Externalization
         public const string USER_NOT_CONNECTED = "Vous devez être connecté pour placer en adoption votre chien";
         public const string NO_CURRENT_DOG = "Aucun chien en adoption";
         public const string BUTTON_ADD_NEW_DOG = "Ajouter un chien";
+        public const string BUTTON_SAVE_CHANGES = "Sauvegarder changements";
 
         //DogsList
-        public const string MAIN_LABEL = "Voici les petits amis en adoption";
+        public const string DOGS_LIST_PAGE_MAIN_TITLE = "Liste de chiens globale";
+        public const string DOGS_LIST_PAGE_MAIN_LABEL = "Voici les petits amis en adoption";
 
         //ShoppingCart
+        public const string SHOPPING_CART_PAGE_MAIN_TITLE = "Mon panier";
+        public const string BUTTON_BUY_SHOPPING_CART = "Acheter";
+        public const string BUTTON_CANCEL_SHOPPING_CART = "Annuler";
         public const string INVALID_CONFIRMATION_CREDIT_CARD = "La carte de crédit n'est pas valide.";
 
         //DogDetail
         public const string TITLE_DOG_DETAIL = "Voici le chien ";
+        public const string BUTTON_ADD_TO_SHOPPING_CART = "Ajouter au panier";
 
         public static string USER_ALREADY_CONNECTED = "User is already connected";
         public static string ERROR = "Erreur";
@@ -70,8 +76,15 @@ namespace TP2.Externalization
         public const string Okay = "Okay";
 
         //Register
+        public const string BUTTON_CONFIRM_REGISTRATION = "Confirmer";
+        public const string REGISTER_PAGE_MAIN_TITLE = "S'enregistrer";
         public const string USER_IS_ALREADY_REGISTED = "Ce nom d'utilisateur est déjà utilisé!";
         public const string USER_REGISTER_ALERT = "Désolé";
         public const string OKAY_CHANGE_NAME = "D'accord";
+
+        //UserProfile
+        public const string USER_PROFILE_PAGE_MAIN_TITLE = "Profile";
+        public const string BUTTON_DELETE_MY_DOG = "Supprimer le chien X";
+
     }
 }

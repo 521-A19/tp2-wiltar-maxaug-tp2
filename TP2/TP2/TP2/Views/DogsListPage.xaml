@@ -10,7 +10,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.MAIN_LABEL}" FontSize="Large"></Label>
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.DOGS_LIST_PAGE_MAIN_LABEL}" FontSize="Large"></Label>
             <ListView ItemsSource="{Binding Dogs}"
                       SelectedItem="{Binding SelectedDog, Mode=TwoWay}"
                       HasUnevenRows="True"

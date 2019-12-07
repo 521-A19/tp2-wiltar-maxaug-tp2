@@ -19,34 +19,13 @@
         <StackLayout>
             <StackLayout IsVisible="{Binding UserHasAnyDog}">
                 <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
-                <Entry Text="{Binding MyDog.Name}"></Entry>
-                <Entry Text="{Binding MyDog.Race}"></Entry>
-                <Entry Text="{Binding MyDog.Sex}"></Entry>
-                <Entry Text="{Binding MyDog.Price}"></Entry>
-                <Entry Text="{Binding MyDog.Description}"></Entry>
-                <Button Text="Sauvegarder changements" Command="{Binding ModifyDogInformations}"></Button>
+                <Entry Text="{Binding MyDog.Name}" AutomationId="NameId"></Entry>
+                <Entry Text="{Binding MyDog.Race}" AutomationId="RaceId"></Entry>
+                <Entry Text="{Binding MyDog.Sex}" AutomationId="SexId"></Entry>
+                <Entry Text="{Binding MyDog.Price}" AutomationId="PriceId"></Entry>
+                <Entry Text="{Binding MyDog.Description}" AutomationId="DescriptionId"></Entry>
+                <Button Text="{x:Static externalization:UiText.BUTTON_SAVE_CHANGES}" Command="{Binding ModifyDogInformations}"></Button>
             </StackLayout>
-            <!--
-            <Label HorizontalOptions="Center" Text="Votre liste de chien en adoption" FontSize="Large"></Label>
-            <ListView x:Name ="userDogsList" 
-                      ItemsSource="{Binding UserListOfDogs}"
-                      HasUnevenRows="True"
-                      AutomationId="ListView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="10">
-                                <Image Source="{Binding ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
-                                <Label Text="{Binding Name}"></Label>
-                                <Label Text="{Binding Race}"></Label>
-                                <Label Text="{Binding Sex}"></Label>
-                                <Label Text="{Binding Price}"></Label>
-                                <Label Text="{Binding Description}"></Label>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
             <Button IsVisible="{Binding UserHasAnyDog, Converter={StaticResource NegateBool}}" Text="{x:Static externalization:UiText.BUTTON_ADD_NEW_DOG}" Command="{Binding NavigateToAddNewDogPageCommand}"/>
         </StackLayout>
     </ContentPage.Content>

@@ -15,6 +15,8 @@ namespace TP2.UITests
     class ProjectsViewObjectTests
     {
         private AndroidApp app;
+        private MainPageViewObject _mainPageViewObject;
+        private DogsListViewObject _dogsListViewObject;
 
         [SetUp]
         public void BeforeEachTest()
@@ -22,49 +24,48 @@ namespace TP2.UITests
             app = ConfigureApp.Android
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
+            _mainPageViewObject = new MainPageViewObject(app);
         }
 
         [Test]
         public void WelcomeTextIsDisplayed()
         {
-            AppResult[] results = app.WaitForElement(UiText.WELCOME_ON_DOGFINDER);
-            //app.Screenshot("Welcome screen.");
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(_mainPageViewObject.IsTextDisplayed(UiText.WELCOME_ON_DOGFINDER));
         }
 
         [Test]
         public void OnClickGoToDogList_ShouldNavigateToDogsListPage()
         {
-            var mainPageViewObject = new MainPageViewObject(app);
-            var dogsListViewObject = mainPageViewObject.OpenDogsListPage();
+            _dogsListViewObject = _mainPageViewObject.OpenDogsListPage();
 
-            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
-
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_TITLE));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_LABEL));
         }
 
         [Test]
         public void OnClickSignUp_ShouldNavigateRegisterPage()
         {
-            var mainPageViewObject = new MainPageViewObject(app);
-            
-            mainPageViewObject.ClickSignUpButton();
+            RegisterViewObject registerViewObject = _mainPageViewObject.ClickSignUpButton();
 
-            AppResult[] results = app.WaitForElement("Email address");
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(registerViewObject.IsTextDisplayed(UiText.REGISTER_PAGE_MAIN_TITLE));
         }
 
         [Test]
         public void ValidLoginAndPassword_OnSignIn_ShouldDogsListPage()
         {
-            var mainPageViewObject = new MainPageViewObject(app);
-            mainPageViewObject.EnterLogin("123");
-            mainPageViewObject.EnterPassword("456");
+            _dogsListViewObject = _mainPageViewObject.SignIn();
 
-            mainPageViewObject.ClickSignInButton();
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_TITLE));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_LABEL));
+        }
 
-            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
-            Assert.IsTrue(results.Any());
+        [Test]
+        public void InvalidLoginAndPassword_OnSignIn_ShouldDisplayAlertMessage()
+        {
+            _mainPageViewObject.TapButton(UiText.CONNECTION);
+
+            Assert.IsTrue(_mainPageViewObject.IsTextDisplayed(UiText.NotValidLogInTitle));
+            Assert.IsTrue(_mainPageViewObject.IsTextDisplayed(UiText.NotValidLogInMessage));
         }
     }
 }

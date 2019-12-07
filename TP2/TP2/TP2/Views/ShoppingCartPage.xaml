@@ -29,17 +29,17 @@
                                     <Label Grid.Column="2" Text="{Binding Price}"></Label>
                                     <Label Grid.Column="3" Text="{Binding Race}"></Label>
                                     <Label Grid.Column="4" Text="{Binding Sex}"></Label>
-                                    <Button Grid.Column="5" BindingContext="{Binding Source={x:Reference DogList}, Path=BindingContext}" Command="{Binding DeleteDogFromTheShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"></Button>
+                                    <Button Grid.Column="5" Text="X" TextColor="Red" BindingContext="{Binding Source={x:Reference DogList}, Path=BindingContext}" Command="{Binding DeleteDogFromTheShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"></Button>
                                 </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Entry x:Name="CreditEntry" IsEnabled="{Binding IsShoppingCartEnabled}" Placeholder="Entrez votre carte de crédit"></Entry>
+            <Entry x:Name="CreditEntry" IsEnabled="{Binding IsShoppingCartEnabled}" Placeholder="Entrez votre carte de crédit" AutomationId="CreditCardId"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Acheter" Command="{Binding BuyShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference CreditEntry}, Path=Text}"/>
-                <Button Text="Annuler" Command="{Binding CancelShoppingCartCommand}"></Button>
+                <Button Text="{x:Static externalization:UiText.BUTTON_BUY_SHOPPING_CART}" Command="{Binding BuyShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference CreditEntry}, Path=Text}"/>
+                <Button Text="{x:Static externalization:UiText.BUTTON_CANCEL_SHOPPING_CART}" Command="{Binding CancelShoppingCartCommand}"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

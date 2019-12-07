@@ -15,6 +15,8 @@ namespace TP2.UITests
     public class RegisterViewObjectTests
     {
         private AndroidApp app;
+        private MainPageViewObject _mainPageViewObject;
+        private RegisterViewObject _registerViewObject;
 
         [SetUp]
         public void BeforeEachTest()
@@ -22,31 +24,95 @@ namespace TP2.UITests
             app = ConfigureApp.Android
               .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
+            _mainPageViewObject = new MainPageViewObject(app);
+            _registerViewObject = _mainPageViewObject.ClickSignUpButton();
         }
 
         [Test]
-        public void JeVeuxMeRendreALaPageDEnregistration()
+        public void OnRegisterPage_TitleIsDisplayed()
         {
-            const string REGISTER_BUTTON = "Register";
-            var registerViewObject = new RegisterViewObject(app);
-
-            registerViewObject.GoToRegisterPage();
-
-            AppResult[] results = app.WaitForElement(REGISTER_BUTTON);
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.REGISTER_PAGE_MAIN_TITLE));
         }
 
+        [Test]
+        public void InvalidEmail_ShouldDisplayErrorMessage()
+        {
+            const string INVALID_EMAIL = "test@";
+
+            _registerViewObject.EnterEmail(INVALID_EMAIL);
+
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.ValidEmailRequired));
+        }
+
+
+        [Test]
+        public void InvalidPasswordWithoutANumericCharacter_ShouldDisplayErrorMessage()
+        {
+            const string INVALID_PASSWORD = "testA";
+
+            _registerViewObject.EnterPassword(INVALID_PASSWORD);
+
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.NumericCharacterRequired));
+        }
+
+        [Test]
+        public void InvalidPasswordWithoutAUppercaseLetter_ShouldDisplayErrorMessage()
+        {
+            const string INVALID_PASSWORD = "test1";
+
+            _registerViewObject.EnterPassword(INVALID_PASSWORD);
+
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.UppercaseRequired));
+        }
+
+        [Test]
+        public void InvalidPasswordWithoutALowercaseLetter_ShouldDisplayErrorMessage()
+        {
+            const string INVALID_PASSWORD = "TEST1";
+
+            _registerViewObject.EnterPassword(INVALID_PASSWORD);
+
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.LowercaseRequired));
+        }
+
+        [Test]
+        public void InvalidPasswordWithoutTenCharacters_ShouldDisplayErrorMessage()
+        {
+            const string INVALID_PASSWORD = "testA1";
+
+            _registerViewObject.EnterPassword(INVALID_PASSWORD);
+
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.MoreThanTenCharactersRequired));
+        }
+
+
+        
         [Test]
         public void JeVeuxMeRendreALaPageDEnregistrationEtMenregistrerMaisDesMessagesDerreursApparaient()
         {
-            const string EXPECTED_EROOR_MESSAGE = UiText.SecondPasswordIsTheSameOfTheFirst;
-            var registerViewObject = new RegisterViewObject(app);
+            const string VALID_PASSWORD = "testingA123";
+            _registerViewObject.EnterPassword(VALID_PASSWORD);
+            const string INVALID_CONFIRM_PASSWORD = "test";
 
-            registerViewObject.GoToRegisterPageAndShowErrorMessage();
+            _registerViewObject.EnterConfirmationPassword(INVALID_CONFIRM_PASSWORD);
+            _registerViewObject.TapButton(UiText.BUTTON_CONFIRM_REGISTRATION);
 
-            AppResult[] results = app.WaitForElement(EXPECTED_EROOR_MESSAGE);
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.SecondPasswordIsTheSameOfTheFirst));
         }
 
+        [Test]
+        public void EverythingValid_ButtonRegister_ShouldNavigateToMainPage()
+        {
+            const string VALID_EMAIL = "test@email.com";
+            _registerViewObject.EnterEmail(VALID_EMAIL);
+            const string VALID_PASSWORD = "testingA123";
+            _registerViewObject.EnterPassword(VALID_PASSWORD);
+            const string VALID_CONFIRM_PASSWORD = "testingA123";
+            _registerViewObject.EnterConfirmationPassword(VALID_CONFIRM_PASSWORD);
+
+            _mainPageViewObject = _registerViewObject.TapRegister();
+
+            Assert.IsTrue(_registerViewObject.IsTextDisplayed(UiText.WELCOME_ON_DOGFINDER));
+        }
     }
 }

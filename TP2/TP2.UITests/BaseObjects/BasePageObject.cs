@@ -19,6 +19,12 @@ namespace TP2.UITests.BaseObjects
         {
             return UiTestHelpers.IsTextDisplayed(App, textToFind);
         }
+
+        public void TapButton(string buttonName)
+        {
+            App.Tap(buttonName);
+        }
+
         public BasePageObject FromMasterDetailPageNavigateTo(string urlPage)
         {
             App.TapCoordinates(100, 100);
@@ -42,6 +48,7 @@ namespace TP2.UITests.BaseObjects
             }
             viewObject = null;
             return viewObject;
+            
         }
     }
 }

@@ -13,6 +13,7 @@ namespace TP2.ViewModels
     public class DogDetailViewModel : ViewModelBase
     {
         private readonly IShoppingCartService _shoppingCartService;
+        private readonly IAuthenticationService _authenticationService;
         private ICommand _addSelectedDogToTheShoppingCart;
         private Dog _selectedDog;
         public Dog SelectedDog
@@ -27,9 +28,11 @@ namespace TP2.ViewModels
         private bool _isSelectedDogAlreadyInTheShoppingCart = true;
 
         public DogDetailViewModel(INavigationService navigationService,
-                                  IShoppingCartService shoppingCartService)
+                                  IShoppingCartService shoppingCartService,
+                                  IAuthenticationService authenticationService)
             : base(navigationService)
         {
+            _authenticationService = authenticationService;
             _shoppingCartService = shoppingCartService;
             _addSelectedDogToTheShoppingCart = new Command(
                         execute: () => AddDog(),
@@ -45,7 +48,7 @@ namespace TP2.ViewModels
                 SelectedDog = parameters["selectedDogData"] as Dog;
                 Title = "Voici le chien " + SelectedDog.Name;
             }
-            if (_shoppingCartService.Contains(SelectedDog.Id))
+            if (_shoppingCartService.Contains(SelectedDog.Id) || !_authenticationService.IsUserAuthenticated)
             {
                 ChangeCanExecute();
             }

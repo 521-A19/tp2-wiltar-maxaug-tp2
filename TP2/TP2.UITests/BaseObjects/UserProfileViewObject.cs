@@ -17,34 +17,10 @@ namespace TP2.UITests.BaseObjects
         {
         }
 
-        public bool IsTextDisplayed(string textToFind)
+        public DogsListViewObject TapDeleteDogShop()
         {
-            return UiTestHelpers.IsTextDisplayed(App, textToFind);
-        }
-
-        public void NavigateToUserProfilePage()
-        {
-            App.Tap(ID_EMAIL_ENTRY);
-            App.EnterText("123");
-            App.Tap(ID_PASSWORD_ENTRY);
-            App.EnterText(ID_PASSWORD_ENTRY, "456");
-            App.Tap(UiText.CONNECTION);
-            App.Tap(UiText.CONNECTION);
-            App.WaitForElement(UiText.MAIN_LABEL);
-            App.TapCoordinates(100, 100);
-            App.Tap("Profile");
-        }
-
-        public void DeleteDogShop()
-        {
-            NavigateToUserProfilePage();
-            App.Tap("Supprimer le chien X");
-        }
-
-        public void TapDeleteDogShop()
-        {
-            App.Tap("Supprimer le chien X");
-            App.Tap("Supprimer le chien X");
+            App.Tap(UiText.BUTTON_DELETE_MY_DOG); 
+            return new DogsListViewObject(App);
         }
 
         public void NavigateToPrifileStartingToDogListPage()

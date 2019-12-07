@@ -21,7 +21,7 @@ namespace TP2.UITests.BaseObjects
         {
             RegisteUser();
             ConnextionToDogList();
-            App.WaitForElement(UiText.MAIN_LABEL);
+            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
             App.TapCoordinates(100, 100);
             App.Tap("Mon chien en adoption");
             App.Tap("D'accord");
@@ -51,7 +51,7 @@ namespace TP2.UITests.BaseObjects
         public void AddNewDog()
         {
             App.Tap("Confirmer l'ajout");
-            App.WaitForElement(UiText.MAIN_LABEL);
+            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
             App.TapCoordinates(0, 0);
             App.ScrollDownTo("affenpinscher");
         }

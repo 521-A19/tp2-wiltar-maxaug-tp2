@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              x:Class="TP2.Views.DogDetailPage"
              Title="{Binding Title}">
     
@@ -18,7 +19,7 @@
             <Label Text="{Binding SelectedDog.Sex}"/>
             <Label Text="{Binding SelectedDog.Price}"/>
             <Label Text="{Binding SelectedDog.Description}"/>
-            <Button Text="Ajouter au panier" Command="{Binding AddSelectedDogToTheShoppingCart}" />
+            <Button Text="{x:Static externalization:UiText.BUTTON_ADD_TO_SHOPPING_CART}" Command="{Binding AddSelectedDogToTheShoppingCart}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

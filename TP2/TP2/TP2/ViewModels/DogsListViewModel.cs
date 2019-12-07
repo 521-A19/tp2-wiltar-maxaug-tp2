@@ -3,6 +3,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using TP2.Externalization;
 using TP2.Models.Entities;
 using TP2.Services;
 using TP2.Views;
@@ -29,7 +30,7 @@ namespace TP2.ViewModels
                                     IRepository<Dog> repositoryService)
             : base(navigationService)
         {
-            Title = "Liste de chiens globale";
+            Title = UiText.DOGS_LIST_PAGE_MAIN_TITLE;
             var _dogs = repositoryService.GetAll();
             Dogs = new ObservableCollection<Dog>(_dogs);
         }

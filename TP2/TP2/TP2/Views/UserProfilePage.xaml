@@ -3,8 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              mc:Ignorable="d"
-             x:Class="TP2.Views.UserProfilePage">
+             x:Class="TP2.Views.UserProfilePage"
+             Title="{Binding Title}">
+    
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Profile"
@@ -32,7 +35,7 @@
             <Label Text="{Binding MyDog.Price}"/>
             <Label Text="{Binding MyDog.Description}"/>
 
-            <Button Text="Supprimer le chien X" Command="{Binding DeleteDogShopCommand}" IsVisible="{Binding IsButtonToAddNewDogPageVisible}"  BackgroundColor="Red" HorizontalOptions="End" FontSize="Small" />
+            <Button Text="{x:Static externalization:UiText.BUTTON_DELETE_MY_DOG}" Command="{Binding DeleteDogShopCommand}" IsVisible="{Binding IsButtonToAddNewDogPageVisible}"  BackgroundColor="Red" HorizontalOptions="End" FontSize="Small" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -5,8 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:converters="clr-namespace:TP2.Converters"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              mc:Ignorable="d"
-             x:Class="TP2.Views.RegisterPage">
+             x:Class="TP2.Views.RegisterPage"
+             Title="{Binding Title}">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:FirstValidationErrorToTextConverter x:Key="ErrorToTextConverter" />
@@ -15,7 +18,7 @@
 
     <StackLayout>
         <Label Text="Email address" HorizontalOptions="Start" FontSize="Small"/>
-        <Entry Text="{Binding UserName.Value}" AutomationId="NameId">
+        <Entry Text="{Binding UserName.Value}" AutomationId="EmailId">
             <Entry.Behaviors>
                 <!--Behaviors lets you add functionality to user interface controls 
                     without having to subclass them.-->
@@ -39,12 +42,12 @@
                               Converter={StaticResource ErrorToTextConverter}}" 
                TextColor="Red"/>
         <Label Text="ConfirmPassword" HorizontalOptions="Start" FontSize="Small"/>
-        <Entry Text="{Binding SecondPassword.Value}" AutomationId="SecondPasswordId">
+        <Entry Text="{Binding SecondPassword.Value}" AutomationId="ConfirmPasswordId">
         </Entry>
         <Label Text="{Binding SecondPassword.Errors,
                               Converter={StaticResource ErrorToTextConverter}}" 
                TextColor="Red"/>
-        <Button Text="Register" Command="{Binding NavigateToMainPageCommand}" HorizontalOptions="Center"/>
+        <Button Text="{x:Static externalization:UiText.BUTTON_CONFIRM_REGISTRATION}" Command="{Binding NavigateToMainPageCommand}" HorizontalOptions="Center"/>
     </StackLayout>
 
 </ContentPage>

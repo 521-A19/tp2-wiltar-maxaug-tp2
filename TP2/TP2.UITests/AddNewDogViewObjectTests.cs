@@ -49,7 +49,7 @@ namespace TP2.UITests
             //app.ScrollDownTo(EXPECTED_BREED);
             
 
-            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
+            AppResult[] results = app.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
             Assert.IsTrue(results.Any());
         }
 

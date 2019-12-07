@@ -42,7 +42,7 @@ namespace TP2.ViewModels
             _authenticationService = authenticationService;
             _secureStorageService = secureStorageService;
             _cryptoService = cryptoService;
-            Title = "Mon panier";
+            Title = UiText.SHOPPING_CART_PAGE_MAIN_TITLE;
             var _dogs = shoppingCartService.ShoppingCartDogList;
             DogList = new ObservableCollection<Dog>(_dogs);
             TotalPrice = _shoppingCartService.TotalPrice;

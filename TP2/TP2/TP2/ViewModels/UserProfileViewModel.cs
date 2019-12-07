@@ -3,6 +3,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TP2.Externalization;
 using TP2.Models.Entities;
 using TP2.Services;
 using TP2.Views;
@@ -42,6 +43,7 @@ namespace TP2.ViewModels
         public UserProfileViewModel(INavigationService navigationService, IAuthenticationService authenticationService, IRepository<Dog> dogRepository)
             : base(navigationService)
         {
+            Title = UiText.USER_PROFILE_PAGE_MAIN_TITLE;
             _authenticationService = authenticationService;
             _dogRepository = dogRepository;
             _isButtonToAddNewDogPageVisible = AuthenticatedUserHasAnyDog();

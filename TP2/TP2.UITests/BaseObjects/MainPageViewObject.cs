@@ -14,15 +14,11 @@ namespace TP2.UITests.BaseObjects
 
         public DogsListViewObject OpenDogsListPage()
         {
-            ClickGoToDogList();
+            TapButton(UiText.GO_TO_DOG_LIST);
             var dogsListViewObject = new DogsListViewObject(App);
             return dogsListViewObject;
         }
 
-        private void ClickGoToDogList()
-        {
-            App.Tap(UiText.GO_TO_DOG_LIST);
-        }
         public void EnterLogin(string login)
         {
             App.WaitForElement(UiText.EMAIL);
@@ -39,9 +35,7 @@ namespace TP2.UITests.BaseObjects
         public DogsListViewObject SignIn()
         {
             EnterLoginAndPasswordAndSignIn();
-            var dogsListViewObject = new DogsListViewObject(App);
-
-            return dogsListViewObject;
+            return new DogsListViewObject(App); ;
         }
 
         private void EnterLoginAndPasswordAndSignIn()
@@ -50,69 +44,17 @@ namespace TP2.UITests.BaseObjects
             App.EnterText("123");
             App.Tap(ID_PASSWORD_ENTRY);
             App.EnterText(ID_PASSWORD_ENTRY, "456");
-            App.Tap(UiText.CONNECTION);
-            App.Tap(UiText.CONNECTION);
-            App.WaitForElement(UiText.MAIN_LABEL);
+            App.DismissKeyboard();
+            App.Tap(UiText.CONNECTION); // ou x2
+            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
         }
 
-        public void FromMasterDetailPageNavigateTo(string urlPage)
-        {
-            App.TapCoordinates(100, 100);
-            /*
-            BasePageObject viewObject;
-            if (urlPage == UiText.DOG_SHOP_PAGE_MAIN_TITLE)
-            {
-                viewObject = new DogShopViewObject(App);
-            }*/
-            App.Tap(urlPage);
-            //return viewObject;
-        }
-
-        public void ClickSignInButton()
-        {
-            App.Tap(UiText.CONNECTION);
-        }
-
-        public void ClickSignUpButton()
+        public RegisterViewObject ClickSignUpButton()
         {
             App.Tap(UiText.SIGN_UP);
-        }
-        /*
-        public MainPageViewObject OpenMainPageView()
-        {
-            ClickArchivesButton();
-            var archivedProjectsViewObject = new ArchivedProjectsViewObject(App);
-            return archivedProjectsViewObject;
-        }
+            var registerViewObject = new RegisterViewObject(App);
 
-        public NewProjectViewObject OpenNewProjectViewPage()
-        {
-            ClickAddNewProjectButton();
-            var newProjectViewObject = new NewProjectViewObject(App);
-            return newProjectViewObject;
+            return registerViewObject;
         }
-
-        public ProjectDetailViewObject OpenProjectDetailViewPage(string projectToSelect)
-        {
-            ClickProjectDetail(projectToSelect);
-            var projectDetailViewPage = new ProjectDetailViewObject(App);
-            return projectDetailViewPage;
-        }
-
-
-        private void ClickProjectDetail(string projectToSelect)
-        {
-            App.Tap(projectToSelect);
-        }
-
-        private void ClickArchivesButton()
-        {
-            App.Tap(UiText.ARCHIVES_BUTTON);
-        }
-
-        private void ClickAddNewProjectButton()
-        {
-            App.Tap(UiText.ADD_NEW_PROJECT_BUTTON);
-        }*/
     }
 }

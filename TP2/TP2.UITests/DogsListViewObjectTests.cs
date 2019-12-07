@@ -28,15 +28,14 @@ namespace TP2.UITests
         }
 
         [Test]
-        public void WelcomeTextIsDisplayed()
+        public void OnDogsListPage_TitleAndMainLabelTextsAreDisplayed()
         {
-            AppResult[] results = app.WaitForElement(UiText.MAIN_LABEL);
-            //app.Screenshot("Welcome screen.");
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_TITLE));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_LABEL));
         }
 
         [Test]
-        public void DogsInformationsShouldBeDisplayed()
+        public void OnDogsListPage_DogsInformationsShouldBeDisplayed()
         {
             const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;
             const string EXPECTED_DESCRIPTION_DISPLAYED = UiText.ANY_DOG_DESCRIPTION;
@@ -50,7 +49,7 @@ namespace TP2.UITests
         }
 
         [Test]
-        public void OnDogClick_ShouldOpenDogDetailView()
+        public void DogDetailClick_ShouldOpenDogDetailView()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
 

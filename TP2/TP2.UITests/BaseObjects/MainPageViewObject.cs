@@ -1,48 +1,57 @@
-﻿using Xamarin.UITest;
+﻿using TP2.Externalization;
+using Xamarin.UITest;
 
-namespace TP1.UITests.PageObjects
+namespace TP2.UITests.BaseObjects
 {
     public class MainPageViewObject : BasePageObject
     {
+
+        const string ID_EMAIL_ENTRY = "NameId";
+        const string ID_PASSWORD_ENTRY = "PasswordId";
         public MainPageViewObject(IApp app) : base(app)
         {
         }
-        /*
-        public MainPageViewObject OpenMainPageView()
+
+        public DogsListViewObject OpenDogsListPage()
         {
-            ClickArchivesButton();
-            var archivedProjectsViewObject = new ArchivedProjectsViewObject(App);
-            return archivedProjectsViewObject;
+            TapButton(UiText.GO_TO_DOG_LIST);
+            return new DogsListViewObject(App);
         }
 
-        public NewProjectViewObject OpenNewProjectViewPage()
+        public void EnterLogin(string login)
         {
-            ClickAddNewProjectButton();
-            var newProjectViewObject = new NewProjectViewObject(App);
-            return newProjectViewObject;
+            App.WaitForElement(UiText.EMAIL);
+            App.EnterText(UiText.EMAIL, login);
+            App.DismissKeyboard();
+        }
+        public void EnterPassword(string password)
+        {
+            App.Tap(UiText.PASSWORD);
+            App.EnterText(UiText.PASSWORD, password);
+            App.DismissKeyboard();
         }
 
-        public ProjectDetailViewObject OpenProjectDetailViewPage(string projectToSelect)
+        public DogsListViewObject SignIn()
         {
-            ClickProjectDetail(projectToSelect);
-            var projectDetailViewPage = new ProjectDetailViewObject(App);
-            return projectDetailViewPage;
+            EnterLoginAndPasswordAndSignIn();
+            return new DogsListViewObject(App); ;
         }
 
-
-        private void ClickProjectDetail(string projectToSelect)
+        private void EnterLoginAndPasswordAndSignIn()
         {
-            App.Tap(projectToSelect);
+            App.Tap(ID_EMAIL_ENTRY);
+            App.EnterText("123");
+            App.Tap(ID_PASSWORD_ENTRY);
+            App.EnterText(ID_PASSWORD_ENTRY, "456");
+            App.DismissKeyboard();
+            App.Tap(UiText.CONNECTION); // ou x2
+            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
         }
 
-        private void ClickArchivesButton()
+        public RegisterViewObject ClickSignUpButton()
         {
-            App.Tap(UiText.ARCHIVES_BUTTON);
+            App.Tap(UiText.SIGN_UP);
+            return new RegisterViewObject(App);
         }
-
-        private void ClickAddNewProjectButton()
-        {
-            App.Tap(UiText.ADD_NEW_PROJECT_BUTTON);
-        }*/
     }
 }

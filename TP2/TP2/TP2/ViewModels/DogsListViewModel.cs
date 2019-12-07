@@ -1,15 +1,42 @@
-﻿using Prism.Navigation;
-using System.Collections.Generic;
+﻿using Prism.Commands;
+using Prism.Navigation;
 using System.Collections.ObjectModel;
+using TP2.Externalization;
+using System.Linq;
 using TP2.Models.Entities;
 using TP2.Services;
-using Xamarin.Forms;
+using TP2.Views;
 
 namespace TP2.ViewModels
 {
     public class DogsListViewModel : ViewModelBase
     {
-        public ObservableCollection<Dog> Dogs { get; set; }
+
+        private ObservableCollection<Dog> _dogsList;
+        private int _selectedSortType;
+
+        public int SelectedSortType
+        {
+            get => _selectedSortType;
+            set
+            {
+                _selectedSortType = value;
+                SortDogListByName();
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public ObservableCollection<Dog> Dogs
+        {
+            get => _dogsList;
+            set
+            {
+                _dogsList = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private Dog _selectedDog;
         public Dog SelectedDog
         {
@@ -17,7 +44,7 @@ namespace TP2.ViewModels
             set 
             { 
                 _selectedDog = value;
-                //HandleSelectedDog();
+                HandleSelectedDog();
             }
         }
 
@@ -25,46 +52,32 @@ namespace TP2.ViewModels
                                     IRepository<Dog> repositoryService)
             : base(navigationService)
         {
-            Title = "Liste des chiens";
-            //_dogs = repositoryService.GetAll();
-            //var projects = _projects.ToList();
-            //return new Collection<Project>(projects);
-            Dogs = new ObservableCollection<Dog>
+            Title = UiText.DOGS_LIST_PAGE_MAIN_TITLE;
+            var _dogs = repositoryService.GetAll();
+            Dogs = new ObservableCollection<Dog>(_dogs);
+        }
+
+        private void SortDogListByName()
+        {
+            var newDogList = Dogs.OrderBy(x => x.Name);
+            switch (_selectedSortType)
             {
-                new Dog()
-                {
-                    Name = "Rex",
-                    ImageUrl = "https://images.dog.ceo/breeds/clumber/n02101556_823.jpg",
-                    Price = (float)259.99,
-                    Race = "Husky",
-                    Sex = "Male",
-                    Description = "Jeune chien de 4 mois, super énergique"
-                },
-                new Dog()
-                {
-                    Name = "Cloud",
-                    ImageUrl = "https://images.dog.ceo/breeds/shiba/shiba-11.jpg",
-                    Price = (float)399.99,
-                    Race = "Samoyede",
-                    Sex = "Male",
-                    Description = "13 mois, chien blanc"
-                },
-                new Dog()
-                {
-                    Name = "Leo",
-                    ImageUrl = "https://images.dog.ceo/breeds/pug/n02110958_1975.jpg",
-                    Price = (float)269.99,
-                    Race = "Husky",
-                    Sex = "Male",
-                    Description = "Gentil et calme"
-                },
-            };
+                case 1:
+                    newDogList = Dogs.OrderBy(x => x.Race);
+                    break;
+
+                case 2:
+                    newDogList = Dogs.OrderBy(x => x.Price);
+                    break;
+            }
+            Dogs = new ObservableCollection<Dog>(newDogList);
         }
 
         private void HandleSelectedDog()
         {
-            Page page = new Page();
-            page.DisplayAlert("Selected item", "Name: " + SelectedDog.Name + " Race: " + SelectedDog.Race, "OK");
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("selectedDogData", _selectedDog);
+            NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogDetailPage), navigationParameters);
         }
     }
 }

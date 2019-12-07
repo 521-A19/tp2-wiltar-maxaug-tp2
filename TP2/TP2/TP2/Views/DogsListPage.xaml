@@ -3,15 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              mc:Ignorable="d"
-             x:Class="TP2.Views.DogsListPage">
-  <ContentPage.Content>
-      
+             x:Class="TP2.Views.DogsListPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
-            <ListView x:Name ="dogsListView" 
-                      ItemsSource="{Binding Dogs}"
-                      SelectedItem="{Binding SelectedDog}"
+
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.DOGS_LIST_PAGE_MAIN_LABEL}" FontSize="Large" />
+          
+            <ListView ItemsSource="{Binding Dogs}"
+                      SelectedItem="{Binding SelectedDog, Mode=TwoWay}"
                       HasUnevenRows="True"
                       AutomationId="ListView">
                 <ListView.ItemTemplate>
@@ -31,8 +34,14 @@
 
             </ListView>
             <StackLayout HorizontalOptions="Start">
-                <Button Text="Trier"></Button>
-                <Button Text="Rechercher"></Button>
+                <Label Text="Trier Par :" HorizontalOptions="Start"/>
+                <Picker Title="Trier Par" SelectedIndex="{Binding SelectedSortType}"  HorizontalOptions="Center" >
+                    <Picker.Items>
+                        <x:String>Nom</x:String>
+                        <x:String>Race</x:String>
+                        <x:String>Prix</x:String>
+                    </Picker.Items>
+                </Picker>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

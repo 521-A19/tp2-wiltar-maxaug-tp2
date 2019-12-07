@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="http://prismlibrary.com"
+             xmlns:converters="clr-namespace:TP2.Converters"
+             mc:Ignorable="d"
+             x:Class="TP2.Views.AddNewDogPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorToTextConverter x:Key="ErrorToTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Confirmer l'ajout" Command="{Binding AddNewDogCommand}" HorizontalOptions="End" FontSize="Small" IsEnabled="False"/>
+            <Label Text="Name :" HorizontalOptions="Start" FontSize="Small"/>
+            <Editor Placeholder="Name" Text="{Binding Name.Value}">
+                <Editor.Behaviors>
+                    <!--Behaviors lets you add functionality to user interface controls 
+                    without having to subclass them.-->
+                    <behaviors:EventToCommandBehavior
+                    EventName="TextChanged"
+                    Command="{Binding ValidateDogNameCommand}" />
+                </Editor.Behaviors>
+            </Editor>
+            <Label Text="{Binding Name.Errors,
+                              Converter={StaticResource ErrorToTextConverter}}" 
+               TextColor="Red"/>
+            <Label Text="Password" HorizontalOptions="Start" FontSize="Small"/>
+            <Label Text="Breeds :" VerticalOptions="Start" FontSize="Small"/>
+            <StackLayout Orientation="Horizontal">
+                <Picker Title="{Binding Breed}" ItemsSource="{Binding DogBreeds}" SelectedIndex="{Binding SelectedBreed}" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"/>
+
+                <Button Text="Fetch" Command="{Binding FetchARandomImageCommand}" HorizontalOptions="End" FontSize="Micro"/>
+            </StackLayout>
+            <Label Text="Description :" HorizontalOptions="Start" FontSize="Small"/>
+            <Editor Placeholder="Description" Text="{Binding Description}" VerticalOptions="Start"/>
+            <Label Text="Sex :" HorizontalOptions="Start" FontSize="Small"/>
+            <Editor Placeholder="Sex" Text="{Binding Sex}" HorizontalOptions="StartAndExpand" />
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Price :" HorizontalOptions="Start" FontSize="Small"/>
+                <Editor Placeholder="Price" Text="{Binding Price.Value}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small">
+                    <Editor.Behaviors>
+                        <!--Behaviors lets you add functionality to user interface controls 
+                    without having to subclass them.-->
+                        <behaviors:EventToCommandBehavior
+                    EventName="TextChanged"
+                    Command="{Binding ValidateDogPriceCommand}" />
+                    </Editor.Behaviors>
+                </Editor>
+                <Label Text="{Binding Price.Errors,
+                              Converter={StaticResource ErrorToTextConverter}}" 
+               TextColor="Red"/>
+                <Image Source="{Binding ImageUrl}" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+            </StackLayout>
+
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -18,7 +18,7 @@ namespace TP2.ViewModels
     {
         private IRegistrationService _registrationService;
         private IPageDialogService _pageDialogService;
-        public DelegateCommand NavigateToMainPageCommand => new DelegateCommand(ExecuteNavigateToMainPageCommand);
+        public DelegateCommand ConfirmRegistrationCommand => new DelegateCommand(ExecuteConfirmRegistrationCommand);
 
         private ValidatableObject<string> _userName;
         private ValidatableObject<string> _password;
@@ -103,23 +103,29 @@ namespace TP2.ViewModels
             _password.AddValidationRule(containMoreThanTenCharacters);
         }
 
-        private void ExecuteNavigateToMainPageCommand()
+        private void ExecuteConfirmRegistrationCommand()
         {
             ValidateUserName();
             ValidatePassword();
             ValidateSecondPassword();
-            if (Password.Errors.Count + UserName.Errors.Count + SecondPassword.Errors.Count == 0)
+            if (EntriesHaveNoError())
             {
                 _registrationService.RegisterUser(_userName.Value, _password.Value);
-                if (!_registrationService.IsUserRegistered)
+                if (!_registrationService.IsLoginAlreadyRegistered)
                 {
                     NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(MainPage));
                 }
                 else
                 {
-                    _pageDialogService.DisplayAlertAsync(UiText.USER_REGISTER_ALERT, UiText.USER_IS_ALREADY_REGISTED, UiText.OKAY_CHANGE_NAME);
+                    _pageDialogService.DisplayAlertAsync(UiText.USER_REGISTER_ALERT, UiText.LOGIN_IS_ALREADY_REGISTERED, UiText.OKAY_CHANGE_NAME);
                 }
             }
+        }
+
+        private bool EntriesHaveNoError()
+        {
+            if (Password.Errors.Count + UserName.Errors.Count + SecondPassword.Errors.Count == 0) return true;
+            return false;
         }
     }
 }

@@ -13,8 +13,8 @@ namespace TP2.Services
         private readonly ISecureStorageService _secureStorageService;
         private User _registeredUser;
         public User RegisteredUser { get { return _registeredUser; } }
-        private bool _isRegistered;
-        public bool IsUserRegistered { get { return _isRegistered; } }
+        private bool _isLoginAlreadyRegistered;
+        public bool IsLoginAlreadyRegistered { get { return _isLoginAlreadyRegistered; } }
 
         public RegistrationService(IRepository<User> repositoryService,
                               ICryptoService cryptoService,
@@ -29,7 +29,7 @@ namespace TP2.Services
         {
             if (_repositoryService.GetAll().FirstOrDefault(x => x.Login == login) != null)
             {
-                _isRegistered = true;
+                _isLoginAlreadyRegistered = true;
             }
             else
             {
@@ -46,7 +46,7 @@ namespace TP2.Services
                 _secureStorageService.SetUserEncryptionKeyAsync(newUser, key);
                 _repositoryService.Add(newUser);
                 _registeredUser = newUser;
-                _isRegistered = false;
+                _isLoginAlreadyRegistered = false;
             }
         }
     }

@@ -15,6 +15,10 @@ namespace TP2.UITests
     public class AddNewDogViewObjectTests
     {
         private AndroidApp app;
+        private MainPageViewObject _mainPageViewObject;
+        private DogsListViewObject _dogsListViewObject;
+        private DogShopViewObject _dogShopViewObject;
+        private AddNewDogViewObject _addNewDogViewObject;
 
         [SetUp]
         public void BeforeEachTest()
@@ -22,36 +26,55 @@ namespace TP2.UITests
             app = ConfigureApp.Android
               .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
+            _mainPageViewObject = new MainPageViewObject(app);
         }
-        /*
+        
         [Test]
-        public void JeVeuxMeRendreALaPageDAdoptionDeChien()
+        public void OnAddNewDogPage_TitleIsDisplayed()
         {
-            const string CONFIRMATION_BUTTON = "Confirmer l'ajout";
-            var addNewDogViewObject = new AddNewDogViewObject(app);
+            _dogsListViewObject = _mainPageViewObject.UserHasNoDogSignIn();
+            _dogShopViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_DOG_SHOP_PAGE) as DogShopViewObject;
+            _dogShopViewObject.TapButton(UiText.CONFIRM);
+          
+            _addNewDogViewObject = _dogShopViewObject.OpenAddNewDogPage();
 
-            addNewDogViewObject.NavigateToAddNewDogPage();
+            Assert.IsTrue(_addNewDogViewObject.IsTextDisplayed(UiText.ADD_NEW_DOG_PAGE_MAIN_TITLE));
+        }
+        
+        //Ce test peut bugger
+        [Test]
+        public void ConfirmAddNewDog_ShouldNavigateToDogsListAndAddNewDog()
+        {
+            _dogsListViewObject = _mainPageViewObject.UserHasNoDogSignIn();
+            _dogShopViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_DOG_SHOP_PAGE) as DogShopViewObject;
+            _dogShopViewObject.TapButton(UiText.CONFIRM);
+            _addNewDogViewObject = _dogShopViewObject.OpenAddNewDogPage();
 
-            AppResult[] results = app.WaitForElement(CONFIRMATION_BUTTON);
-            Assert.IsTrue(results.Any());
+            const string DOG_NEW_NAME = "Donald";
+            _addNewDogViewObject.EnterName(DOG_NEW_NAME);
+            _addNewDogViewObject.EnterPrice(500);
+            _dogsListViewObject = _addNewDogViewObject.AddNewDog();
+
+            const string EXPECTED_RACE = "affenpinscher";
+            _dogsListViewObject.Search(EXPECTED_RACE);
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_RACE));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(DOG_NEW_NAME));
         }
 
         [Test]
-        public void JeVeuxMeRendreALaPageDAdoptionDeChienEtAjouterUnChien()
+        public void InvalidNameAndPrice_ConfirmAddNewDog_ShouldDisplayErrorMessages()
         {
+            _dogsListViewObject = _mainPageViewObject.UserHasNoDogSignIn();
+            _dogShopViewObject = _dogsListViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_DOG_SHOP_PAGE) as DogShopViewObject;
+            _dogShopViewObject.TapButton(UiText.CONFIRM);
+            _addNewDogViewObject = _dogShopViewObject.OpenAddNewDogPage();
 
-            //app.Repl();
-            //const string EXPECTED_BREED = "affenpinscher";
-            var addNewDogViewObject = new AddNewDogViewObject(app);
+            _addNewDogViewObject.EnterName(null);
+            _addNewDogViewObject.EnterPrice(0);
+            _addNewDogViewObject.TapButton(UiText.BUTTON_CONFIRM_ADD_NEW_DOG);
 
-            addNewDogViewObject.NavigateToAddNewDogPage();
-            addNewDogViewObject.AddNewDog();
-            //app.ScrollDownTo(EXPECTED_BREED);
-            
-
-            AppResult[] results = app.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
-            Assert.IsTrue(results.Any());
-        }*/
-
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOG_NEED_A_GOOD_PRICE));
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOG_NEED_A_NAME));
+        }
     }
 }

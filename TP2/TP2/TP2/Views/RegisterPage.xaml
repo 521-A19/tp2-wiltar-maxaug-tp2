@@ -47,7 +47,7 @@
         <Label Text="{Binding SecondPassword.Errors,
                               Converter={StaticResource ErrorToTextConverter}}" 
                TextColor="Red"/>
-        <Button Text="{x:Static externalization:UiText.BUTTON_CONFIRM_REGISTRATION}" Command="{Binding NavigateToMainPageCommand}" HorizontalOptions="Center"/>
+        <Button Text="{x:Static externalization:UiText.BUTTON_CONFIRM_REGISTRATION}" Command="{Binding ConfirmRegistrationCommand}" HorizontalOptions="Center"/>
     </StackLayout>
 
 </ContentPage>

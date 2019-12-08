@@ -21,7 +21,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Image Source="{Binding ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                                <Image Source="{Binding ImageUrl}" HeightRequest="126" WidthRequest="150"></Image>
                                 <Label Text="{Binding Name}"></Label>
                                 <Label Text="{Binding Race}"></Label>
                                 <Label Text="{Binding Sex}"></Label>
@@ -33,9 +33,8 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-            <StackLayout HorizontalOptions="Start">
-                <Label Text="Trier Par :" HorizontalOptions="Start"/>
-                <Picker Title="Trier Par" SelectedIndex="{Binding SelectedSortType}"  HorizontalOptions="Center" >
+            <StackLayout BackgroundColor="AliceBlue" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                <Picker WidthRequest="70" FontSize="Medium" Title="Trier par" SelectedIndex="{Binding SelectedSortType}">
                     <Picker.Items>
                         <x:String>Nom</x:String>
                         <x:String>Race</x:String>

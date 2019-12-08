@@ -198,5 +198,153 @@ namespace TP2.UnitTests
             //Assert
             _mockPageDialogService.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public void ValidPrice_ValidateDogPriceCommand_PriceErrorsShouldBeEmpty()
+        {
+            _addNewDogViewModel.Price.Value = (float)299.59;
+
+            _addNewDogViewModel.ValidateDogPriceCommand.Execute();
+
+            Assert.Empty(_addNewDogViewModel.Price.Errors);
+        }
+
+        [Theory]
+        [InlineData(-100)]
+        [InlineData(0)]
+        public void InvalidPrice_ValidateDogPriceCommand_PriceErrorsShouldBeAdded(float price)
+        {
+            _addNewDogViewModel.Price.Value = price;
+
+            _addNewDogViewModel.ValidateDogPriceCommand.Execute();
+
+            Assert.Equal(UiText.DOG_NEED_A_GOOD_PRICE, _addNewDogViewModel.Price.Errors[0]);
+            Assert.NotEmpty(_addNewDogViewModel.Price.Errors);
+        }
+
+        [Fact]
+        public void ValidPrice_AddNewDogCommand_PriceErrorsShouldBeEmpty()
+        {
+            _addNewDogViewModel.Price.Value = (float)299.59;
+
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            Assert.Empty(_addNewDogViewModel.Price.Errors);
+        }
+
+        [Theory]
+        [InlineData(-100)]
+        [InlineData(0)]
+        public void InvalidPrice_AddNewDogCommand_PriceErrorsShouldBeAdded(float price)
+        {
+            _addNewDogViewModel.Price.Value = price;
+
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            Assert.Equal(UiText.DOG_NEED_A_GOOD_PRICE, _addNewDogViewModel.Price.Errors[0]);
+            Assert.NotEmpty(_addNewDogViewModel.Price.Errors);
+        }
+
+        [Fact]
+        public void ValidName_ValidateDogNameCommand_NameErrorsShouldBeEmpty()
+        {
+            _addNewDogViewModel.Name.Value = UiText.ANY_DOG_NAME;
+
+            _addNewDogViewModel.ValidateDogNameCommand.Execute();
+
+            Assert.Empty(_addNewDogViewModel.Name.Errors);
+        }
+
+        [Fact]
+        public void InvalidName_ValidateDogNameCommand_NameErrorsShouldBeAdded()
+        {
+            _addNewDogViewModel.Name.Value = null;
+
+            _addNewDogViewModel.ValidateDogNameCommand.Execute();
+
+            Assert.Equal(UiText.DOG_NEED_A_NAME, _addNewDogViewModel.Name.Errors[0]);
+            Assert.NotEmpty(_addNewDogViewModel.Name.Errors);
+        }
+
+        [Fact]
+        public void ValidName_AddNewDogCommand_NameErrorsShouldBeEmpty()
+        {
+            _addNewDogViewModel.Name.Value = UiText.ANY_DOG_NAME;
+
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            Assert.Empty(_addNewDogViewModel.Name.Errors);
+        }
+
+        [Fact]
+        public void InvalidName_AddNewDogCommand_NameErrorsShouldBeAdded()
+        {
+            _addNewDogViewModel.Name.Value = null;
+
+            _addNewDogViewModel.AddNewDogCommand.Execute();
+
+            Assert.Equal(UiText.DOG_NEED_A_NAME, _addNewDogViewModel.Name.Errors[0]);
+            Assert.NotEmpty(_addNewDogViewModel.Name.Errors);
+        }
+
+        [Fact]
+        public void DogBreeds_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.DogBreeds = new List<string>();
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void SelectedBreed_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.SelectedBreed = 2;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void Breed_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.Breed = UiText.ANY_DOG_RACE;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void Sex_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.Sex = UiText.ANY_DOG_SEX;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void Description_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.Description = UiText.ANY_DOG_SEX;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void ImageUrl_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.ImageUrl = UiText.ANY_DOG_SEX;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
     }
 }

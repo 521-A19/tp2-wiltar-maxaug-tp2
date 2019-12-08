@@ -15,5 +15,11 @@ namespace TP2.UITests.BaseObjects
             App.EnterText(newText);
             App.DismissKeyboard();
         }
+
+        public AddNewDogViewObject OpenAddNewDogPage()
+        {
+            TapButton(UiText.BUTTON_ADD_NEW_DOG);
+            return new AddNewDogViewObject(App);
+        }
     }
 }

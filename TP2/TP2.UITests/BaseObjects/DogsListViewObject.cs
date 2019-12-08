@@ -1,4 +1,5 @@
-﻿using Xamarin.UITest;
+﻿using TP2.Externalization;
+using Xamarin.UITest;
 
 namespace TP2.UITests.BaseObjects
 {
@@ -20,10 +21,17 @@ namespace TP2.UITests.BaseObjects
             App.Tap(dogToSelect);
         }
 
-        public void SelectSortType()
+        public void SelectSortType(string sort)
         {
-            App.Tap("Nom");
-            App.Tap("Race");
+            App.Tap("Trier par");
+            App.Tap(sort);
+        }
+
+        public void Search(string dog)
+        {
+            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
+            App.TapCoordinates(0, 0);
+            App.ScrollDownTo(dog);
         }
     }
 }

@@ -11,6 +11,7 @@ using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
 using TP2.UnitTests.Fixtures;
+using System.Collections.ObjectModel;
 
 namespace TP2.UnitTests
 {
@@ -21,23 +22,13 @@ namespace TP2.UnitTests
         private Mock<INavigationService> _mockNavigationService;
         private List<Dog> _dogList;
         private Fixture _fixture = new Fixture();
-        private Dog _newDog = new Dog()
-        {
-            Name = "Yulu",
-            Race = "african",
-            Sex = "M",
-            Description = "dog",
-            ImageUrl = "url",
-            Price = 123,
-            Id = 9999
-        };
+  
 
         public DogsListViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockRepositoryService = new Mock<IRepository<Dog>>();
             _dogList = _fixture.BuildDogsList();
-            _dogList.Add(_newDog);
             _mockRepositoryService
                 .Setup(r => r.GetAll())
                 .Returns(_dogList);
@@ -65,27 +56,62 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void SortDogListByName_WhenOrderByBreed_ShouldSortListAndFirstDogChange()
+        public void OrderDogsByName_ShouldSortDogsNameAlphabetically()
         {
-            
-            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+            _dogList[0].Name = "Zzzz";
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            Dog firstDogNameOfTheList = _dogsListViewModel.Dogs[0];
 
-            _dogsListViewModel.SelectedSortType = 1;
-            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+            _dogsListViewModel.SelectedSortType = 0;
+            Dog newFirstDogNameInTheList = _dogsListViewModel.Dogs[0];
 
-            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+            firstDogNameOfTheList.Should().NotBe(newFirstDogNameInTheList);
         }
 
         [Fact]
-        public void SortDogListByName_WhenOrderByPrice_ShouldSortListAndFirstDogChange()
+        public void OrderDogsByRace_ShouldSortDogsRaceAlphabetically()
         {
+            _dogList[0].Race = "Zzzz";
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            Dog firstDogNameOfTheList = _dogsListViewModel.Dogs[0];
 
-            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+            _dogsListViewModel.SelectedSortType = 1;
+            Dog newFirstDogNameInTheList = _dogsListViewModel.Dogs[0];
+
+            firstDogNameOfTheList.Should().NotBe(newFirstDogNameInTheList);
+        }
+
+        [Fact]
+        public void OrderDogsByPrice_ShouldSortDogsPriceFromLowestToHighest()
+        {
+            _dogList[0].Price = (float)999.99;
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            Dog firstDogNameOfTheList = _dogsListViewModel.Dogs[0];
 
             _dogsListViewModel.SelectedSortType = 2;
-            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+            Dog newFirstDogNameInTheList = _dogsListViewModel.Dogs[0];
 
-            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+            firstDogNameOfTheList.Should().NotBe(newFirstDogNameInTheList);
+        }
+
+        [Fact]
+        public void SelectedSortType_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _dogsListViewModel.SelectedSortType = 1;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void Dogs_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _dogsListViewModel.Dogs = new ObservableCollection<Dog>(_dogList);
+
+            Assert.True(_fixture._eventRaisedProperty);
         }
     }
 }

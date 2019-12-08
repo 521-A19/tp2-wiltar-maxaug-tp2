@@ -40,7 +40,7 @@ namespace TP2.UnitTests.ServicesTests
 
             _registrationService.RegisterUser(It.IsAny<string>(), It.IsAny<string>());
 
-            _registrationService.IsUserRegistered.Should().BeFalse();
+            _registrationService.IsLoginAlreadyRegistered.Should().BeFalse();
         }
 
 
@@ -49,7 +49,7 @@ namespace TP2.UnitTests.ServicesTests
         {
             _registrationService.RegisterUser(_userList[0].Login, _userList[0].HashedPassword);
 
-            _registrationService.IsUserRegistered.Should().BeTrue();
+            _registrationService.IsLoginAlreadyRegistered.Should().BeTrue();
         }
 
 

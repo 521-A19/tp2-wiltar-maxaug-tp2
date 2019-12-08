@@ -32,7 +32,7 @@ namespace TP2.UITests
               .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
             _mainPageViewObject = new MainPageViewObject(app);
-            _dogsListViewObject = _mainPageViewObject.SignIn();
+            _dogsListViewObject = _mainPageViewObject.UserHasDogSignIn();
         }
         
         [Test]
@@ -64,7 +64,6 @@ namespace TP2.UITests
             Assert.IsTrue(_dogShopViewObject.IsTextDisplayed(UiText.DOG_INFO_MODIFIED));
         }
 
-        //Bug
         [Test]
         public void UserHasOneDog_SaveChangesButton_ShouldModifyMyDogInformationsInDogListPage()
         {

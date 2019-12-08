@@ -46,6 +46,7 @@ namespace TP2.ViewModels
                                      IAuthenticationService authenticationService)
             : base(navigationService)
         {
+            Title = UiText.ADD_NEW_DOG_PAGE_MAIN_TITLE;
             _dialogService = dialogService;
             _dogBreedsService = dogBreedsService;
             _DogBreeds = _dogBreedsService.GetDogBreeds();

@@ -19,10 +19,15 @@
         <StackLayout>
             <StackLayout IsVisible="{Binding UserHasAnyDog}">
                 <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                <Label Text="Nom :"></Label>
                 <Entry Text="{Binding MyDog.Name}" AutomationId="NameId"></Entry>
+                <Label Text="Race :"></Label>
                 <Entry Text="{Binding MyDog.Race}" AutomationId="RaceId"></Entry>
+                <Label Text="Sex :"></Label>
                 <Entry Text="{Binding MyDog.Sex}" AutomationId="SexId"></Entry>
+                <Label Text="Prix :"></Label>
                 <Entry Text="{Binding MyDog.Price}" AutomationId="PriceId"></Entry>
+                <Label Text="Description :"></Label>
                 <Entry Text="{Binding MyDog.Description}" AutomationId="DescriptionId"></Entry>
                 <Button Text="{x:Static externalization:UiText.BUTTON_SAVE_CHANGES}" Command="{Binding ModifyDogInformations}"></Button>
             </StackLayout>

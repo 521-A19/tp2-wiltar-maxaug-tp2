@@ -38,11 +38,21 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void AuthenticatedUserHasNoDog_DeleteDogShopCommand_ShouldSetIsDeleteMyDogButtonVisibleToFalse()
+        public void AuthenticatedUserHasOneDog_IsDeleteMyDogButtonVisibleShouldBeTrue()
         {
             _userProfileViewModel.MyDog = _dogList[0];
 
-            _userProfileViewModel.DeleteDogShopCommand.Execute();
+            _mockAuthentification.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
+            _userProfileViewModel = new UserProfileViewModel(_mockNavigationService.Object, _mockAuthentification.Object, _mockRepository.Object, _mockUserRepository.Object);
+            _userProfileViewModel.IsDeleteMyDogButtonVisible.Should().BeTrue();
+        }
+
+        [Fact]
+        public void AuthenticatedUserHasNoDog_IsDeleteMyDogButtonVisibleShouldBeFalse()
+        {
+            _userList[0].DogId = -1;
+            _mockAuthentification.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
+            _userProfileViewModel = new UserProfileViewModel(_mockNavigationService.Object, _mockAuthentification.Object, _mockRepository.Object, _mockUserRepository.Object);
 
             _userProfileViewModel.IsDeleteMyDogButtonVisible.Should().BeFalse();
         }

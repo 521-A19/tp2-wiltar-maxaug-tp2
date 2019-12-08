@@ -21,7 +21,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:\temp/com.companyname.appname.apk")
               .StartApp();
             var mainPageViewObject = new MainPageViewObject(app);
             _dogsListViewObject = mainPageViewObject.OpenDogsListPage();
@@ -52,7 +52,6 @@ namespace TP2.UITests
         public void DogDetailClick_ShouldOpenDogDetailView()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-
             var projectDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
 
             const string EXPECTED_NAME_DISPLAYED = UiText.ANY_DOG_NAME;

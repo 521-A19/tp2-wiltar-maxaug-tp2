@@ -40,9 +40,10 @@ namespace TP2.UnitTests
         [Fact]
         public void AuthenticatedUserHasOneDog_IsDeleteMyDogButtonVisibleShouldBeTrue()
         {
+            _userProfileViewModel.MyDog = _dogList[0];
+
             _mockAuthentification.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
             _userProfileViewModel = new UserProfileViewModel(_mockNavigationService.Object, _mockAuthentification.Object, _mockRepository.Object, _mockUserRepository.Object);
-
             _userProfileViewModel.IsDeleteMyDogButtonVisible.Should().BeTrue();
         }
 

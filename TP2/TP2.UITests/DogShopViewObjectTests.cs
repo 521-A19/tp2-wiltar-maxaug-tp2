@@ -29,7 +29,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:\temp/com.companyname.appname.apk")
               .StartApp();
             _mainPageViewObject = new MainPageViewObject(app);
             _dogsListViewObject = _mainPageViewObject.UserHasDogSignIn();
@@ -78,7 +78,7 @@ namespace TP2.UITests
             _dogShopViewObject.EnterTextEntry(NEW_SEX, ID_SEX_ENTRY);
 
             _dogShopViewObject.TapButton(UiText.BUTTON_SAVE_CHANGES);
-            _dogShopViewObject.TapButton(UiText.BUTTON_SAVE_CHANGES);
+            _dogShopViewObject.AlertConfirm();
             _dogsListViewObject = _dogShopViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_DOGS_LIST_PAGE) as DogsListViewObject;
 
             Assert.IsFalse(_dogsListViewObject.IsTextDisplayed(UiText.ANY_DOG_NAME));

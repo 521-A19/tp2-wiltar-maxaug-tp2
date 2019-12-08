@@ -11,6 +11,10 @@ using SQLite;
 using System.Linq;
 using TP2.Models.Entities;
 using Xamarin.Essentials;
+using System.Collections.Generic;
+using TP2.Views.MasterDetailPages;
+using TP2.ViewModels.MasterDetailViews;
+using TP2.Externalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TP2
@@ -31,29 +35,30 @@ namespace TP2
         protected override async void OnInitialized()
         {
             InitializeComponent();
-
             SeedTestData();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            //await NavigationService.NavigateAsync("/NavigationPage/CustomMasterDetailPage/MainPage");
+            //await NavigationService.NavigateAsync(new System.Uri("/NavigationPage/CustomMasterDetailPage/MainPage", System.UriKind.Absolute));
+            await NavigationService.NavigateAsync(new System.Uri("/CustomMasterDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+            //await NavigationService.NavigateAsync("NavigationPage/CustomMasterDetailPage");
         }
 
         private void SeedTestData()
         {
             var productsRepository = Container.Resolve<IRepository<Dog>>();
-            //productsRepository.DeleteAll(); // **** CLEAN BD ****
+            productsRepository.DeleteAll(); // **** CLEAN BD ****
             // Les données seront ajoutées une seul foi dans la BD. 
             if (productsRepository.GetAll().Count() != 0)
                 return;
 
             var dog1 = new Dog()
             {
-                Name = "Rex",
-                ImageUrl = "https://images.dog.ceo/breeds/clumber/n02101556_823.jpg",
-                Price = (float)259.99,
-                Race = "Husky",
-                Sex = "Male",
-                Description = "Jeune chien de 4 mois, super énergique"
-
+                Name = UiText.ANY_DOG_NAME,
+                ImageUrl = UiText.ANY_DOG_IMAGE_URL,
+                Price = UiText.ANY_DOG_PRICE,
+                Race = UiText.ANY_DOG_RACE,
+                Sex = UiText.ANY_DOG_SEX,
+                Description = UiText.ANY_DOG_DESCRIPTION
             };
             var dog2 = new Dog()
             {
@@ -78,27 +83,57 @@ namespace TP2
             productsRepository.Add(dog1);
             productsRepository.Add(dog2);
             productsRepository.Add(dog3);
-            //ICryptoService cryptoService = new CryptoService();
-            //ISecureStorageService secureStorageService = new SecureStorageService();
-            //string salt = cryptoService.GenerateSalt();
-            //string key = cryptoService.GenerateEncryptionKey();
-            /*var user1 = new User()
+
+            var usersRepository = Container.Resolve<IRepository<User>>();
+            usersRepository.DeleteAll(); // **** CLEAN BD ****
+            // Les données seront ajoutées une seul foi dans la BD. 
+            if (usersRepository.GetAll().Count() != 0)
+                return;
+
+            ICryptoService cryptoService = new CryptoService();
+            ISecureStorageService secureStorageService = new SecureStorageService();
+            string salt = cryptoService.GenerateSalt();
+            string key = cryptoService.GenerateEncryptionKey();
+ 
+            var user1 = new User()
             {
                 Login = "123",
                 HashedPassword = cryptoService.HashSHA512("456", salt),
                 PasswordSalt = salt,
-                CreditCard = cryptoService.Encrypt("5162042483342023", key)
-            };*/
-            //secureStorageService.SetUserEncryptionKeyAsync(user1, key);
-            //productsRepository.Add(user1);   // après le add, product1 contient un id
+                CreditCard = cryptoService.Encrypt("1234", key),
+                DogId = dog1.Id
+            };
+            secureStorageService.SetUserEncryptionKeyAsync(user1, key);
+            usersRepository.Add(user1);   // après le add, user1 contient un id
+
+            salt = cryptoService.GenerateSalt();
+            key = cryptoService.GenerateEncryptionKey();
+
+            var user2 = new User()
+            {
+                Login = "456",
+                HashedPassword = cryptoService.HashSHA512("789", salt),
+                PasswordSalt = salt,
+                CreditCard = cryptoService.Encrypt("1234", key),
+                DogId = -1
+            };
+            secureStorageService.SetUserEncryptionKeyAsync(user2, key);
+            usersRepository.Add(user2);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Navigation pages
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<CustomMasterDetailPage, CustomMasterDetailViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<DogsListPage, DogsListViewModel>();
+            containerRegistry.RegisterForNavigation<DogDetailPage, DogDetailViewModel>();
+            containerRegistry.RegisterForNavigation<DogShopPage, DogShopViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddNewDogPage, AddNewDogViewModel>();
+            containerRegistry.RegisterForNavigation<UserProfilePage, UserProfileViewModel>();
+            containerRegistry.RegisterForNavigation<ShoppingCartPage, ShoppingCartViewModel>();
 
             //Repositories
             var databasePath = FileSystem.AppDataDirectory;  // FileSystem voir https://docs.microsoft.com/en-us/xamarin/essentials/file-system-helpers?tabs=android
@@ -110,8 +145,13 @@ namespace TP2
             containerRegistry.RegisterSingleton<IRepository<User>, SqLiteRepository<User>>();
             containerRegistry.RegisterSingleton<IRepository<Dog>, SqLiteRepository<Dog>>();
 
-            //Services PARTOUT DANS L'APP
-            //containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            //Services
+            containerRegistry.RegisterSingleton<ICryptoService, CryptoService>();
+            containerRegistry.RegisterSingleton<ISecureStorageService, SecureStorageService>();
+            containerRegistry.RegisterSingleton<IRegistrationService, RegistrationService>();
+            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            containerRegistry.RegisterSingleton<IDogApiService, DogApiService>();
+            containerRegistry.RegisterSingleton<IShoppingCartService, ShoppingCartService>();
         }
     }
 }

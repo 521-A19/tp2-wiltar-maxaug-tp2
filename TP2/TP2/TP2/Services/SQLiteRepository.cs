@@ -16,27 +16,12 @@ namespace TP2.Services
         }
         public IEnumerable<T> GetAll()
         {
-
             return _database.Table<T>().ToList();
         }
 
         public T GetById(int id)
         {
             return _database.Find<T>(id);
-        }
-
-        public bool IsExisting(string login)
-        {
-            IEnumerable<User> list = _database.Table<User>().ToList();
-
-            foreach (User cur in list)
-            {
-                if (cur.Login == login)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public void Delete(T entity)

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             mc:Ignorable="d"
+             x:Class="TP2.Views.UserProfilePage"
+             Title="{Binding Title}">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Profile"
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand"
+                   FontSize="Large"/>
+            <Label Text="{Binding UserLogIn.Login}"
+                VerticalOptions="Center" 
+                HorizontalOptions="CenterAndExpand" 
+                   FontSize="Medium"/>
+
+            <Label Text="Votre chien"
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand"
+                   FontSize="Large"/>
+
+            <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image Source="{Binding MyDog.ImageUrl}"
+                    HeightRequest="226" WidthRequest="250"></Image>
+            </StackLayout>
+
+            <Label Text="{Binding MyDog.Name}"/>
+            <Label Text="{Binding MyDog.Race}"/>
+            <Label Text="{Binding MyDog.Sex}"/>
+            <Label Text="{Binding MyDog.Price}"/>
+            <Label Text="{Binding MyDog.Description}"/>
+
+            <Button Text="{x:Static externalization:UiText.BUTTON_DELETE_MY_DOG}" Command="{Binding DeleteDogShopCommand}" IsVisible="{Binding IsDeleteMyDogButtonVisible}"  BackgroundColor="Red" HorizontalOptions="End" FontSize="Small" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

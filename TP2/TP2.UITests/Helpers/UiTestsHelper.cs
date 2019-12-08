@@ -1,6 +1,6 @@
 ﻿using Xamarin.UITest;
 
-namespace TP1.UITests.Helpers
+namespace TP2.UITests.Helpers
 {
     public static class UiTestHelpers
     {

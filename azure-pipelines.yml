@@ -25,6 +25,7 @@ steps:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+    
 # Android Signing
 - task: AndroidSigning@3
   inputs:
@@ -46,4 +47,4 @@ steps:
     assets: '**/*.apk'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-
+    

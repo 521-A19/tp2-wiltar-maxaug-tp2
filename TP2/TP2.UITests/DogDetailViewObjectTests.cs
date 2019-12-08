@@ -23,7 +23,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:\temp/com.companyname.appname.apk")
               .StartApp();
             _mainPagePageObject = new MainPageViewObject(app);
         }
@@ -32,8 +32,6 @@ namespace TP2.UITests
         public void MainTitleIsDisplayed()
         {
             _dogsListPageObject = _mainPagePageObject.OpenDogsListPage();
-
-            _dogsListPageObject.OrderByBreed();
 
             _dogDetailPageObject = _dogsListPageObject.OpenDogDetailViewPage(UiText.ANY_DOG_NAME);
 
@@ -44,7 +42,6 @@ namespace TP2.UITests
         public void OnDogDetaiPage_DogInformationsAreDisplayed()
         {
             _dogsListPageObject = _mainPagePageObject.OpenDogsListPage();
-            _dogsListPageObject.OrderByBreed();
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
 
             _dogDetailPageObject = _dogsListPageObject.OpenDogDetailViewPage(DOG_TO_SELECT);
@@ -64,7 +61,6 @@ namespace TP2.UITests
         public void AddToShoppingCart_DogsInformationsAreDisplayedInShoppingCartPage()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-            _dogsListPageObject.OrderByBreed();
             _dogsListPageObject = _mainPagePageObject.UserHasDogSignIn();
             _dogDetailPageObject = _dogsListPageObject.OpenDogDetailViewPage(DOG_TO_SELECT);
 

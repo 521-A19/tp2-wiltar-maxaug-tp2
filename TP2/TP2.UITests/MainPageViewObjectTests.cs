@@ -22,7 +22,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:\temp/com.companyname.appname.apk")
               .StartApp();
             _mainPageViewObject = new MainPageViewObject(app);
         }

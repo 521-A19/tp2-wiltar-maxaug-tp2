@@ -24,7 +24,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:\temp/com.companyname.appname.apk")
               .StartApp();
             _mainPageViewObject = new MainPageViewObject(app);
             _dogsListViewObject = _mainPageViewObject.UserHasDogSignIn();
@@ -44,7 +44,6 @@ namespace TP2.UITests
         public void ValidCreditCard_BuyShoppingCart_ShouldNavigateToDogsListPage()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-            _dogsListViewObject.OrderByBreed();
             _dogDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
             _dogDetailViewObject.TapAddDogToTheShoppingCart();
             _shoppingCartViewObject = _dogDetailViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_SHOPPING_CART_PAGE) as ShoppingCartViewObject;
@@ -62,7 +61,6 @@ namespace TP2.UITests
         public void ValidCreditCard_BuyShoppingCart_ShouldReinitializeTheShoppingCart()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-            _dogsListViewObject.OrderByBreed();
             _dogDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
             _dogDetailViewObject.TapAddDogToTheShoppingCart();
             _shoppingCartViewObject = _dogDetailViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_SHOPPING_CART_PAGE) as ShoppingCartViewObject;
@@ -82,7 +80,6 @@ namespace TP2.UITests
         public void DogInShoppingCart_CancelShoppingCart_ShouldReinitializeTheShoppingCart()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-            _dogsListViewObject.OrderByBreed();
             _dogDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
             _dogDetailViewObject.TapAddDogToTheShoppingCart();
             _shoppingCartViewObject = _dogDetailViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_SHOPPING_CART_PAGE) as ShoppingCartViewObject;
@@ -111,7 +108,6 @@ namespace TP2.UITests
         public void InvalidCreditCard_BuyShoppingCart_ShouldDisplayAlertMessage()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-            _dogsListViewObject.OrderByBreed();
             _dogDetailViewObject = _dogsListViewObject.OpenDogDetailViewPage(DOG_TO_SELECT);
             _dogDetailViewObject.TapAddDogToTheShoppingCart();
             _shoppingCartViewObject = _dogDetailViewObject.FromMasterDetailPageNavigateTo(UiText.BUTTON_TO_SHOPPING_CART_PAGE) as ShoppingCartViewObject;

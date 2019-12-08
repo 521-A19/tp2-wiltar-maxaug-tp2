@@ -9,8 +9,8 @@ namespace TP2.Externalization
         public const string BUTTON_TO_DOG_SHOP_PAGE = "Mon chien en adoption";
         public const string BUTTON_TO_DOGS_LIST_PAGE = "Liste de chiens";
         public const string BUTTON_TO_USER_PROFIL_PAGE = "Profile";
-        public const string BUTTON_CONNEXION = "Connection";
-        public const string BUTTON_DECONNEXION = "Déconnection";
+        public const string BUTTON_CONNEXION = "Connexion";
+        public const string BUTTON_DECONNEXION = "Déconnexion";
 
         //Dog seeder
         public const string ANY_DOG_NAME = "Rex";
@@ -84,9 +84,11 @@ namespace TP2.Externalization
 
         //UserProfile
         public const string USER_PROFILE_PAGE_MAIN_TITLE = "Profile";
+        public const string BUTTON_CONFIRM_ADD_NEW_DOG = "Confirmer l'ajout";
         public const string BUTTON_DELETE_MY_DOG = "Supprimer le chien X";
 
         //AddNewDog
+        public const string ADD_NEW_DOG_PAGE_MAIN_TITLE = "Ajouter votre chien";
         public const string DOG_NEED_A_NAME = "Le chien a besoin d'un nom";
         public const string DOG_NEED_A_GOOD_PRICE = "Le chien doit avoir un prx supérieur à 0$";
     }

@@ -5,18 +5,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:behaviors="http://prismlibrary.com"
              xmlns:converters="clr-namespace:TP2.Converters"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              mc:Ignorable="d"
-             x:Class="TP2.Views.AddNewDogPage">
+             x:Class="TP2.Views.AddNewDogPage"
+             Title="{Binding Title}">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:FirstValidationErrorToTextConverter x:Key="ErrorToTextConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
+        
         <StackLayout>
-            <Button Text="Confirmer l'ajout" Command="{Binding AddNewDogCommand}" HorizontalOptions="End" FontSize="Small" IsEnabled="False"/>
+            <Button Text="{x:Static externalization:UiText.BUTTON_CONFIRM_ADD_NEW_DOG}" Command="{Binding AddNewDogCommand}" HorizontalOptions="End" FontSize="Small" IsEnabled="False"/>
             <Label Text="Name * :" HorizontalOptions="Start" FontSize="Small"/>
-            <Editor Placeholder="Name" Text="{Binding Name.Value}">
+            <Editor Placeholder="Name" Text="{Binding Name.Value}" AutomationId="NameId">
                 <Editor.Behaviors>
                     <!--Behaviors lets you add functionality to user interface controls 
                     without having to subclass them.-->
@@ -41,7 +45,7 @@
 
             <StackLayout Orientation="Horizontal">
                 <Label Text="Price * :" HorizontalOptions="Start" FontSize="Small"/>
-                <Editor Placeholder="Price" Text="{Binding Price.Value}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small">
+                <Editor Placeholder="Price" Text="{Binding Price.Value}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small" AutomationId="PriceId">
                     <Editor.Behaviors>
                         <!--Behaviors lets you add functionality to user interface controls 
                     without having to subclass them.-->

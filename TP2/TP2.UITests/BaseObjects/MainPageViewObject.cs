@@ -5,9 +5,9 @@ namespace TP2.UITests.BaseObjects
 {
     public class MainPageViewObject : BasePageObject
     {
-
         const string ID_EMAIL_ENTRY = "NameId";
         const string ID_PASSWORD_ENTRY = "PasswordId";
+
         public MainPageViewObject(IApp app) : base(app)
         {
         }
@@ -31,18 +31,24 @@ namespace TP2.UITests.BaseObjects
             App.DismissKeyboard();
         }
 
-        public DogsListViewObject SignIn()
+        public DogsListViewObject UserHasDogSignIn()
         {
-            EnterLoginAndPasswordAndSignIn();
+            EnterLoginAndPasswordAndSignIn("123","456");
             return new DogsListViewObject(App); ;
         }
 
-        private void EnterLoginAndPasswordAndSignIn()
+        public DogsListViewObject UserHasNoDogSignIn()
+        {
+            EnterLoginAndPasswordAndSignIn("456","789");
+            return new DogsListViewObject(App); ;
+        }
+
+        private void EnterLoginAndPasswordAndSignIn(string email, string password)
         {
             App.Tap(ID_EMAIL_ENTRY);
-            App.EnterText("123");
+            App.EnterText(email);
             App.Tap(ID_PASSWORD_ENTRY);
-            App.EnterText(ID_PASSWORD_ENTRY, "456");
+            App.EnterText(ID_PASSWORD_ENTRY, password);
             App.DismissKeyboard();
             App.Tap(UiText.CONNECTION); // ou x2
             App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);

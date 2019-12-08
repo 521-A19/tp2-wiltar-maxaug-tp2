@@ -245,7 +245,6 @@ namespace TP2.UnitTests
             Assert.NotEmpty(_addNewDogViewModel.Price.Errors);
         }
 
-
         [Fact]
         public void ValidName_ValidateDogNameCommand_NameErrorsShouldBeEmpty()
         {
@@ -266,7 +265,6 @@ namespace TP2.UnitTests
             Assert.Equal(UiText.DOG_NEED_A_NAME, _addNewDogViewModel.Name.Errors[0]);
             Assert.NotEmpty(_addNewDogViewModel.Name.Errors);
         }
-
 
         [Fact]
         public void ValidName_AddNewDogCommand_NameErrorsShouldBeEmpty()
@@ -289,7 +287,26 @@ namespace TP2.UnitTests
             Assert.NotEmpty(_addNewDogViewModel.Name.Errors);
         }
 
-        
+        [Fact]
+        public void DogBreeds_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.DogBreeds = new List<string>();
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void SelectedBreed_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _addNewDogViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _addNewDogViewModel.SelectedBreed = 2;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
         [Fact]
         public void Breed_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {

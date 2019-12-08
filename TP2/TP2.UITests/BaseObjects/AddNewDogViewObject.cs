@@ -10,51 +10,31 @@ namespace TP2.UITests.BaseObjects
 {
     public class AddNewDogViewObject : BasePageObject
     {
-        const string ID_EMAIL_ENTRY = "NameId";
-        const string ID_PASSWORD_ENTRY = "PasswordId";
-        const string ID_SECOND_PASSWORD_ENTRY = "SecondPasswordId";
+        const string ID_NAME_ENTRY = "NameId";
+        const string ID_PRICE_ENTRY = "PriceId";
+
         public AddNewDogViewObject(IApp app) : base(app)
         {
         }
 
-        public void NavigateToAddNewDogPage()
+        public DogsListViewObject AddNewDog()
         {
-            RegisteUser();
-            ConnextionToDogList();
-            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
-            App.TapCoordinates(100, 100);
-            App.Tap("Mon chien en adoption");
-            App.Tap("D'accord");
-            App.Tap("Ajouter un chien");
-            App.WaitForElement("Confirmer l'ajout");
+            App.Tap(UiText.BUTTON_CONFIRM_ADD_NEW_DOG);
+            return new DogsListViewObject(App);
         }
 
-        public void RegisteUser()
+        public void EnterName(string name)
         {
-            App.Tap(UiText.SIGN_UP);
-            App.EnterText(ID_EMAIL_ENTRY, "123@456");
-            App.EnterText(ID_PASSWORD_ENTRY, "123456789aA");
-            App.EnterText(ID_SECOND_PASSWORD_ENTRY,"123456789aA");
-            App.Tap("Register");
+            App.WaitForElement(ID_NAME_ENTRY);
+            App.EnterText(ID_NAME_ENTRY, name);
+            App.DismissKeyboard();
         }
 
-        public void ConnextionToDogList()
+        public void EnterPrice(float price)
         {
-            App.Tap(ID_EMAIL_ENTRY);
-            App.EnterText("123@456");
-            App.Tap(ID_PASSWORD_ENTRY);
-            App.EnterText(ID_PASSWORD_ENTRY, "123456789aA");
-            App.Tap(UiText.CONNECTION);
-            App.Tap(UiText.CONNECTION);
+            App.WaitForElement(ID_PRICE_ENTRY);
+            App.EnterText(ID_PRICE_ENTRY, price.ToString());
+            App.DismissKeyboard();
         }
-
-        public void AddNewDog()
-        {
-            App.Tap("Confirmer l'ajout");
-            App.WaitForElement(UiText.DOGS_LIST_PAGE_MAIN_LABEL);
-            App.TapCoordinates(0, 0);
-            App.ScrollDownTo("affenpinscher");
-        }
-    
     }
 }

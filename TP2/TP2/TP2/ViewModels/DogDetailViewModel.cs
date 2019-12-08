@@ -66,7 +66,6 @@ namespace TP2.ViewModels
             ChangeCanExecute();
         }
 
-
         public ICommand AddSelectedDogToTheShoppingCart
         {
             get

@@ -61,7 +61,7 @@ namespace TP2.UITests
         public void AddToShoppingCart_DogsInformationsAreDisplayedInShoppingCartPage()
         {
             const string DOG_TO_SELECT = UiText.ANY_DOG_NAME;
-            _dogsListPageObject = _mainPagePageObject.SignIn();
+            _dogsListPageObject = _mainPagePageObject.UserHasDogSignIn();
             _dogDetailPageObject = _dogsListPageObject.OpenDogDetailViewPage(DOG_TO_SELECT);
 
             _dogDetailPageObject.TapAddDogToTheShoppingCart();

@@ -53,7 +53,7 @@ namespace TP2.UITests
         [Test]
         public void ValidLoginAndPassword_OnSignIn_ShouldDogsListPage()
         {
-            _dogsListViewObject = _mainPageViewObject.SignIn();
+            _dogsListViewObject = _mainPageViewObject.UserHasDogSignIn();
 
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_TITLE));
             Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(UiText.DOGS_LIST_PAGE_MAIN_LABEL));

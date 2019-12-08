@@ -21,7 +21,7 @@ namespace TP2.UITests
         public void BeforeEachTest()
         {
             app = ConfigureApp.Android
-              .ApkFile(@"C:/DevMobile/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
+              .ApkFile(@"C:/Users/usager/source/repos/tp2-wiltar-maxaug-tp2/TP2/TP2/TP2.Android/bin/Release/com.companyname.appname-Signed.apk")
               .StartApp();
             var mainPageViewObject = new MainPageViewObject(app);
             _dogsListViewObject = mainPageViewObject.OpenDogsListPage();
@@ -66,12 +66,24 @@ namespace TP2.UITests
         }
 
         [Test]
-        public void TrierParRaceChangeLOrdreDesChienEtLeDernierChienEstEnHautDeLaListe()
+        public void OrderDogsByName_ShouldSortDogsNameAlphabetically()
         {
-            //app.Repl();
-            _dogsListViewObject.SelectSortType();
-            AppResult[] results = app.WaitForElement("Rex");
-            Assert.IsTrue(results.Any());
+            const string SORT_BY = "Nom";
+            _dogsListViewObject.SelectSortType(SORT_BY);
+
+            const string EXPECTED_NAME = UiText.ANY_DOG_NAME;
+            _dogsListViewObject.Search(EXPECTED_NAME);
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_NAME));
+        }
+
+        [Test]
+        public void OrderDogsByPrice_ShouldSortDogsByPrice()
+        {
+            const string SORT_BY = "Prix";
+            _dogsListViewObject.SelectSortType(SORT_BY);
+
+            const string EXPECTED_PRICE = "259.99";
+            Assert.IsTrue(_dogsListViewObject.IsTextDisplayed(EXPECTED_PRICE));
         }
     }
 }

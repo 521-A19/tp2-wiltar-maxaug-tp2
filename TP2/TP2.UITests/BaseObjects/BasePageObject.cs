@@ -46,9 +46,16 @@ namespace TP2.UITests.BaseObjects
             {
                 return new UserProfileViewObject(App);
             }
+            if (urlPage == UiText.BUTTON_CONNEXION)
+            {
+                return new MainPageViewObject(App);
+            }
+            if (urlPage == UiText.BUTTON_DECONNEXION)
+            {
+                return new MainPageViewObject(App);
+            }
             viewObject = null;
             return viewObject;
-            
         }
     }
 }

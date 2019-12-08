@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             mc:Ignorable="d"
+             x:Class="TP2.Views.ShoppingCartPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HorizontalOptions="Center" FontSize="Large" Text="{Binding Path=TotalPrice, StringFormat='Le coût total est {0} $'}" />
+            <ListView Grid.Row="1" x:Name="DogList" ItemsSource="{Binding DogList}" SelectedItem="{Binding SelectedItem}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid x:Name="Item">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageUrl}" HeightRequest="120" WidthRequest="150"></Image>
+                                    <Label Grid.Column="1" Text="{Binding Name}"></Label>
+                                    <Label Grid.Column="2" Text="{Binding Price}"></Label>
+                                    <Label Grid.Column="3" Text="{Binding Race}"></Label>
+                                    <Label Grid.Column="4" Text="{Binding Sex}"></Label>
+                                    <Button Grid.Column="5" Text="X" TextColor="Red" BindingContext="{Binding Source={x:Reference DogList}, Path=BindingContext}" Command="{Binding DeleteDogFromTheShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"></Button>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Entry x:Name="CreditEntry" IsEnabled="{Binding IsShoppingCartEnabled}" Placeholder="Entrez votre carte de crédit" AutomationId="CreditCardId"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="{x:Static externalization:UiText.BUTTON_BUY_SHOPPING_CART}" Command="{Binding BuyShoppingCartCommand}" CommandParameter="{Binding Source={x:Reference CreditEntry}, Path=Text}"/>
+                <Button Text="{x:Static externalization:UiText.BUTTON_CANCEL_SHOPPING_CART}" Command="{Binding CancelShoppingCartCommand}"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

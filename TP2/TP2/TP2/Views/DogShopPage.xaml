@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
+             xmlns:local="clr-namespace:TP2.Converters"
+             x:Class="TP2.Views.DogShopPage"
+             Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NegateBoolConverter x:Key="NegateBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout IsVisible="{Binding UserHasAnyDog}">
+                <Image Source="{Binding MyDog.ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                <Label Text="Nom :"></Label>
+                <Entry Text="{Binding MyDog.Name}" AutomationId="NameId"></Entry>
+                <Label Text="Race :"></Label>
+                <Entry Text="{Binding MyDog.Race}" AutomationId="RaceId"></Entry>
+                <Label Text="Sex :"></Label>
+                <Entry Text="{Binding MyDog.Sex}" AutomationId="SexId"></Entry>
+                <Label Text="Prix :"></Label>
+                <Entry Text="{Binding MyDog.Price}" AutomationId="PriceId"></Entry>
+                <Label Text="Description :"></Label>
+                <Entry Text="{Binding MyDog.Description}" AutomationId="DescriptionId"></Entry>
+                <Button Text="{x:Static externalization:UiText.BUTTON_SAVE_CHANGES}" Command="{Binding ModifyDogInformations}"></Button>
+            </StackLayout>
+            <Button IsVisible="{Binding UserHasAnyDog, Converter={StaticResource NegateBool}}" Text="{x:Static externalization:UiText.BUTTON_ADD_NEW_DOG}" Command="{Binding NavigateToAddNewDogPageCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,22 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:externalization="clr-namespace:TP2.Externalization"
              mc:Ignorable="d"
-             x:Class="TP2.Views.DogsListPage">
-  <ContentPage.Content>
-      
+             x:Class="TP2.Views.DogsListPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
         <StackLayout>
-            <Label HorizontalOptions="Center" Text="Voici les petits amis en adoption" FontSize="Large"></Label>
-            <ListView x:Name ="dogsListView" 
-                      ItemsSource="{Binding Dogs}"
-                      SelectedItem="{Binding SelectedDog}"
+
+            <Label HorizontalOptions="Center" Text="{x:Static externalization:UiText.DOGS_LIST_PAGE_MAIN_LABEL}" FontSize="Large" />
+          
+            <ListView ItemsSource="{Binding Dogs}"
+                      SelectedItem="{Binding SelectedDog, Mode=TwoWay}"
                       HasUnevenRows="True"
                       AutomationId="ListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Image Source="{Binding ImageUrl}" HeightRequest="96" WidthRequest="120"></Image>
+                                <Image Source="{Binding ImageUrl}" HeightRequest="126" WidthRequest="150"></Image>
                                 <Label Text="{Binding Name}"></Label>
                                 <Label Text="{Binding Race}"></Label>
                                 <Label Text="{Binding Sex}"></Label>
@@ -30,9 +33,14 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-            <StackLayout HorizontalOptions="Start">
-                <Button Text="Trier"></Button>
-                <Button Text="Rechercher"></Button>
+            <StackLayout BackgroundColor="AliceBlue" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                <Picker WidthRequest="70" FontSize="Medium" Title="Trier par" SelectedIndex="{Binding SelectedSortType}">
+                    <Picker.Items>
+                        <x:String>Nom</x:String>
+                        <x:String>Race</x:String>
+                        <x:String>Prix</x:String>
+                    </Picker.Items>
+                </Picker>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

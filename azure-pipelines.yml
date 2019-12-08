@@ -47,7 +47,8 @@ steps:
     assets: '**/*.apk'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-	
+
+#Tests Unitaires
 - task: DotNetCoreCLI@2
   inputs:
     command: test

@@ -6,6 +6,7 @@ using System.Linq;
 using TP2.Models.Entities;
 using TP2.Services;
 using TP2.Views;
+using System.Collections.Generic;
 
 namespace TP2.ViewModels
 {
@@ -20,9 +21,12 @@ namespace TP2.ViewModels
             get => _selectedSortType;
             set
             {
-                _selectedSortType = value;
-                SortDogListByName();
-                RaisePropertyChanged();
+                if(_selectedSortType != value)
+                {
+                    _selectedSortType = value;
+                    OrderDogsBy(value);
+                    RaisePropertyChanged();
+                }
             }
         }
 
@@ -52,20 +56,23 @@ namespace TP2.ViewModels
                                     IRepository<Dog> repositoryService)
             : base(navigationService)
         {
+            _selectedSortType = -1;
             Title = UiText.DOGS_LIST_PAGE_MAIN_TITLE;
             var _dogs = repositoryService.GetAll();
             Dogs = new ObservableCollection<Dog>(_dogs);
         }
 
-        private void SortDogListByName()
+        private void OrderDogsBy(int index)
         {
-            var newDogList = Dogs.OrderBy(x => x.Name);
+            IEnumerable<Dog> newDogList = null;
             switch (_selectedSortType)
             {
+                case 0:
+                    newDogList = Dogs.OrderBy(x => x.Name);
+                    break;
                 case 1:
                     newDogList = Dogs.OrderBy(x => x.Race);
                     break;
-
                 case 2:
                     newDogList = Dogs.OrderBy(x => x.Price);
                     break;

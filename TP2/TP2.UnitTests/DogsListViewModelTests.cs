@@ -11,6 +11,7 @@ using Bogus;
 using FluentAssertions;
 using System.Collections.Generic;
 using TP2.UnitTests.Fixtures;
+using System.Collections.ObjectModel;
 
 namespace TP2.UnitTests
 {
@@ -65,6 +66,19 @@ namespace TP2.UnitTests
         }
 
         [Fact]
+        public void SortDogListByName_WhenOrderByName_ShouldSortListAndFirstDogChange()
+        {
+            _dogList[0].Name = "Zzzz";
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+
+            _dogsListViewModel.SelectedSortType = 0;
+            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+
+            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+        }
+
+        [Fact]
         public void SortDogListByName_WhenOrderByBreed_ShouldSortListAndFirstDogChange()
         {
             
@@ -86,6 +100,36 @@ namespace TP2.UnitTests
             string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
 
             firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+        }
+
+        [Fact]
+        public void SelectedSortType_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _dogsListViewModel.SelectedSortType = 1;
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void Dogs_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _dogsListViewModel.Dogs = new ObservableCollection<Dog>(_dogList);
+
+            Assert.True(_fixture._eventRaisedProperty);
+        }
+
+        [Fact]
+        public void SelectedDog_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
+        {
+            _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
+
+            _dogsListViewModel.SelectedDog = _dogList[2];
+
+            Assert.True(_fixture._eventRaisedProperty);
         }
     }
 }

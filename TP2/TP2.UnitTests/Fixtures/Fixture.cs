@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using TP2.Models.Entities;
 using TP2.Services;
@@ -15,7 +16,7 @@ namespace TP2.UnitTests.Fixtures
         private Faker<Dog> _dogFaker;
 
         private const string NotHashedPassword = "Qwertyuiop1";
-
+        public bool _eventRaisedProperty;
         private const string NotEncryptedCreditCard = "5105105105105100";
         public string Last4DigitCreditCard => NotEncryptedCreditCard.Substring(NotEncryptedCreditCard.Length - 4);
         public string EncryptionKey => "--AnEncryptionKey--";
@@ -34,6 +35,22 @@ namespace TP2.UnitTests.Fixtures
         {
 
             return _userFaker.Generate(3);
+        }
+
+
+        public Faker<User> CreateFakeUser(int dogId)
+        {
+            var crypto = new CryptoService();
+            var salt = crypto.GenerateSalt();
+            var fakeUser = new Faker<User>()
+                .StrictMode(true)
+                .RuleFor(u => u.Id, f => f.IndexFaker)
+                .RuleFor(u => u.Login, f => f.Person.Email)
+                .RuleFor(u => u.CreditCard, f => crypto.Encrypt(NotEncryptedCreditCard, EncryptionKey))
+                .RuleFor(u => u.HashedPassword, f => crypto.HashSHA512(NotHashedPassword, salt))
+                .RuleFor(u => u.PasswordSalt, f => "adskadk")
+                .RuleFor(u => u.DogId, f => dogId);
+            return fakeUser;
         }
 
         private void InitializeFakersWithRules()
@@ -60,7 +77,10 @@ namespace TP2.UnitTests.Fixtures
               .RuleFor(u => u.Id, f => f.IndexFaker);
         }
 
-       
+        public void RaiseProperty(object sender, PropertyChangedEventArgs e)
+        {
+            _eventRaisedProperty = true;
+        }
     }
 
 }

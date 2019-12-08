@@ -20,7 +20,6 @@ namespace TP2.UnitTests
         private Mock<INavigationService> _mockNavigationService;
         private Mock<IShoppingCartService> _mockShoppingCartService;
         private Mock<IAuthenticationService> _mockAuthenticationService;
-        private bool _eventRaisedProperty;
         private List<Dog> _dogList;
         private Fixture _fixture = new Fixture();
 
@@ -109,16 +108,11 @@ namespace TP2.UnitTests
         [Fact]
         public void SelectedDog_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {
-            _dogDetailViewModel.PropertyChanged += RaiseProperty;
+            _dogDetailViewModel.PropertyChanged += _fixture.RaiseProperty;
 
             _dogDetailViewModel.SelectedDog = new Faker<Dog>();
 
-            Assert.True(_eventRaisedProperty);
-        }
-
-        private void RaiseProperty(object sender, PropertyChangedEventArgs e)
-        {
-            _eventRaisedProperty = true;
+            Assert.True(_fixture._eventRaisedProperty);
         }
     }
 }

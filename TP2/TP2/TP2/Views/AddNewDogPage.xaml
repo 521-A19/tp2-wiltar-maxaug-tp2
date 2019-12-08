@@ -15,7 +15,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Button Text="Confirmer l'ajout" Command="{Binding AddNewDogCommand}" HorizontalOptions="End" FontSize="Small" IsEnabled="False"/>
-            <Label Text="Name :" HorizontalOptions="Start" FontSize="Small"/>
+            <Label Text="Name * :" HorizontalOptions="Start" FontSize="Small"/>
             <Editor Placeholder="Name" Text="{Binding Name.Value}">
                 <Editor.Behaviors>
                     <!--Behaviors lets you add functionality to user interface controls 
@@ -28,7 +28,6 @@
             <Label Text="{Binding Name.Errors,
                               Converter={StaticResource ErrorToTextConverter}}" 
                TextColor="Red"/>
-            <Label Text="Password" HorizontalOptions="Start" FontSize="Small"/>
             <Label Text="Breeds :" VerticalOptions="Start" FontSize="Small"/>
             <StackLayout Orientation="Horizontal">
                 <Picker Title="{Binding Breed}" ItemsSource="{Binding DogBreeds}" SelectedIndex="{Binding SelectedBreed}" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"/>
@@ -41,7 +40,7 @@
             <Editor Placeholder="Sex" Text="{Binding Sex}" HorizontalOptions="StartAndExpand" />
 
             <StackLayout Orientation="Horizontal">
-                <Label Text="Price :" HorizontalOptions="Start" FontSize="Small"/>
+                <Label Text="Price * :" HorizontalOptions="Start" FontSize="Small"/>
                 <Editor Placeholder="Price" Text="{Binding Price.Value}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small">
                     <Editor.Behaviors>
                         <!--Behaviors lets you add functionality to user interface controls 

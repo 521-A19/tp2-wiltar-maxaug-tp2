@@ -62,7 +62,7 @@ namespace TP2.UnitTests
         {
             _customMasterDetailViewModel.OnNavigateCommand.Execute(namePage);
 
-            _mockNavigationService.Verify(x => x.NavigateAsync("CustomMasterDetailPage/NavigationPage/" + namePage), Times.Once());
+            _mockNavigationService.Verify(x => x.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + namePage), Times.Once());
         }
     }
 }

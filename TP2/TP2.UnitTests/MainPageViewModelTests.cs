@@ -24,7 +24,6 @@ namespace TP2.UnitTests
         private Mock<IAuthenticationService> _mockAuthenticationService;
         private List<User> _userList;
         private Fixture _fixture = new Fixture();
-        private bool _eventRaisedProperty;
 
         public MainPageViewModelTests()
         {
@@ -114,29 +113,22 @@ namespace TP2.UnitTests
         [Fact]
         public void Login_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {
-            _mainPageViewModel.PropertyChanged += RaiseProperty;
+            _mainPageViewModel.PropertyChanged += _fixture.RaiseProperty;
 
             _mainPageViewModel.Login = "TEST";
 
-            Assert.True(_eventRaisedProperty);
+            Assert.True(_fixture._eventRaisedProperty);
         }
 
         [Fact]
         public void Password_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
         {
-            _mainPageViewModel.PropertyChanged += RaiseProperty;
+            _mainPageViewModel.PropertyChanged += _fixture.RaiseProperty;
 
             _mainPageViewModel.Login = "TEST";
 
-            Assert.True(_eventRaisedProperty);
+            Assert.True(_fixture._eventRaisedProperty);
         }
-
-
-        private void RaiseProperty(object sender, PropertyChangedEventArgs e)
-        {
-            _eventRaisedProperty = true;
-        }
-
     }
 }
 

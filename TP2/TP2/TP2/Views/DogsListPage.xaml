@@ -34,8 +34,7 @@
 
             </ListView>
             <StackLayout BackgroundColor="AliceBlue" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                <Label FontSize="Medium" Text="Trier par :" HorizontalOptions="Start"/>
-                <Picker Title="Trier Par" SelectedIndex="{Binding SelectedSortType}">
+                <Picker WidthRequest="70" FontSize="Medium" Title="Trier par" SelectedIndex="{Binding SelectedSortType}">
                     <Picker.Items>
                         <x:String>Nom</x:String>
                         <x:String>Race</x:String>

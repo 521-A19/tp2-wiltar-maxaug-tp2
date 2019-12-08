@@ -59,7 +59,6 @@ namespace TP2.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             MyDog = _dogRepository.GetById(GetAuthenticatedUser.DogId);
-
         }
 
         private async void DeleteDogShop()

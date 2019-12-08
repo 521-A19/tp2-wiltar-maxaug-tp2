@@ -53,6 +53,21 @@ namespace TP2.UnitTests.Fixtures
             return fakeUser;
         }
 
+
+        public Faker<Dog> CreateFakeDog()
+        {
+            var fakeDog = new Faker<Dog>()
+                .StrictMode(true)
+                .RuleFor(u => u.Name, f => f.Person.FirstName)
+                .RuleFor(u => u.Price, f => (float)299.99)
+                .RuleFor(u => u.Race, f => "Husky")
+                .RuleFor(u => u.Description, f => "Dog")
+                .RuleFor(u => u.Sex, f => f.Person.Gender.ToString())
+                .RuleFor(u => u.ImageUrl, f => "url")
+                .RuleFor(u => u.Id, f => f.IndexFaker);
+            return fakeDog;
+        }
+
         private void InitializeFakersWithRules()
         {
             var crypto = new CryptoService();

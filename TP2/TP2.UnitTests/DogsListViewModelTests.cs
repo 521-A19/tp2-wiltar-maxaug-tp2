@@ -22,23 +22,13 @@ namespace TP2.UnitTests
         private Mock<INavigationService> _mockNavigationService;
         private List<Dog> _dogList;
         private Fixture _fixture = new Fixture();
-        private Dog _newDog = new Dog()
-        {
-            Name = "Yulu",
-            Race = "african",
-            Sex = "M",
-            Description = "dog",
-            ImageUrl = "url",
-            Price = 123,
-            Id = 9999
-        };
+  
 
         public DogsListViewModelTests()
         {
             _mockNavigationService = new Mock<INavigationService>();
             _mockRepositoryService = new Mock<IRepository<Dog>>();
             _dogList = _fixture.BuildDogsList();
-            _dogList.Add(_newDog);
             _mockRepositoryService
                 .Setup(r => r.GetAll())
                 .Returns(_dogList);
@@ -66,40 +56,42 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void SortDogListByName_WhenOrderByName_ShouldSortListAndFirstDogChange()
+        public void OrderDogsByName_ShouldSortDogsNameAlphabetically()
         {
             _dogList[0].Name = "Zzzz";
             _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
-            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+            Dog firstDogNameOfTheList = _dogsListViewModel.Dogs[0];
 
             _dogsListViewModel.SelectedSortType = 0;
-            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+            Dog newFirstDogNameInTheList = _dogsListViewModel.Dogs[0];
 
-            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+            firstDogNameOfTheList.Should().NotBe(newFirstDogNameInTheList);
         }
 
         [Fact]
-        public void SortDogListByName_WhenOrderByBreed_ShouldSortListAndFirstDogChange()
+        public void OrderDogsByRace_ShouldSortDogsRaceAlphabetically()
         {
-            
-            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+            _dogList[0].Race = "Zzzz";
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            Dog firstDogNameOfTheList = _dogsListViewModel.Dogs[0];
 
             _dogsListViewModel.SelectedSortType = 1;
-            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+            Dog newFirstDogNameInTheList = _dogsListViewModel.Dogs[0];
 
-            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+            firstDogNameOfTheList.Should().NotBe(newFirstDogNameInTheList);
         }
 
         [Fact]
-        public void SortDogListByName_WhenOrderByPrice_ShouldSortListAndFirstDogChange()
+        public void OrderDogsByPrice_ShouldSortDogsPriceFromLowestToHighest()
         {
-
-            string firstDogNameOfTheList = _dogsListViewModel.Dogs[0].Name;
+            _dogList[0].Price = (float)999.99;
+            _dogsListViewModel = new DogsListViewModel(_mockNavigationService.Object, _mockRepositoryService.Object);
+            Dog firstDogNameOfTheList = _dogsListViewModel.Dogs[0];
 
             _dogsListViewModel.SelectedSortType = 2;
-            string newFirstDogNameInTheList = _dogsListViewModel.Dogs[0].Name;
+            Dog newFirstDogNameInTheList = _dogsListViewModel.Dogs[0];
 
-            firstDogNameOfTheList.Should().NotContainEquivalentOf(newFirstDogNameInTheList);
+            firstDogNameOfTheList.Should().NotBe(newFirstDogNameInTheList);
         }
 
         [Fact]
@@ -118,16 +110,6 @@ namespace TP2.UnitTests
             _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
 
             _dogsListViewModel.Dogs = new ObservableCollection<Dog>(_dogList);
-
-            Assert.True(_fixture._eventRaisedProperty);
-        }
-
-        [Fact]
-        public void SelectedDog_WhenSetToNewValue_ShouldRaisePropertyChangedEvent()
-        {
-            _dogsListViewModel.PropertyChanged += _fixture.RaiseProperty;
-
-            _dogsListViewModel.SelectedDog = _dogList[2];
 
             Assert.True(_fixture._eventRaisedProperty);
         }

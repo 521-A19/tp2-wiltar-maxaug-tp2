@@ -89,19 +89,19 @@ namespace TP2.ViewModels
                 if (EntriesHaveNoError())
                 {
                     Dog newDog = new Dog() 
-                {
-                    Name = Name.Value,
-                    Race = Breed,
-                    Sex = Sex,
-                    Description = Description,
-                    ImageUrl = ImageUrl,
-                    Price = Price.Value
-                };
+                    {
+                        Name = Name.Value,
+                        Race = Breed,
+                        Sex = Sex,
+                        Description = Description,
+                        ImageUrl = ImageUrl,
+                        Price = Price.Value
+                    };
                 _dogRepository.Add(newDog);  // Le Add du repo incrémente les nouveaux chiens
                 _authenticationService.AuthenticatedUser.DogId = newDog.Id;
                 _userRepository.Update(_authenticationService.AuthenticatedUser);
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
-            }
+                }
             }
             catch
             {

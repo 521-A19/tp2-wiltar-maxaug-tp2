@@ -40,7 +40,7 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void AuthenticatedUserHasNoDog_OnNavigatedTo_UserHasAnyDogShouldGetFalse()
+        public void AuthenticatedUserHasNoDog_OnNavigatedTo_UserHasAnyDogShouldBeFalse()
         {
             _userList[0].DogId = -1;
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
@@ -77,7 +77,7 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void AuthenticatedUserHasADog_OnNavigatedTo_MyDogShouldBeInstantiate()
+        public void AuthenticatedUserHasADog_OnNavigatedTo_MyDogShouldBeInstantiated()
         {
             _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(_userList[0]);
             var dog = _dogList[0];

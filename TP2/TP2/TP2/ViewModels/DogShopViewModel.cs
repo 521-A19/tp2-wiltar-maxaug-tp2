@@ -16,7 +16,6 @@ namespace TP2.ViewModels
         private IRepository<Dog> _dogRepositoryService;
         private IPageDialogService _pageDialogService;
         private IAuthenticationService _authenticationService;
-        //public ObservableCollection<Dog> UserListOfDogs { get; set; }
         private Dog _myDog;
         public Dog MyDog
         {

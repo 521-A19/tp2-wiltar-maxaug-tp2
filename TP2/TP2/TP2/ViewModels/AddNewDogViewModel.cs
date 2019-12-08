@@ -86,7 +86,7 @@ namespace TP2.ViewModels
             try {
                 ValidateDogName();
                 ValidateDogPrice();
-                if (Name.Errors.Count + Price.Errors.Count == 0)
+                if (EntriesHaveNoError())
                 {
                     Dog newDog = new Dog() 
                 {
@@ -107,6 +107,12 @@ namespace TP2.ViewModels
             {
                 await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
+        }
+
+        private bool EntriesHaveNoError()
+        {
+            if (Name.Errors.Count + Price.Errors.Count == 0) return true;
+            return false;
         }
 
         private void AddValidationRulesToValidatable()

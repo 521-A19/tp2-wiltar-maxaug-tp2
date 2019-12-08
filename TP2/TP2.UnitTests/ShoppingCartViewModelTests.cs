@@ -51,7 +51,7 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void DogList_OnArrival_DogListObservableShouldBeLoaded()
+        public void DogList_OnArrival_DogListObservableShouldBeInstantiated()
         {
             foreach (Dog cur in _dogList) { _shoppingCartViewModel.DogList.Should().Contain(cur); }
         }
@@ -109,11 +109,20 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void NotEmptyDogList_BuyShoppingCartCommand_CanExecuteShoulReturnTrue()
+        public void NotEmptyDogList_BuyShoppingCartCommand_BuyShoppingCartCommandCanExecuteShouldBeTrue()
         {
             _shoppingCartViewModel.DogList = new ObservableCollection<Dog>(_dogList);
 
             _shoppingCartViewModel.BuyShoppingCartCommand.CanExecute(null).Should().BeTrue();
+        }
+
+        [Fact]
+        public void EmptyDogList_BuyShoppingCartCommand_BuyShoppingCartCommandCanExecuteShouldBeFalse()
+        {
+            _dogList = new List<Dog>();
+            _mockShoppingCartService.Setup(r => r.ShoppingCartDogList).Returns(_dogList);
+
+            _shoppingCartViewModel.BuyShoppingCartCommand.CanExecute(null).Should().BeFalse();
         }
 
         private Faker<User> CreateFakeUser(int dogId)

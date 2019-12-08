@@ -10,6 +10,11 @@ Ce qui doit être améliorer au niveau de la sécurité
     HttpResponseMessage response = await _httpClient.GetAsync("https://dog.ceo/api/breeds/list%22);
     Certains forums mentionnaient l'utilisation d'un "deadlock", ce qui n'a jamais été vu et semblait ardu.
 
+Particularités de configuration de l'environnement de développement
+  * Dans l'app.cs, le user avec chien 123/456 ajoute automatiquement le dog1 (id = 1)
+    Nous utilisons dogsRepository.DeleteAll() dans l'app, pour tout supprimer à chaque fois.
+
 Aucun bug connus
 
 Capture d'écran du profilage
+https://cdn.discordapp.com/attachments/643535598652489739/653341195627397150/Profiler.PNG

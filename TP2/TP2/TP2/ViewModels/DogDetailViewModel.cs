@@ -48,10 +48,25 @@ namespace TP2.ViewModels
                 SelectedDog = parameters["selectedDogData"] as Dog;
                 Title = "Voici le chien " + SelectedDog.Name;
             }
-            if (_shoppingCartService.Contains(SelectedDog.Id) || !_authenticationService.IsUserAuthenticated)
+            if (_shoppingCartService.Contains(SelectedDog.Id) || !IsUserAuthenticated || IsDogOwnedByAuthenticatedUser())
             {
                 ChangeCanExecute();
             }
+        }
+
+        private bool IsDogOwnedByAuthenticatedUser()
+        {
+            return AuthenticatedUser.DogId == SelectedDog.Id;
+        }
+
+        private User AuthenticatedUser
+        {
+            get { return _authenticationService.AuthenticatedUser; }
+        }
+
+        private bool IsUserAuthenticated
+        {
+            get { return _authenticationService.IsUserAuthenticated; }
         }
 
         private void ChangeCanExecute()

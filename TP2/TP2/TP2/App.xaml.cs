@@ -45,10 +45,10 @@ namespace TP2
 
         private void SeedTestData()
         {
-            var productsRepository = Container.Resolve<IRepository<Dog>>();
-            productsRepository.DeleteAll(); // **** CLEAN BD ****
+            var dogsRepository = Container.Resolve<IRepository<Dog>>();
+            dogsRepository.DeleteAll(); // **** CLEAN BD ****
             // Les données seront ajoutées une seul foi dans la BD. 
-            if (productsRepository.GetAll().Count() != 0)
+            if (dogsRepository.GetAll().Count() != 0)
                 return;
 
             var dog1 = new Dog()
@@ -80,9 +80,9 @@ namespace TP2
                 Description = "Gentil et calme"
 
             };
-            productsRepository.Add(dog1);
-            productsRepository.Add(dog2);
-            productsRepository.Add(dog3);
+            dogsRepository.Add(dog1);
+            dogsRepository.Add(dog2);
+            dogsRepository.Add(dog3);
 
             var usersRepository = Container.Resolve<IRepository<User>>();
             usersRepository.DeleteAll(); // **** CLEAN BD ****

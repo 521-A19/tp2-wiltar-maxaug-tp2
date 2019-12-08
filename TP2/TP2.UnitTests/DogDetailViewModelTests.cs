@@ -83,9 +83,10 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void DogAlreadyInTheShoppingCart_AddSelectedDogToTheShoppingCartCommand_ShouldNotBeExecutable()
+        public void DogAlreadyInTheShoppingCart_OnNavigatedTo_ShouldChangeCanExecuteToFalse()
         {
             _mockShoppingCartService.Setup(r => r.Contains(It.IsAny<int>())).Returns(true);
+            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
             _dogDetailViewModel = new DogDetailViewModel(_mockNavigationService.Object, _mockShoppingCartService.Object, _mockAuthenticationService.Object);
             INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
             _dogDetailViewModel.SelectedDog = _dogList[0];
@@ -96,11 +97,49 @@ namespace TP2.UnitTests
         }
 
         [Fact]
-        public void AddSelectedDogToTheShoppingCartCommand_ShouldNotBeExecutable()
+        public void IfAddToTheShoppingCartValidationsAreValids_OnNavigatedTo_ShouldChangeCanExecuteToTrue()
         {
+            _dogDetailViewModel.SelectedDog = _fixture.CreateFakeDog().Generate();
+            _dogDetailViewModel.SelectedDog.Id = 1;
             _mockShoppingCartService.Setup(r => r.Contains(It.IsAny<int>())).Returns(false);
+            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
+            var user = _fixture.CreateFakeUser(5).Generate();
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(user); 
+            INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
 
-            _dogDetailViewModel.AddSelectedDogToTheShoppingCart.Execute(null);
+            _dogDetailViewModel.OnNavigatedTo(navigationParameters);
+
+            _dogDetailViewModel.AddSelectedDogToTheShoppingCart.CanExecute(null).Should().BeTrue();
+        }
+
+        [Fact]
+        public void UserOwnsTheSelectedDog_OnNavigatedTo_ShouldChangeAddSelectedDogToTheShoppingCartCanExecuteToFalse()
+        {
+            _dogDetailViewModel.SelectedDog = _fixture.CreateFakeDog().Generate();
+            _dogDetailViewModel.SelectedDog.Id = 1;
+            _mockShoppingCartService.Setup(r => r.Contains(It.IsAny<int>())).Returns(false);
+            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(true);
+            var user = _fixture.CreateFakeUser(1).Generate();
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(user);  // <------
+            INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
+
+            _dogDetailViewModel.OnNavigatedTo(navigationParameters);
+
+            _dogDetailViewModel.AddSelectedDogToTheShoppingCart.CanExecute(null).Should().BeFalse();
+        }
+
+        [Fact]
+        public void UserIsNotAuthenticated_OnNavigatedTo_ShouldChangeAddSelectedDogToTheShoppingCartCanExecuteToFalse()
+        {
+            _dogDetailViewModel.SelectedDog = _fixture.CreateFakeDog().Generate();
+            _dogDetailViewModel.SelectedDog.Id = 1;
+            _mockShoppingCartService.Setup(r => r.Contains(It.IsAny<int>())).Returns(false);
+            _mockAuthenticationService.Setup(r => r.IsUserAuthenticated).Returns(false);   // <------
+            var user = _fixture.CreateFakeUser(5).Generate();
+            _mockAuthenticationService.Setup(r => r.AuthenticatedUser).Returns(user);
+            INavigationParameters navigationParameters = new Prism.Navigation.NavigationParameters();
+
+            _dogDetailViewModel.OnNavigatedTo(navigationParameters);
 
             _dogDetailViewModel.AddSelectedDogToTheShoppingCart.CanExecute(null).Should().BeFalse();
         }

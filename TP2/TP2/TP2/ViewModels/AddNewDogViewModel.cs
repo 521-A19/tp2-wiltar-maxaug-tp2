@@ -86,27 +86,33 @@ namespace TP2.ViewModels
             try {
                 ValidateDogName();
                 ValidateDogPrice();
-                if (Name.Errors.Count + Price.Errors.Count == 0)
+                if (EntriesHaveNoError())
                 {
                     Dog newDog = new Dog() 
-                {
-                    Name = Name.Value,
-                    Race = Breed,
-                    Sex = Sex,
-                    Description = Description,
-                    ImageUrl = ImageUrl,
-                    Price = Price.Value
-                };
+                    {
+                        Name = Name.Value,
+                        Race = Breed,
+                        Sex = Sex,
+                        Description = Description,
+                        ImageUrl = ImageUrl,
+                        Price = Price.Value
+                    };
                 _dogRepository.Add(newDog);  // Le Add du repo incrémente les nouveaux chiens
                 _authenticationService.AuthenticatedUser.DogId = newDog.Id;
                 _userRepository.Update(_authenticationService.AuthenticatedUser);
                 await NavigationService.NavigateAsync("/CustomMasterDetailPage/NavigationPage/" + nameof(DogsListPage));
-            }
+                }
             }
             catch
             {
                 await _dialogService.DisplayAlertAsync(UiText.ErrorExceptionThrowTitle, UiText.ErrorExceptionThrowMessage, UiText.Okay);
             }
+        }
+
+        private bool EntriesHaveNoError()
+        {
+            if (Name.Errors.Count + Price.Errors.Count == 0) return true;
+            return false;
         }
 
         private void AddValidationRulesToValidatable()

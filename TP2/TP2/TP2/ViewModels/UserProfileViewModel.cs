@@ -51,6 +51,7 @@ namespace TP2.ViewModels
             _userRepository = userRepository;
             IsDeleteMyDogButtonVisible = AuthenticatedUserHasAnyDog();
         }
+
         public User GetAuthenticatedUser
         {
             get { return _authenticationService.AuthenticatedUser; }
